@@ -17,10 +17,10 @@ Phased delivery. Prefer vertical slices (one scenario fully comparable) over bro
    - `unit.assert-equality`
    - `unit.parametrize`
    - `unit.mock-dependency`
-4. Static site that lists scenarios and renders side-by-side code (Astro or Next).
-5. GitHub Actions: install + run those sample tests.
+4. Static site that lists scenarios and renders side-by-side code (Astro or Next) **plus a Results panel** from CI-cached logs.
+5. GitHub Actions: install + run those sample tests + `capture:results` into `apps/web/public/results/` before build.
 
-**Exit:** Visitor can open a scenario page and run the same idea in ≥2 frameworks locally.
+**Exit:** Visitor can open a scenario page, compare frameworks, and see the last CI run output without executing locally.
 
 ## Phase 2 — Integration + UX
 

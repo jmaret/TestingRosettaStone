@@ -15,13 +15,13 @@ Teams choose testing tools by habit, language, or job posting requirements—not
 3. **Open source only** — Every framework, library, runner, and hosting/AI path must be FOSS or free-to-use without paid lock-in.
 4. **Zero cost to run & host** — Public GitHub repo, free CI, free static/edge hosting, free-tier or fully local AI.
 5. **AI that answers from our corpus** — Questions about “how do I do X in Y?” answered from curated examples and docs, not generic internet inventiveness.
-6. **Teach by doing** — Small sample apps with real tests that visitors can clone and run locally.
+6. **Teach by doing** — Small sample apps with real tests that visitors can clone and run locally; scenario pages also show **CI-cached run output** beside the writeup so browsing does not require a local run.
 
 ## Non-goals (v1)
 
 - Paid SaaS test platforms (BrowserStack, Sauce Labs, Datadog Synthetics, etc.) as primary examples.
 - Replacing official framework docs.
-- Running arbitrary user code in the browser (security / cost risk).
+- Running arbitrary user code in the browser or via a live execute API (security / cost risk). Prefer **precomputed CI logs** on the static site instead.
 - Multi-tenant accounts, billing, or enterprise SSO.
 
 ## Success criteria

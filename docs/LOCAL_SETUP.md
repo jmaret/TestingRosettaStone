@@ -13,10 +13,11 @@ git checkout cursor/build-phase1-7617
 npm install
 python3 -m pip install pytest
 npm test
+npm run capture:results   # refreshes Results panel fixtures
 npm run dev
 ```
 
-Then open http://localhost:4321
+Then open http://localhost:4321 — scenario pages show code beside the last cached run output.
 
 ### Open in Cursor
 
