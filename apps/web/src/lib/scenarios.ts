@@ -9,6 +9,8 @@ export type ScenarioVariant = {
   label: string;
   language: string;
   frameworkLicense: string;
+  /** Path to the system-under-test source shown above the test panels */
+  sutFile?: string;
   files: string[];
   run: { cwd: string; command: string };
   notes?: string;

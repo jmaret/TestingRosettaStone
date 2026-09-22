@@ -8,7 +8,7 @@ interface Props {
 }
 
 const {
-  title = "Testing Rosetta Stone",
+  title = "Testing Playground",
   description = "Compare the same testing concepts across open-source frameworks — unit, integration, UX, and performance.",
   wide = false,
 } = Astro.props;
@@ -21,17 +21,23 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <link rel="apple-touch-icon" href="/images/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@500;600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
+    <div class="page-bg" aria-hidden="true"></div>
     <a class="skip" href="#main">Skip to content</a>
     <header class="site-header">
-      <a class="brand" href="/">Testing Rosetta Stone</a>
+      <a class="brand" href="/">
+        <img class="brand-logo" src="/images/logo.png" width="40" height="40" alt="" />
+        <span>Testing Playground</span>
+      </a>
       <nav aria-label="Primary">
         <a href="/scenarios">Scenarios</a>
         <a href="/ask">Ask AI</a>
@@ -42,10 +48,12 @@ const {
       <slot />
     </main>
     <footer class="site-footer">
-      <p>Open source · Zero cost · Grounded AI answers</p>
-      <p>
-        <a href="https://github.com/jmaret/TestingRosettaStone">GitHub</a>
-      </p>
+      <div class="site-footer-inner">
+        <p>Open source · Zero cost · Grounded AI answers</p>
+        <p>
+          <a href="https://github.com/jmaret/TestingRosettaStone">GitHub</a>
+        </p>
+      </div>
     </footer>
   </body>
 </html>

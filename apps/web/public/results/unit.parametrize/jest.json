@@ -6,7 +6,7 @@
   "command": "npm test",
   "exitCode": 0,
   "ok": true,
-  "durationMs": 767,
-  "capturedAt": "2026-09-22T17:31:43.968Z",
-  "output": "\n> test\n> NODE_OPTIONS=--experimental-vm-modules jest\n\n\n(node:10212) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\nPASS ./clamp.test.js\n  clamp\n    ✓ clamp(5, 0, 10) -> 5 (1 ms)\n    ✓ clamp(-1, 0, 10) -> 0 (1 ms)\n    ✓ clamp(99, 0, 10) -> 10\n\nTest Suites: 1 passed, 1 total\nTests:       3 passed, 3 total\nSnapshots:   0 total\nTime:        0.164 s, estimated 1 s\nRan all test suites."
+  "durationMs": 772,
+  "capturedAt": "2026-09-22T20:39:24.748Z",
+  "output": "\n> test\n> NODE_OPTIONS=--experimental-vm-modules jest\n\n\n(node:18623) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\nPASS ./clamp.test.js\n  clamp\n    ✓ clamp(5, 0, 10) -> 5 (1 ms)\n    ✓ clamp(-1, 0, 10) -> 0\n    ✓ clamp(99, 0, 10) -> 10\n\nTest Suites: 1 passed, 1 total\nTests:       3 passed, 3 total\nSnapshots:   0 total\nTime:        0.172 s, estimated 1 s\nRan all test suites."
 }
