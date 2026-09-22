@@ -1,5 +1,5 @@
 {
-  "capturedAt": "2026-09-22T17:31:43.968Z",
+  "capturedAt": "2026-09-22T20:39:24.748Z",
   "source": "local",
   "gitSha": null,
   "variantCount": 10,
@@ -10,70 +10,70 @@
       "framework": "vitest",
       "ok": true,
       "exitCode": 0,
-      "durationMs": 940
+      "durationMs": 944
     },
     {
       "scenarioId": "unit.assert-equality",
       "framework": "jest",
       "ok": true,
       "exitCode": 0,
-      "durationMs": 883
+      "durationMs": 725
     },
     {
       "scenarioId": "unit.assert-equality",
       "framework": "node-test",
       "ok": true,
       "exitCode": 0,
-      "durationMs": 305
+      "durationMs": 294
     },
     {
       "scenarioId": "unit.assert-equality",
       "framework": "pytest",
       "ok": true,
       "exitCode": 0,
-      "durationMs": 380
+      "durationMs": 608
     },
     {
       "scenarioId": "unit.mock-dependency",
       "framework": "vitest",
       "ok": true,
       "exitCode": 0,
-      "durationMs": 920
+      "durationMs": 982
     },
     {
       "scenarioId": "unit.mock-dependency",
       "framework": "jest",
       "ok": true,
       "exitCode": 0,
-      "durationMs": 713
+      "durationMs": 735
     },
     {
       "scenarioId": "unit.mock-dependency",
       "framework": "pytest",
       "ok": true,
       "exitCode": 0,
-      "durationMs": 308
+      "durationMs": 333
     },
     {
       "scenarioId": "unit.parametrize",
       "framework": "vitest",
       "ok": true,
       "exitCode": 0,
-      "durationMs": 937
+      "durationMs": 829
     },
     {
       "scenarioId": "unit.parametrize",
       "framework": "jest",
       "ok": true,
       "exitCode": 0,
-      "durationMs": 767
+      "durationMs": 772
     },
     {
       "scenarioId": "unit.parametrize",
       "framework": "pytest",
       "ok": true,
       "exitCode": 0,
-      "durationMs": 285
+      "durationMs": 323
     }
   ]
 }

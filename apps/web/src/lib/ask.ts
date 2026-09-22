@@ -8,9 +8,9 @@ export type AskResult = {
 
 const FAQ: { q: string; a: string; tags: string[] }[] = [
   {
-    q: "What is Testing Rosetta Stone?",
+    q: "What is Testing Playground?",
     a: "A free, open-source site that shows the same testing idea side by side across frameworks (unit, integration, UX, performance), with runnable samples and corpus-grounded answers.",
-    tags: ["about", "what", "project", "rosetta"],
+    tags: ["about", "what", "project", "rosetta", "playground"],
   },
   {
     q: "Which frameworks are included so far?",

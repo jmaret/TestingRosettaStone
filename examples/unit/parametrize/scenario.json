@@ -12,6 +12,7 @@
       "label": "Vitest",
       "language": "javascript",
       "frameworkLicense": "MIT",
+      "sutFile": "samples/js-counter/src/index.js",
       "files": ["examples/unit/parametrize/vitest/clamp.test.js"],
       "run": { "cwd": "examples/unit/parametrize/vitest", "command": "npm test" }
     },
@@ -20,6 +21,7 @@
       "label": "Jest",
       "language": "javascript",
       "frameworkLicense": "MIT",
+      "sutFile": "samples/js-counter/src/index.js",
       "files": ["examples/unit/parametrize/jest/clamp.test.js"],
       "run": { "cwd": "examples/unit/parametrize/jest", "command": "npm test" }
     },
@@ -28,6 +30,7 @@
       "label": "pytest",
       "language": "python",
       "frameworkLicense": "MIT",
+      "sutFile": "samples/python-calc/calc.py",
       "files": ["examples/unit/parametrize/pytest/test_clamp.py"],
       "run": { "cwd": "examples/unit/parametrize/pytest", "command": "pytest" }
     }

@@ -1,4 +1,4 @@
-# Testing Rosetta Stone
+# Testing Playground
 
 Compare the **same testing concepts** across open-source frameworks — with runnable samples and a zero-cost AI helper grounded in this repo.
 

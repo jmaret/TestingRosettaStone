@@ -12,6 +12,7 @@
       "label": "Vitest",
       "language": "javascript",
       "frameworkLicense": "MIT",
+      "sutFile": "samples/js-counter/src/index.js",
       "files": ["examples/unit/assert-equality/vitest/add.test.js"],
       "run": { "cwd": "examples/unit/assert-equality/vitest", "command": "npm test" }
     },
@@ -20,6 +21,7 @@
       "label": "Jest",
       "language": "javascript",
       "frameworkLicense": "MIT",
+      "sutFile": "samples/js-counter/src/index.js",
       "files": ["examples/unit/assert-equality/jest/add.test.js"],
       "run": { "cwd": "examples/unit/assert-equality/jest", "command": "npm test" }
     },
@@ -28,6 +30,7 @@
       "label": "node:test",
       "language": "javascript",
       "frameworkLicense": "MIT",
+      "sutFile": "samples/js-counter/src/index.js",
       "files": ["examples/unit/assert-equality/node-test/add.test.js"],
       "run": { "cwd": "examples/unit/assert-equality/node-test", "command": "npm test" }
     },
@@ -36,6 +39,7 @@
       "label": "pytest",
       "language": "python",
       "frameworkLicense": "MIT",
+      "sutFile": "samples/python-calc/calc.py",
       "files": ["examples/unit/assert-equality/pytest/test_add.py"],
       "run": { "cwd": "examples/unit/assert-equality/pytest", "command": "pytest" },
       "notes": "Python twin uses samples/python-calc instead of the JS module."

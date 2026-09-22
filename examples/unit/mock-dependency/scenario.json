@@ -12,6 +12,7 @@
       "label": "Vitest",
       "language": "javascript",
       "frameworkLicense": "MIT",
+      "sutFile": "samples/js-counter/src/index.js",
       "files": ["examples/unit/mock-dependency/vitest/price.test.js"],
       "run": { "cwd": "examples/unit/mock-dependency/vitest", "command": "npm test" }
     },
@@ -20,6 +21,7 @@
       "label": "Jest",
       "language": "javascript",
       "frameworkLicense": "MIT",
+      "sutFile": "samples/js-counter/src/index.js",
       "files": ["examples/unit/mock-dependency/jest/price.test.js"],
       "run": { "cwd": "examples/unit/mock-dependency/jest", "command": "npm test" }
     },
@@ -28,6 +30,7 @@
       "label": "pytest",
       "language": "python",
       "frameworkLicense": "MIT",
+      "sutFile": "samples/python-calc/calc.py",
       "files": ["examples/unit/mock-dependency/pytest/test_price.py"],
       "run": { "cwd": "examples/unit/mock-dependency/pytest", "command": "pytest" },
       "notes": "Uses unittest.mock.Mock — the same idea as vi.fn() / jest.fn()."

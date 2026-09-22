@@ -20,16 +20,17 @@ const initialQ = Astro.url.searchParams.get("q") ?? "";
 const initial = initialQ ? answerQuestion(initialQ, scenarios) : null;
 ---
 
-<BaseLayout title="Ask AI · Testing Rosetta Stone" description="Ask questions answered from this repo's FAQ and scenarios.">
+<BaseLayout title="Ask AI · Testing Playground" description="Ask questions answered from this repo's FAQ and scenarios.">
+  <div class="page-stack">
   <section class="scenario-hero">
     <h1>Ask AI</h1>
-    <p style="color: var(--paper-dim); max-width: 50ch;">
+    <p class="lede">
       Answers are grounded in this repository's FAQ and scenario metadata — no paid API required.
     </p>
   </section>
 
   <div class="suggestions" aria-label="Suggested questions">
-    <button class="chip" type="button" data-q="What is Testing Rosetta Stone?">What is this?</button>
+    <button class="chip" type="button" data-q="What is Testing Playground?">What is this?</button>
     <button class="chip" type="button" data-q="How do I run the examples locally?">Run locally</button>
     <button class="chip" type="button" data-q="How does Vitest parametrize compare to pytest?">Parametrize</button>
     <button class="chip" type="button" data-q="How do I mock a dependency in Jest?">Mock dependency</button>
@@ -61,14 +62,15 @@ const initial = initialQ ? answerQuestion(initialQ, scenarios) : null;
       )
     }
   </div>
+  </div>
 </BaseLayout>
 
 <script define:vars={{ corpus }}>
   const FAQ = [
     {
-      q: "What is Testing Rosetta Stone?",
+      q: "What is Testing Playground?",
       a: "A free, open-source site that shows the same testing idea side by side across frameworks (unit, integration, UX, performance), with runnable samples and corpus-grounded answers.",
-      tags: ["about", "what", "project", "rosetta"],
+      tags: ["about", "what", "project", "rosetta", "playground"],
     },
     {
       q: "Which frameworks are included so far?",
