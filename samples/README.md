@@ -1,13 +1,10 @@
 # samples/
 
-Shared systems under test (SUTs) used by Rosetta scenarios.
-
-Planned:
+Shared systems under test (SUTs).
 
 | Sample | Role |
 |--------|------|
-| `js-counter` | Pure functions + small UI for unit/UX demos |
-| `js-api` | Minimal HTTP API for integration/performance |
-| `python-calc` | Python twin for pytest (and later Locust) |
+| `js-counter` | Pure JS helpers (`add`, `clamp`, `priceWithTax`) |
+| `python-calc` | Python twin of the same behaviors |
 
 Keep SUTs tiny so framework comparisons stay fair.

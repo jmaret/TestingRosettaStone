@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { loadScenarios } from "../../lib/scenarios";
+
+const scenarios = loadScenarios();
+---
+
+<BaseLayout title="Scenarios · Testing Rosetta Stone">
+  <section class="scenario-hero">
+    <h1>Scenarios</h1>
+    <p style="color: var(--paper-dim); max-width: 50ch;">
+      Each scenario teaches one testing concept with parallel implementations you can run locally.
+    </p>
+  </section>
+
+  <ul class="scenario-list">
+    {
+      scenarios.map((s) => (
+        <li>
+          <a href={`/scenarios/${s.id}`}>
+            <span class="pill">{s.category}</span>
+            <span>
+              <strong>{s.title}</strong>
+              <br />
+              <span class="meta">{s.summary}</span>
+            </span>
+            <span class="meta">{s.id}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

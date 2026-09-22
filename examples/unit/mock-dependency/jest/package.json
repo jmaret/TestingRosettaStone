@@ -1,0 +1,7 @@
+{
+  "name": "@trs/example-mock-jest",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "NODE_OPTIONS=--experimental-vm-modules jest" },
+  "devDependencies": { "jest": "^29.7.0" }
+}

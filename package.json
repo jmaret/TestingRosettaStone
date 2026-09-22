@@ -1,0 +1,30 @@
+{
+  "name": "testing-rosetta-stone",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Compare the same testing concepts across open-source frameworks",
+  "workspaces": [
+    "apps/web",
+    "samples/js-counter",
+    "examples/unit/assert-equality/vitest",
+    "examples/unit/assert-equality/jest",
+    "examples/unit/assert-equality/node-test",
+    "examples/unit/parametrize/vitest",
+    "examples/unit/parametrize/jest",
+    "examples/unit/mock-dependency/vitest",
+    "examples/unit/mock-dependency/jest"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @trs/web",
+    "build": "npm run build -w @trs/web",
+    "preview": "npm run preview -w @trs/web",
+    "test:unit:js": "npm run test -w @trs/example-assert-vitest && npm run test -w @trs/example-assert-jest && npm run test -w @trs/example-assert-node && npm run test -w @trs/example-parametrize-vitest && npm run test -w @trs/example-parametrize-jest && npm run test -w @trs/example-mock-vitest && npm run test -w @trs/example-mock-jest",
+    "test:unit:py": "python3 -m pytest samples/python-calc examples/unit/assert-equality/pytest examples/unit/parametrize/pytest examples/unit/mock-dependency/pytest -q",
+    "test": "npm run test:unit:js && npm run test:unit:py",
+    "validate:scenarios": "node scripts/validate-scenarios.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}

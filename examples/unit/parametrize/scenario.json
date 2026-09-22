@@ -1,0 +1,35 @@
+{
+  "id": "unit.parametrize",
+  "title": "Parametrize many inputs",
+  "category": "unit",
+  "summary": "Run the same assertion across a table of inputs.",
+  "description": "Table-driven tests reduce duplication. Vitest and Jest use `each` / `test.each`; pytest uses `@pytest.mark.parametrize`.",
+  "sut": "js-counter / python-calc",
+  "tags": ["parametrize", "table-driven", "beginner"],
+  "variants": [
+    {
+      "framework": "vitest",
+      "label": "Vitest",
+      "language": "javascript",
+      "frameworkLicense": "MIT",
+      "files": ["examples/unit/parametrize/vitest/clamp.test.js"],
+      "run": { "cwd": "examples/unit/parametrize/vitest", "command": "npm test" }
+    },
+    {
+      "framework": "jest",
+      "label": "Jest",
+      "language": "javascript",
+      "frameworkLicense": "MIT",
+      "files": ["examples/unit/parametrize/jest/clamp.test.js"],
+      "run": { "cwd": "examples/unit/parametrize/jest", "command": "npm test" }
+    },
+    {
+      "framework": "pytest",
+      "label": "pytest",
+      "language": "python",
+      "frameworkLicense": "MIT",
+      "files": ["examples/unit/parametrize/pytest/test_clamp.py"],
+      "run": { "cwd": "examples/unit/parametrize/pytest", "command": "pytest" }
+    }
+  ]
+}
