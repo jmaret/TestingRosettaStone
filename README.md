@@ -31,7 +31,8 @@ Absolute path if you use that folder:
 | Frameworks | Vitest, Jest, `node:test`, pytest |
 | Samples | `samples/js-counter`, `samples/python-calc` |
 | AI | Corpus FAQ + scenario keyword matcher (no API key) |
-| CI | GitHub Actions: validate, test, build |
+| Results panel | CI-cached stdout/stderr beside each scenario (`npm run capture:results`) |
+| CI | GitHub Actions: validate, test, capture results, build |
 
 ## Scripts
 
@@ -39,6 +40,7 @@ Absolute path if you use that folder:
 |---------|---------|
 | `npm run dev` | Start the site on port 4321 |
 | `npm test` | Run all Phase 1 JS + Python unit examples |
+| `npm run capture:results` | Re-run each scenario variant and write static result JSON for the site |
 | `npm run build` | Production build of the site |
 | `npm run validate:scenarios` | Check scenario JSON + file paths |
 

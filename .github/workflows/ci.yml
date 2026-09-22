@@ -23,7 +23,13 @@ jobs:
         run: python3 -m pip install pytest
       - name: Validate scenarios
         run: npm run validate:scenarios
-      - name: Run unit examples
-        run: npm test
+      - name: Capture scenario results (runs each variant)
+        run: npm run capture:results
+      - name: Upload cached results
+        uses: actions/upload-artifact@v4
+        with:
+          name: scenario-results
+          path: apps/web/public/results
+          if-no-files-found: error
       - name: Build site
         run: npm run build

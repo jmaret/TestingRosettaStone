@@ -60,3 +60,38 @@ export function readExampleFile(repoRelativePath: string): string {
   const full = path.join(repoRoot, repoRelativePath);
   return fs.readFileSync(full, "utf8");
 }
+
+export type ScenarioResult = {
+  scenarioId: string;
+  framework: string;
+  label: string;
+  cwd: string;
+  command: string;
+  exitCode: number;
+  ok: boolean;
+  durationMs: number;
+  capturedAt: string;
+  output: string;
+};
+
+export type ResultsManifest = {
+  capturedAt: string;
+  source: string;
+  gitSha: string | null;
+  variantCount: number;
+  failureCount: number;
+};
+
+const resultsRoot = path.join(repoRoot, "apps/web/public/results");
+
+export function loadResultsManifest(): ResultsManifest | null {
+  const file = path.join(resultsRoot, "manifest.json");
+  if (!fs.existsSync(file)) return null;
+  return JSON.parse(fs.readFileSync(file, "utf8")) as ResultsManifest;
+}
+
+export function loadVariantResult(scenarioId: string, framework: string): ScenarioResult | null {
+  const file = path.join(resultsRoot, scenarioId, `${framework}.json`);
+  if (!fs.existsSync(file)) return null;
+  return JSON.parse(fs.readFileSync(file, "utf8")) as ScenarioResult;
+}

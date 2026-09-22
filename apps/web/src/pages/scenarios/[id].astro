@@ -1,6 +1,12 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { loadScenarios, loadScenario, readExampleFile } from "../../lib/scenarios";
+import {
+  loadScenarios,
+  loadScenario,
+  readExampleFile,
+  loadVariantResult,
+  loadResultsManifest,
+} from "../../lib/scenarios";
 
 export function getStaticPaths() {
   return loadScenarios().map((s) => ({ params: { id: s.id } }));
@@ -12,19 +18,30 @@ if (!scenario) {
   throw new Error(`Unknown scenario: ${id}`);
 }
 
+const manifest = loadResultsManifest();
+
 const panels = scenario.variants.map((v) => ({
   ...v,
   code: readExampleFile(v.files[0]),
   fileLabel: v.files[0],
+  result: loadVariantResult(scenario.id, v.framework),
 }));
 ---
 
-<BaseLayout title={`${scenario.title} · Testing Rosetta Stone`} description={scenario.summary}>
+<BaseLayout title={`${scenario.title} · Testing Rosetta Stone`} description={scenario.summary} wide>
   <section class="scenario-hero">
     <span class="pill">{scenario.category}</span>
     <h1>{scenario.title}</h1>
     <p style="color: var(--paper-dim); max-width: 55ch;">{scenario.description}</p>
     <p class="meta">SUT: {scenario.sut} · id: {scenario.id}</p>
+    {
+      manifest && (
+        <p class="meta">
+          Cached CI results from {new Date(manifest.capturedAt).toLocaleString()} ({manifest.source}
+          {manifest.gitSha ? ` · ${manifest.gitSha.slice(0, 7)}` : ""})
+        </p>
+      )
+    }
     <div class="cta-row" style="margin-top: 1rem;">
       <a class="btn btn-ghost" href={`/ask?q=${encodeURIComponent(`Explain ${scenario.id}`)}`}>Ask AI about this</a>
       <a class="btn btn-ghost" href="/local">How to run</a>
@@ -58,16 +75,49 @@ const panels = scenario.variants.map((v) => ({
         aria-labelledby={`tab-${p.framework}`}
         hidden={i !== 0}
       >
-        <div class="toolbar">
-          <span>
-            {p.fileLabel} · {p.frameworkLicense} · run in <code>{p.run.cwd}</code>: <code>{p.run.command}</code>
-          </span>
-          <button class="btn btn-ghost" type="button" data-copy={p.code} style="padding: 0.4rem 0.7rem;">
-            Copy
-          </button>
+        <div class="scenario-split">
+          <div class="scenario-col">
+            <div class="toolbar">
+              <span>
+                {p.fileLabel} · {p.frameworkLicense} · run in <code>{p.run.cwd}</code>:{" "}
+                <code>{p.run.command}</code>
+              </span>
+              <button class="btn btn-ghost" type="button" data-copy={p.code} style="padding: 0.4rem 0.7rem;">
+                Copy
+              </button>
+            </div>
+            <pre class="code-block"><code>{p.code}</code></pre>
+            {p.notes && <p class="notes">{p.notes}</p>}
+          </div>
+
+          <aside class="scenario-col results-col" aria-label={`${p.label} cached results`}>
+            <div class="toolbar">
+              <span>Results (cached from CI)</span>
+              {p.result ? (
+                <span class:list={["status-pill", p.result.ok ? "status-ok" : "status-fail"]}>
+                  {p.result.ok ? "passed" : "failed"} · exit {p.result.exitCode}
+                </span>
+              ) : (
+                <span class="status-pill status-missing">missing</span>
+              )}
+            </div>
+            {p.result ? (
+              <>
+                <p class="meta results-meta">
+                  <code>{p.result.command}</code> in <code>{p.result.cwd}</code>
+                  <br />
+                  Captured {new Date(p.result.capturedAt).toLocaleString()} · {p.result.durationMs}ms
+                </p>
+                <pre class="code-block results-log"><code>{p.result.output}</code></pre>
+              </>
+            ) : (
+              <p class="notes">
+                No cached result yet. Run <code>npm run capture:results</code> locally, or wait for CI to
+                regenerate <code>apps/web/public/results/</code> on the next build.
+              </p>
+            )}
+          </aside>
         </div>
-        <pre class="code-block"><code>{p.code}</code></pre>
-        {p.notes && <p class="notes">{p.notes}</p>}
       </div>
     ))
   }

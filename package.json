@@ -21,6 +21,7 @@
     "test:unit:js": "npm run test -w @trs/example-assert-vitest && npm run test -w @trs/example-assert-jest && npm run test -w @trs/example-assert-node && npm run test -w @trs/example-parametrize-vitest && npm run test -w @trs/example-parametrize-jest && npm run test -w @trs/example-mock-vitest && npm run test -w @trs/example-mock-jest",
     "test:unit:py": "python3 -m pytest samples/python-calc examples/unit/assert-equality/pytest examples/unit/parametrize/pytest examples/unit/mock-dependency/pytest -q",
     "test": "npm run test:unit:js && npm run test:unit:py",
+    "capture:results": "node scripts/capture-results.mjs",
     "validate:scenarios": "node scripts/validate-scenarios.mjs"
   },
   "engines": {

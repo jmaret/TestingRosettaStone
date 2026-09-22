@@ -44,6 +44,7 @@ A blank-slate, zero-cost product should avoid always-on servers. Prefer:
 1. Prebuilt static site from MDX.
 2. Optional **edge function** only for AI chat (Cloudflare Workers free tier / Vercel serverless free tier).
 3. Samples that run **locally** and in CI—not inside the hosted UI.
+4. **Cached results panel** — CI (or `npm run capture:results`) writes stdout/stderr JSON under `apps/web/public/results/`; the static site shows that log beside each scenario writeup. No live runner API.
 
 ## Repository layout (proposed)
 
@@ -107,7 +108,8 @@ For each scenario page:
 1. Short concept blurb (one job).
 2. Horizontal or tabbed **framework switcher** with synced scroll / “highlight equivalent lines” where feasible.
 3. Copy buttons + “open in sample” links.
-4. “Ask AI about this scenario” deep-link with scenario id in context.
+4. Adjacent **Results** panel fed by static files from `apps/web/public/results/` (CI-captured logs + timestamp)—not a live execute API.
+5. “Ask AI about this scenario” deep-link with scenario id in context.
 
 ## AI Q&A design
 
@@ -175,4 +177,7 @@ Index only first-party content:
 | Full Django/Rails monolith | Always-on hosting cost; overkill for content + samples |
 | Only Storybook | Weak for non-UI categories (perf, API integration) |
 | Embed CodeSandbox/StackBlitz for everything | Network dependency; free quotas; less “real” local CI |
+| Live backend `/api/run` for on-demand tests | Always-on sandbox cost; security surface; breaks $0 static host |
 | Closed AI-only (no RAG) | Hallucinated APIs; not grounded in our examples |
+
+**Chosen for “show results without local run”:** CI-cached logs (`scripts/capture-results.mjs` → `apps/web/public/results/`) rendered beside the writeup.

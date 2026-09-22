@@ -4,11 +4,13 @@ import "../styles/global.css";
 interface Props {
   title?: string;
   description?: string;
+  wide?: boolean;
 }
 
 const {
   title = "Testing Rosetta Stone",
   description = "Compare the same testing concepts across open-source frameworks — unit, integration, UX, and performance.",
+  wide = false,
 } = Astro.props;
 ---
 
@@ -36,7 +38,7 @@ const {
         <a href="/local">Run locally</a>
       </nav>
     </header>
-    <main id="main">
+    <main id="main" class:list={{ wide }}>
       <slot />
     </main>
     <footer class="site-footer">

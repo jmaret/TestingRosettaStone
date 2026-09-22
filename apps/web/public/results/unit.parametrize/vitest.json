@@ -1,0 +1,12 @@
+{
+  "scenarioId": "unit.parametrize",
+  "framework": "vitest",
+  "label": "Vitest",
+  "cwd": "examples/unit/parametrize/vitest",
+  "command": "npm test",
+  "exitCode": 0,
+  "ok": true,
+  "durationMs": 937,
+  "capturedAt": "2026-09-22T17:31:43.968Z",
+  "output": "\n> test\n> vitest run\n\n\n RUN  v3.2.7 /Users/johnymaret/Documents/CursorProjects/TestingRosettaStone/examples/unit/parametrize/vitest\n\n ✓ clamp.test.js (3 tests) 3ms\n\n Test Files  1 passed (1)\n      Tests  3 passed (3)\n   Start at  10:31:48\n   Duration  317ms (transform 25ms, setup 0ms, collect 19ms, tests 3ms, environment 0ms, prepare 84ms)"
+}
