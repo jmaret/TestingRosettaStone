@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Run locally · Testing Rosetta Stone">
+  <section class="scenario-hero">
+    <h1>Run locally</h1>
+    <p style="color: var(--paper-dim); max-width: 52ch;">
+      Build and run Testing Rosetta Stone on your machine from the GitHub repo — including under
+      <code>~/Documents/CursorProjects</code> on macOS.
+    </p>
+  </section>
+
+  <ol class="local-steps">
+    <li>
+      <strong>Clone into your Cursor projects folder</strong>
+      <pre class="code-block"><code>mkdir -p ~/Documents/CursorProjects
+cd ~/Documents/CursorProjects
+git clone https://github.com/jmaret/TestingRosettaStone.git
+cd TestingRosettaStone
+git checkout cursor/build-phase1-7617</code></pre>
+    </li>
+    <li>
+      <strong>Install dependencies</strong>
+      <pre class="code-block"><code>npm install
+python3 -m pip install pytest</code></pre>
+    </li>
+    <li>
+      <strong>Run the sample tests</strong>
+      <pre class="code-block"><code>npm test</code></pre>
+    </li>
+    <li>
+      <strong>Start the web app</strong>
+      <pre class="code-block"><code>npm run dev</code></pre>
+      <p class="meta" style="margin-top: 0.75rem;">Open http://localhost:4321</p>
+    </li>
+  </ol>
+
+  <section class="section">
+    <h2>Requirements</h2>
+    <p>Node.js 20+, npm 10+, Python 3.10+, and pytest. Docker is not required for Phase 1 unit examples.</p>
+  </section>
+</BaseLayout>

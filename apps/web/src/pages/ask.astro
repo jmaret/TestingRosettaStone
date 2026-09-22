@@ -1,0 +1,194 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { answerQuestion } from "../lib/ask";
+import { loadScenarios } from "../lib/scenarios";
+
+const scenarios = loadScenarios();
+const corpus = {
+  scenarios: scenarios.map((s) => ({
+    id: s.id,
+    title: s.title,
+    summary: s.summary,
+    description: s.description,
+    category: s.category,
+    tags: s.tags,
+    variants: s.variants.map((v) => ({ framework: v.framework, label: v.label })),
+  })),
+};
+
+const initialQ = Astro.url.searchParams.get("q") ?? "";
+const initial = initialQ ? answerQuestion(initialQ, scenarios) : null;
+---
+
+<BaseLayout title="Ask AI · Testing Rosetta Stone" description="Ask questions answered from this repo's FAQ and scenarios.">
+  <section class="scenario-hero">
+    <h1>Ask AI</h1>
+    <p style="color: var(--paper-dim); max-width: 50ch;">
+      Answers are grounded in this repository's FAQ and scenario metadata — no paid API required.
+    </p>
+  </section>
+
+  <div class="suggestions" aria-label="Suggested questions">
+    <button class="chip" type="button" data-q="What is Testing Rosetta Stone?">What is this?</button>
+    <button class="chip" type="button" data-q="How do I run the examples locally?">Run locally</button>
+    <button class="chip" type="button" data-q="How does Vitest parametrize compare to pytest?">Parametrize</button>
+    <button class="chip" type="button" data-q="How do I mock a dependency in Jest?">Mock dependency</button>
+  </div>
+
+  <form class="ask-box" id="ask-form">
+    <label for="question" class="meta">Your question</label>
+    <textarea id="question" name="question" rows="4" placeholder="e.g. How does pytest mock a collaborator?">{initialQ}</textarea>
+    <button class="btn btn-primary" type="submit" style="justify-self: start;">Ask</button>
+  </form>
+
+  <div class="answer" id="answer" hidden={!initial}>
+    {
+      initial && (
+        <>
+          <h3>Answer</h3>
+          <p id="answer-text">{initial.answer}</p>
+          {initial.matches.length > 0 && (
+            <ul id="answer-links">
+              {initial.matches.map((m) => (
+                <li>
+                  <a href={`/scenarios/${m.id}`}>{m.title}</a> <span class="meta">({m.id})</span>
+                </li>
+              ))}
+            </ul>
+          )}
+          <p class="meta" id="answer-cites">Citations: {initial.citations.join(", ")}</p>
+        </>
+      )
+    }
+  </div>
+</BaseLayout>
+
+<script define:vars={{ corpus }}>
+  const FAQ = [
+    {
+      q: "What is Testing Rosetta Stone?",
+      a: "A free, open-source site that shows the same testing idea side by side across frameworks (unit, integration, UX, performance), with runnable samples and corpus-grounded answers.",
+      tags: ["about", "what", "project", "rosetta"],
+    },
+    {
+      q: "Which frameworks are included so far?",
+      a: "Phase 1 covers Vitest, Jest, node:test, and pytest for unit scenarios: assert equality, parametrize, and mock a dependency. Integration, UX, and performance frameworks are planned next (Playwright, Cypress, k6, Lighthouse, and more).",
+      tags: ["framework", "vitest", "jest", "pytest", "list"],
+    },
+    {
+      q: "How do I run the examples locally?",
+      a: "Clone the repo, run `npm install`, then `npm test`. Start the site with `npm run dev` and open http://localhost:4321. Python scenarios need `pip install pytest`.",
+      tags: ["run", "local", "install", "clone", "npm"],
+    },
+    {
+      q: "Is this free and open source?",
+      a: "Yes. The project targets $0 hosting on free tiers, OSS frameworks only, MIT license for this repo, and AI that can run without a paid API (FAQ matcher now; optional free-tier RAG later).",
+      tags: ["free", "cost", "open source", "license", "oss"],
+    },
+    {
+      q: "How does the AI work?",
+      a: "Right now answers come from a local FAQ + scenario keyword matcher that cites scenario ids from this repo. Later phases add RAG over example files and optional free-tier or in-browser LLMs — still grounded in the corpus.",
+      tags: ["ai", "ask", "faq", "rag", "llm"],
+    },
+  ];
+
+  function tokenize(text) {
+    return text
+      .toLowerCase()
+      .replace(/[^a-z0-9\s.+#:/-]/g, " ")
+      .split(/\s+/)
+      .filter(Boolean);
+  }
+
+  function answerQuestion(question) {
+    const qTokens = new Set(tokenize(question));
+    if (!qTokens.size) {
+      return { answer: "Ask a question about a testing concept, framework, or how to run samples.", matches: [], citations: [] };
+    }
+
+    const faqScored = FAQ.map((item) => {
+      const hay = tokenize(`${item.q} ${item.a} ${item.tags.join(" ")}`);
+      const score = hay.reduce((sum, t) => sum + (qTokens.has(t) ? 1 : 0), 0);
+      return { item, score };
+    }).sort((a, b) => b.score - a.score);
+
+    const scenarioMatches = corpus.scenarios
+      .map((s) => {
+        const hay = tokenize(
+          `${s.id} ${s.title} ${s.summary} ${s.description} ${s.category} ${s.tags.join(" ")} ${s.variants
+            .map((v) => `${v.framework} ${v.label}`)
+            .join(" ")}`,
+        );
+        const score = hay.reduce((sum, t) => sum + (qTokens.has(t) ? 1 : 0), 0);
+        return { id: s.id, title: s.title, score };
+      })
+      .filter((m) => m.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 5);
+
+    const bestFaq = faqScored[0];
+    const parts = [];
+    const citations = [];
+
+    if (bestFaq && bestFaq.score > 0) {
+      parts.push(bestFaq.item.a);
+      citations.push(`faq:${bestFaq.item.q}`);
+    }
+    if (scenarioMatches.length) {
+      parts.push(
+        "Related scenarios in this repo: " +
+          scenarioMatches.map((m) => `\`${m.id}\` (${m.title})`).join("; ") +
+          ".",
+      );
+      citations.push(...scenarioMatches.map((m) => m.id));
+    }
+    if (!parts.length) {
+      return {
+        answer:
+          "I do not have that in the corpus yet. Try asking about Vitest, Jest, pytest, parametrize, mocks, or how to run locally — or browse /scenarios.",
+        matches: [],
+        citations: [],
+      };
+    }
+    return { answer: parts.join(" "), matches: scenarioMatches, citations };
+  }
+
+  function render(result) {
+    const box = document.getElementById("answer");
+    box.hidden = false;
+    box.innerHTML = `
+      <h3>Answer</h3>
+      <p id="answer-text"></p>
+      <ul id="answer-links"></ul>
+      <p class="meta" id="answer-cites"></p>
+    `;
+    document.getElementById("answer-text").textContent = result.answer;
+    const ul = document.getElementById("answer-links");
+    result.matches.forEach((m) => {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = `/scenarios/${m.id}`;
+      a.textContent = m.title;
+      li.appendChild(a);
+      li.append(` (${m.id})`);
+      ul.appendChild(li);
+    });
+    document.getElementById("answer-cites").textContent =
+      result.citations.length ? `Citations: ${result.citations.join(", ")}` : "";
+  }
+
+  const form = document.getElementById("ask-form");
+  const questionEl = document.getElementById("question");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    render(answerQuestion(questionEl.value));
+  });
+
+  document.querySelectorAll("[data-q]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      questionEl.value = btn.getAttribute("data-q") || "";
+      render(answerQuestion(questionEl.value));
+    });
+  });
+</script>

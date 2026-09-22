@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { loadScenarios } from "../lib/scenarios";
+
+const scenarios = loadScenarios();
+---
+
+<BaseLayout>
+  <section class="hero">
+    <p class="hero-brand">Testing Rosetta Stone</p>
+    <h1>Same test idea. Many open-source frameworks.</h1>
+    <p>
+      Side-by-side unit examples today — integration, UX, and performance next —
+      with runnable samples and answers grounded in this repo.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="/scenarios">Browse scenarios</a>
+      <a class="btn btn-ghost" href="/ask">Ask a question</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Unit scenarios live now</h2>
+    <p>Three concepts, each expressed in Vitest, Jest, and pytest (plus node:test where it fits).</p>
+    <ul class="scenario-list">
+      {
+        scenarios.map((s) => (
+          <li>
+            <a href={`/scenarios/${s.id}`}>
+              <span class="pill">{s.category}</span>
+              <span>{s.title}</span>
+              <span class="meta">{s.variants.length} frameworks</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

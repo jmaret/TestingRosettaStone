@@ -1,0 +1,44 @@
+{
+  "id": "unit.assert-equality",
+  "title": "Assert equality on a pure function",
+  "category": "unit",
+  "summary": "Call a pure function and assert the exact result.",
+  "description": "The smallest useful unit test: no I/O, no mocks, one behavior. Compare how Vitest, Jest, Node's built-in test runner, and pytest express the same idea.",
+  "sut": "js-counter / python-calc",
+  "tags": ["assert", "pure-function", "beginner"],
+  "variants": [
+    {
+      "framework": "vitest",
+      "label": "Vitest",
+      "language": "javascript",
+      "frameworkLicense": "MIT",
+      "files": ["examples/unit/assert-equality/vitest/add.test.js"],
+      "run": { "cwd": "examples/unit/assert-equality/vitest", "command": "npm test" }
+    },
+    {
+      "framework": "jest",
+      "label": "Jest",
+      "language": "javascript",
+      "frameworkLicense": "MIT",
+      "files": ["examples/unit/assert-equality/jest/add.test.js"],
+      "run": { "cwd": "examples/unit/assert-equality/jest", "command": "npm test" }
+    },
+    {
+      "framework": "node-test",
+      "label": "node:test",
+      "language": "javascript",
+      "frameworkLicense": "MIT",
+      "files": ["examples/unit/assert-equality/node-test/add.test.js"],
+      "run": { "cwd": "examples/unit/assert-equality/node-test", "command": "npm test" }
+    },
+    {
+      "framework": "pytest",
+      "label": "pytest",
+      "language": "python",
+      "frameworkLicense": "MIT",
+      "files": ["examples/unit/assert-equality/pytest/test_add.py"],
+      "run": { "cwd": "examples/unit/assert-equality/pytest", "command": "pytest" },
+      "notes": "Python twin uses samples/python-calc instead of the JS module."
+    }
+  ]
+}

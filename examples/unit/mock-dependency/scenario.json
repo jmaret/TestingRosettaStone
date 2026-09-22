@@ -1,0 +1,36 @@
+{
+  "id": "unit.mock-dependency",
+  "title": "Mock a collaborator",
+  "category": "unit",
+  "summary": "Replace a dependency so the unit under test stays isolated.",
+  "description": "Tax rate comes from a service. Vitest and Jest use `vi.fn` / `jest.fn`; pytest uses a simple stub or `unittest.mock`.",
+  "sut": "js-counter / python-calc",
+  "tags": ["mock", "spy", "isolation"],
+  "variants": [
+    {
+      "framework": "vitest",
+      "label": "Vitest",
+      "language": "javascript",
+      "frameworkLicense": "MIT",
+      "files": ["examples/unit/mock-dependency/vitest/price.test.js"],
+      "run": { "cwd": "examples/unit/mock-dependency/vitest", "command": "npm test" }
+    },
+    {
+      "framework": "jest",
+      "label": "Jest",
+      "language": "javascript",
+      "frameworkLicense": "MIT",
+      "files": ["examples/unit/mock-dependency/jest/price.test.js"],
+      "run": { "cwd": "examples/unit/mock-dependency/jest", "command": "npm test" }
+    },
+    {
+      "framework": "pytest",
+      "label": "pytest",
+      "language": "python",
+      "frameworkLicense": "MIT",
+      "files": ["examples/unit/mock-dependency/pytest/test_price.py"],
+      "run": { "cwd": "examples/unit/mock-dependency/pytest", "command": "pytest" },
+      "notes": "Uses unittest.mock.Mock — the same idea as vi.fn() / jest.fn()."
+    }
+  ]
+}

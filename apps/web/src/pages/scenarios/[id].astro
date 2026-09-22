@@ -1,0 +1,101 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { loadScenarios, loadScenario, readExampleFile } from "../../lib/scenarios";
+
+export function getStaticPaths() {
+  return loadScenarios().map((s) => ({ params: { id: s.id } }));
+}
+
+const { id } = Astro.params;
+const scenario = loadScenario(id!);
+if (!scenario) {
+  throw new Error(`Unknown scenario: ${id}`);
+}
+
+const panels = scenario.variants.map((v) => ({
+  ...v,
+  code: readExampleFile(v.files[0]),
+  fileLabel: v.files[0],
+}));
+---
+
+<BaseLayout title={`${scenario.title} · Testing Rosetta Stone`} description={scenario.summary}>
+  <section class="scenario-hero">
+    <span class="pill">{scenario.category}</span>
+    <h1>{scenario.title}</h1>
+    <p style="color: var(--paper-dim); max-width: 55ch;">{scenario.description}</p>
+    <p class="meta">SUT: {scenario.sut} · id: {scenario.id}</p>
+    <div class="cta-row" style="margin-top: 1rem;">
+      <a class="btn btn-ghost" href={`/ask?q=${encodeURIComponent(`Explain ${scenario.id}`)}`}>Ask AI about this</a>
+      <a class="btn btn-ghost" href="/local">How to run</a>
+    </div>
+  </section>
+
+  <div class="tabs" role="tablist" aria-label="Framework variants">
+    {
+      panels.map((p, i) => (
+        <button
+          class="tab"
+          role="tab"
+          type="button"
+          id={`tab-${p.framework}`}
+          aria-selected={i === 0 ? "true" : "false"}
+          aria-controls={`panel-${p.framework}`}
+          data-framework={p.framework}
+        >
+          {p.label}
+        </button>
+      ))
+    }
+  </div>
+
+  {
+    panels.map((p, i) => (
+      <div
+        class="panel"
+        role="tabpanel"
+        id={`panel-${p.framework}`}
+        aria-labelledby={`tab-${p.framework}`}
+        hidden={i !== 0}
+      >
+        <div class="toolbar">
+          <span>
+            {p.fileLabel} · {p.frameworkLicense} · run in <code>{p.run.cwd}</code>: <code>{p.run.command}</code>
+          </span>
+          <button class="btn btn-ghost" type="button" data-copy={p.code} style="padding: 0.4rem 0.7rem;">
+            Copy
+          </button>
+        </div>
+        <pre class="code-block"><code>{p.code}</code></pre>
+        {p.notes && <p class="notes">{p.notes}</p>}
+      </div>
+    ))
+  }
+</BaseLayout>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.tab[role="tab"]');
+  const panels = document.querySelectorAll<HTMLElement>('.panel[role="tabpanel"]');
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const id = tab.dataset.framework;
+      tabs.forEach((t) => t.setAttribute("aria-selected", String(t === tab)));
+      panels.forEach((panel) => {
+        panel.hidden = panel.id !== `panel-${id}`;
+      });
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>("button[data-copy]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const text = btn.dataset.copy ?? "";
+      await navigator.clipboard.writeText(text);
+      const prev = btn.textContent;
+      btn.textContent = "Copied";
+      setTimeout(() => {
+        btn.textContent = prev;
+      }, 1200);
+    });
+  });
+</script>
