@@ -18,7 +18,7 @@ Phased delivery. Prefer vertical slices (one scenario fully comparable) over bro
    - `unit.parametrize`
    - `unit.mock-dependency`
 4. Static site that lists scenarios and renders side-by-side code (Astro or Next) **plus a Results panel** from CI-cached logs.
-5. GitHub Actions: install + run those sample tests + `capture:results` into `apps/web/public/results/` before build.
+5. GitHub Actions: install + run those sample tests + `capture:results` into `apps/web/public/results/` before build. Public `/quality` page documents the live gates.
 
 **Exit:** Visitor can open a scenario page, compare frameworks, and see the last CI run output without executing locally.
 
@@ -49,6 +49,7 @@ Phased delivery. Prefer vertical slices (one scenario fully comparable) over bro
 3. Browser-local WebLLM offline mode.
 4. Contribution guide + scenario template (“add a framework variant in 15 minutes”).
 5. Accessibility and performance pass on the *documentation site itself*.
+6. Public `/quality` page for CI/CD gates (live).
 
 ## Phase 5 — Stretch
 

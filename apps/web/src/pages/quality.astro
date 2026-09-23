@@ -1,0 +1,176 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { withBase } from "../lib/base";
+
+const actionsUrl = "https://github.com/jmaret/TestingRosettaStone/actions";
+const workflowUrl = "https://github.com/jmaret/TestingRosettaStone/blob/main/.github/workflows/ci.yml";
+const pagesUrl = "https://jmaret.github.io/TestingRosettaStone/";
+---
+
+<BaseLayout
+  title="Code & deployment quality · Testing Playground"
+  description="How Testing Playground gates code quality in CI and deploys to GitHub Pages only after those checks pass."
+>
+  <div class="page-stack">
+    <section class="scenario-hero">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href={withBase("/")}>Home</a>
+        <span class="crumbs-sep" aria-hidden="true">/</span>
+        <span aria-current="page">Quality</span>
+      </nav>
+      <h1>Code &amp; deployment quality</h1>
+      <p class="lede">
+        The hosted site is a static snapshot. Every merge to main must pass the same CI job that
+        validates scenarios, runs the examples, caches Results logs, and builds the app — then
+        GitHub Pages may deploy.
+      </p>
+      <div class="cta-row" style="margin-top: 1.15rem; justify-content: start;">
+        <a class="btn btn-primary" href={actionsUrl}>Open GitHub Actions</a>
+        <a class="btn btn-ghost" href={withBase("/local")}>Run the same checks locally</a>
+      </div>
+    </section>
+
+    <section class="quality-block" aria-labelledby="pipeline-heading">
+      <h2 id="pipeline-heading">CI/CD pipeline</h2>
+      <p>
+        One workflow — <a href={workflowUrl}><code>.github/workflows/ci.yml</code></a> — runs on
+        pull requests and on pushes to <code>main</code> and <code>cursor/**</code>. The deploy job
+        is extra and only exists after a green <code>test-and-build</code> on <code>main</code>.
+      </p>
+      <ol class="local-steps">
+        <li>
+          <strong>Install the same tools the examples need</strong>
+          <p class="meta" style="margin: 0.55rem 0 0;">
+            Ubuntu + Node 24 + Python 3.12, then <code>npm install</code>, Playwright Chromium,
+            the k6 binary, and <code>pytest</code> + <code>httpx</code>.
+          </p>
+        </li>
+        <li>
+          <strong>Validate every scenario</strong>
+          <p class="meta" style="margin: 0.55rem 0 0;">
+            <code>npm run validate:scenarios</code> checks each <code>scenario.json</code> for id,
+            title, category, at least two framework variants, and files that exist on disk.
+          </p>
+        </li>
+        <li>
+          <strong>Run unit, HTTP, UX, performance, and security tests</strong>
+          <p class="meta" style="margin: 0.55rem 0 0;">
+            <code>npm test</code> is the same command you run locally. A single red example fails
+            the job.
+          </p>
+        </li>
+        <li>
+          <strong>Capture Results panel logs</strong>
+          <p class="meta" style="margin: 0.55rem 0 0;">
+            <code>npm run capture:results</code> re-runs each documented variant and writes stdout
+            / stderr JSON under <code>apps/web/public/results/</code>. Missing output fails the upload.
+          </p>
+        </li>
+        <li>
+          <strong>Build the static site</strong>
+          <p class="meta" style="margin: 0.55rem 0 0;">
+            <code>npm run build</code>. On <code>main</code> this sets <code>GITHUB_PAGES=1</code>
+            so asset URLs match
+            <a href={pagesUrl}>jmaret.github.io/TestingRosettaStone</a>.
+          </p>
+        </li>
+        <li>
+          <strong>Deploy only from a green main build</strong>
+          <p class="meta" style="margin: 0.55rem 0 0;">
+            The <code>deploy</code> job needs <code>test-and-build</code>, runs only on push to
+            <code>main</code>, and publishes the Pages artifact. A failing test never ships.
+          </p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="quality-block" aria-labelledby="gates-heading">
+      <h2 id="gates-heading">Quality gates</h2>
+      <p>Each gate is a hard fail. There is no “deploy anyway” path from this workflow.</p>
+      <ul class="gate-list">
+        <li>
+          <span class="pill">Schema</span>
+          <div>
+            <strong>Scenario catalog is complete</strong>
+            <p class="meta">Broken ids, missing variants, or dangling file paths stop CI before tests run.</p>
+          </div>
+        </li>
+        <li>
+          <span class="pill">Tests</span>
+          <div>
+            <strong>Examples stay green</strong>
+            <p class="meta">
+              Vitest, Jest, node:test, pytest, SuperTest, Playwright, httpx, Cypress, k6, Artillery,
+              and Autocannon all run in one job.
+            </p>
+          </div>
+        </li>
+        <li>
+          <span class="pill">Results</span>
+          <div>
+            <strong>Scenario pages show real output</strong>
+            <p class="meta">
+              The site has no live runner API. Visitors see the last CI-captured log beside the writeup.
+            </p>
+          </div>
+        </li>
+        <li>
+          <span class="pill">Build</span>
+          <div>
+            <strong>Astro must produce <code>apps/web/dist</code></strong>
+            <p class="meta">A broken page or import fails the job the same way a red test does.</p>
+          </div>
+        </li>
+        <li>
+          <span class="pill">Deploy</span>
+          <div>
+            <strong>Pages publishes the artifact from that job</strong>
+            <p class="meta">
+              Repo Pages source is GitHub Actions — not a branch folder that can skip tests.
+            </p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <div class="primer quality-primer">
+      <article class="primer-card">
+        <p class="primer-kicker"><span class="pill">What CI proves</span></p>
+        <h2>Code quality</h2>
+        <p>
+          The Rosetta examples are the product. If a framework variant cannot run, the catalog is
+          wrong — so CI treats that as a release blocker, not a docs footnote.
+        </p>
+        <p>
+          Cached logs keep the hosted Results panel honest: what you read on a scenario page came
+          from the same commands in <code>.github/workflows/ci.yml</code>.
+        </p>
+      </article>
+      <article class="primer-card">
+        <p class="primer-kicker"><span class="pill">What CI withholds</span></p>
+        <h2>Deployment quality</h2>
+        <p>
+          Pull requests and <code>cursor/**</code> branches get the full test + build job. They do
+          not deploy. Only a successful push to <code>main</code> uploads the Pages artifact.
+        </p>
+        <p>
+          License scanning and link checks are still planned. Until then, the live bar is:
+          validate → test → capture → build → deploy.
+        </p>
+      </article>
+    </div>
+
+    <section class="quality-block" aria-labelledby="local-heading">
+      <h2 id="local-heading">Same checks on your machine</h2>
+      <p>You do not need Actions to reproduce a red job. From the repo root:</p>
+      <pre class="code-block"><code>npm run validate:scenarios
+npm test
+npm run capture:results
+npm run build</code></pre>
+      <p class="meta" style="margin-top: 0.85rem;">
+        Setup steps (Playwright, k6, pytest) live on <a href={withBase("/local")}>Run locally</a>.
+        Workflow YAML: <a href={workflowUrl}><code>ci.yml</code></a>.
+      </p>
+    </section>
+  </div>
+</BaseLayout>

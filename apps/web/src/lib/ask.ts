@@ -33,6 +33,11 @@ const FAQ: { q: string; a: string; tags: string[] }[] = [
     tags: ["security", "xss", "headers", "nosniff", "clickjacking", "owasp"],
   },
   {
+    q: "How does CI and deployment work?",
+    a: "One GitHub Actions workflow (.github/workflows/ci.yml) validates scenario JSON, runs npm test (unit, HTTP, UX, perf, security), captures Results panel logs, then builds the site. GitHub Pages deploys only after that job succeeds on main. The Quality page (/quality) explains each gate.",
+    tags: ["ci", "cd", "deploy", "quality", "github", "actions", "pages", "pipeline", "workflow"],
+  },
+  {
     q: "How do I run the examples locally?",
     a: "Clone the repo, run `npm install`, `npx playwright install chromium`, `brew install k6`, then `npm test`. Start the site with `npm run dev` and open http://localhost:4321. Python scenarios need `pip install pytest httpx`.",
     tags: ["run", "local", "install", "clone", "npm"],
