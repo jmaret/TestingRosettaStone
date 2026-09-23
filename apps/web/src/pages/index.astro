@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { withBase } from "../lib/base";
 import { loadScenarios } from "../lib/scenarios";
 
 const scenarios = loadScenarios();
@@ -9,29 +10,29 @@ const scenarios = loadScenarios();
   <section class="hero">
     <div class="hero-panel">
       <p class="hero-brand">
-        <img class="hero-logo" src="/images/logo.png" width="72" height="72" alt="" />
+        <img class="hero-logo" src={withBase("/images/logo.png")} width="72" height="72" alt="" />
         <span>Testing Playground</span>
       </p>
       <h1>Same test idea. Many open-source frameworks.</h1>
       <p>
-        Side-by-side unit examples today — integration, UX, and performance next —
+        Side-by-side unit and HTTP integration examples today — UX and performance next —
         with runnable samples and answers grounded in this repo.
       </p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="/scenarios">Browse scenarios</a>
-        <a class="btn btn-ghost" href="/ask">Ask a question</a>
+        <a class="btn btn-primary" href={withBase("/scenarios")}>Browse scenarios</a>
+        <a class="btn btn-ghost" href={withBase("/ask")}>Ask a question</a>
       </div>
     </div>
   </section>
 
   <section class="section content-panel">
     <h2>Which concept will you compare first?</h2>
-    <p>Three unit ideas, each expressed in Vitest, Jest, and pytest (plus node:test where it fits).</p>
+    <p>Unit and HTTP integration ideas, each expressed in several open-source frameworks.</p>
     <ul class="scenario-list">
       {
         scenarios.map((s) => (
           <li>
-            <a href={`/scenarios/${s.id}`}>
+            <a href={withBase(`/scenarios/${s.id}`)}>
               <span class="pill">{s.category}</span>
               <span>{s.title}</span>
               <span class="meta">{s.variants.length} frameworks</span>

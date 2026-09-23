@@ -11,7 +11,7 @@ git clone https://github.com/jmaret/TestingRosettaStone.git
 cd TestingRosettaStone
 git checkout cursor/build-phase1-7617   # or main after merge
 npm install
-python3 -m pip install pytest
+python3 -m pip install pytest httpx
 npm test
 npm run dev
 ```
@@ -22,24 +22,26 @@ Absolute path if you use that folder:
 
 `/Users/johnymaret/Documents/CursorProjects/TestingRosettaStone`
 
-## What’s included (Phase 1)
+## What’s included
 
 | Area | Status |
 |------|--------|
 | Web app (`apps/web`) | Astro site: home, scenarios, Ask AI, local setup |
 | Unit Rosetta scenarios | `unit.assert-equality`, `unit.parametrize`, `unit.mock-dependency` |
-| Frameworks | Vitest, Jest, `node:test`, pytest |
-| Samples | `samples/js-counter`, `samples/python-calc` |
+| Integration scenarios | `integration.http-get`, `integration.error-contract` |
+| Frameworks | Vitest, Jest, `node:test`, pytest, Supertest, Playwright request, httpx |
+| Samples | `samples/js-counter`, `samples/python-calc`, `samples/js-api` |
 | AI | Corpus FAQ + scenario keyword matcher (no API key) |
 | Results panel | CI-cached stdout/stderr beside each scenario (`npm run capture:results`) |
 | CI | GitHub Actions: validate, test, capture results, build |
+| Hosting | GitHub Pages on merge to `main` — https://jmaret.github.io/TestingRosettaStone/ |
 
 ## Scripts
 
 | Command | Purpose |
 |---------|---------|
 | `npm run dev` | Start the site on port 4321 |
-| `npm test` | Run all Phase 1 JS + Python unit examples |
+| `npm test` | Run unit + integration examples (JS and Python) |
 | `npm run capture:results` | Re-run each scenario variant and write static result JSON for the site |
 | `npm run build` | Production build of the site |
 | `npm run validate:scenarios` | Check scenario JSON + file paths |
@@ -47,6 +49,8 @@ Absolute path if you use that folder:
 ## Docs
 
 Planning notes remain in [`docs/plan/`](docs/plan/). Local clone help: [`docs/LOCAL_SETUP.md`](docs/LOCAL_SETUP.md).
+
+Live site (after enabling Pages in repo settings): https://jmaret.github.io/TestingRosettaStone/
 
 ## License
 

@@ -6,7 +6,7 @@
   "command": "npm test",
   "exitCode": 0,
   "ok": true,
-  "durationMs": 982,
-  "capturedAt": "2026-09-22T20:39:24.748Z",
-  "output": "\n> test\n> vitest run\n\n\n RUN  v3.2.7 /Users/johnymaret/Documents/CursorProjects/TestingRosettaStone/examples/unit/mock-dependency/vitest\n\n ✓ price.test.js (1 test) 5ms\n\n Test Files  1 passed (1)\n      Tests  1 passed (1)\n   Start at  13:39:27\n   Duration  393ms (transform 40ms, setup 0ms, collect 24ms, tests 5ms, environment 0ms, prepare 123ms)"
+  "durationMs": 1021,
+  "capturedAt": "2026-09-23T00:58:33.136Z",
+  "output": "\n> test\n> vitest run\n\n\n RUN  v3.2.7 /Users/johnymaret/Documents/CursorProjects/TestingRosettaStone/examples/unit/mock-dependency/vitest\n\n ✓ price.test.js (1 test) 5ms\n\n Test Files  1 passed (1)\n      Tests  1 passed (1)\n   Start at  17:58:46\n   Duration  348ms (transform 30ms, setup 0ms, collect 24ms, tests 5ms, environment 0ms, prepare 72ms)"
 }

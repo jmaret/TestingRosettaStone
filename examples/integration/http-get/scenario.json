@@ -1,0 +1,40 @@
+{
+  "id": "integration.http-get",
+  "title": "GET a resource over HTTP",
+  "category": "integration",
+  "summary": "Hit a real local HTTP handler and assert the JSON body.",
+  "description": "The smallest useful integration test: start the Express app, issue GET /items/1, and check status plus payload. Compare Supertest, Playwright request, and pytest + httpx.",
+  "sut": "js-api",
+  "tags": ["http", "get", "api", "integration"],
+  "variants": [
+    {
+      "framework": "supertest",
+      "label": "Supertest",
+      "language": "javascript",
+      "frameworkLicense": "MIT",
+      "sutFile": "samples/js-api/src/app.js",
+      "files": ["examples/integration/http-get/supertest/items.test.js"],
+      "run": { "cwd": "examples/integration/http-get/supertest", "command": "npm test" }
+    },
+    {
+      "framework": "playwright",
+      "label": "Playwright",
+      "language": "javascript",
+      "frameworkLicense": "Apache-2.0",
+      "sutFile": "samples/js-api/src/app.js",
+      "files": ["examples/integration/http-get/playwright/items.spec.js"],
+      "run": { "cwd": "examples/integration/http-get/playwright", "command": "npm test" },
+      "notes": "Uses Playwright's APIRequest context only — no browser is launched."
+    },
+    {
+      "framework": "pytest",
+      "label": "pytest + httpx",
+      "language": "python",
+      "frameworkLicense": "MIT",
+      "sutFile": "samples/js-api/src/app.js",
+      "files": ["examples/integration/http-get/pytest/test_items.py"],
+      "run": { "cwd": "examples/integration/http-get/pytest", "command": "pytest" },
+      "notes": "Spawns samples/js-api/scripts/serve-ephemeral.mjs so httpx talks to the same Express app."
+    }
+  ]
+}

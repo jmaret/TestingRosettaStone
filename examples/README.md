@@ -11,3 +11,10 @@ Side-by-side framework variants, grouped by category.
 | `mock-dependency/` | Vitest, Jest, pytest |
 
 Each folder has a `scenario.json` plus one subdirectory per framework.
+
+## Integration (live)
+
+| Scenario | Frameworks |
+|----------|------------|
+| `http-get/` | Supertest, Playwright request, pytest + httpx |
+| `error-contract/` | Supertest, Playwright request, pytest + httpx |

@@ -1,0 +1,37 @@
+---
+description: Keep project documentation in sync with every code or product change
+alwaysApply: true
+---
+
+# Keep documentation updated
+
+When you change behavior, add/remove scenarios, samples, scripts, CI steps, or UI copy, update the matching docs **in the same change**. Do not leave README or plan docs stale.
+
+## What to update
+
+| If you change… | Also update… |
+|----------------|--------------|
+| Scenarios or frameworks | [examples/README.md](examples/README.md), [README.md](README.md) “What’s included”, Ask AI FAQ in [apps/web/src/lib/ask.ts](apps/web/src/lib/ask.ts) and [apps/web/src/pages/ask.astro](apps/web/src/pages/ask.astro), home blurb if counts/categories change |
+| Samples / SUTs | [samples/README.md](samples/README.md), README samples row |
+| npm scripts or install steps | README Scripts table, [docs/LOCAL_SETUP.md](docs/LOCAL_SETUP.md), [apps/web/src/pages/local.astro](apps/web/src/pages/local.astro) |
+| CI / capture / hosting | [docs/plan/ARCHITECTURE.md](docs/plan/ARCHITECTURE.md), README CI row, `.github/workflows/ci.yml` comments only if needed |
+| Phase scope or done work | [docs/plan/ROADMAP.md](docs/plan/ROADMAP.md) (mark shipped items) |
+| Scenario schema / `scenario.json` fields | [docs/plan/CONTENT_SCHEMA.md](docs/plan/CONTENT_SCHEMA.md), [apps/web/src/lib/scenarios.ts](apps/web/src/lib/scenarios.ts) types |
+| Product thesis / non-goals | [docs/plan/VISION.md](docs/plan/VISION.md) |
+
+Keep plan docs accurate; do not invent new planning files unless asked.
+
+## Examples
+
+```text
+# ❌ BAD — new integration scenario, only code
+examples/integration/http-post/... added, README still lists Phase 1 unit only
+
+# ✅ GOOD — same PR
+examples/README.md lists http-post
+README.md What’s included + scripts
+ask.ts FAQ frameworks list
+ROADMAP.md notes the slice is live
+```
+
+If a change is docs-only (typo), skip this sweep. If unsure which file owns a fact, prefer README + the most specific plan doc over duplicating a third copy.

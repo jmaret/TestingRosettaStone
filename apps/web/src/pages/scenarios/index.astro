@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { withBase } from "../../lib/base";
 import { loadScenarios } from "../../lib/scenarios";
 
 const scenarios = loadScenarios();
@@ -9,7 +10,7 @@ const scenarios = loadScenarios();
   <div class="page-stack">
     <section class="scenario-hero">
       <nav class="crumbs" aria-label="Breadcrumb">
-        <a href="/">Home</a>
+        <a href={withBase("/")}>Home</a>
         <span class="crumbs-sep" aria-hidden="true">/</span>
         <span aria-current="page">Scenarios</span>
       </nav>
@@ -23,7 +24,7 @@ const scenarios = loadScenarios();
       {
         scenarios.map((s) => (
           <li>
-            <a href={`/scenarios/${s.id}`}>
+            <a href={withBase(`/scenarios/${s.id}`)}>
               <span class="pill">{s.category}</span>
               <span>
                 <strong>{s.title}</strong>

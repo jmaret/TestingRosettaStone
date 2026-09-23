@@ -11,13 +11,15 @@ cd TestingRosettaStone
 git fetch origin
 git checkout cursor/build-phase1-7617
 npm install
-python3 -m pip install pytest
+python3 -m pip install pytest httpx
 npm test
 npm run capture:results   # refreshes Results panel fixtures
 npm run dev
 ```
 
 Then open http://localhost:4321 — scenario pages show code beside the last cached run output.
+
+The public site deploys from `main` to GitHub Pages: https://jmaret.github.io/TestingRosettaStone/
 
 ### Open in Cursor
 

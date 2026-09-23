@@ -19,8 +19,10 @@ jobs:
           python-version: "3.12"
       - name: Install JS deps
         run: npm install
-      - name: Install pytest
-        run: python3 -m pip install pytest
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+      - name: Install pytest and httpx
+        run: python3 -m pip install pytest httpx
       - name: Validate scenarios
         run: npm run validate:scenarios
       - name: Capture scenario results (runs each variant)

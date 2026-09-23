@@ -1,7 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { answerQuestion } from "../lib/ask";
+import { withBase } from "../lib/base";
 import { loadScenarios } from "../lib/scenarios";
+
+const scenarioBase = withBase("/scenarios");
 
 const scenarios = loadScenarios();
 const corpus = {
@@ -52,7 +55,7 @@ const initial = initialQ ? answerQuestion(initialQ, scenarios) : null;
             <ul id="answer-links">
               {initial.matches.map((m) => (
                 <li>
-                  <a href={`/scenarios/${m.id}`}>{m.title}</a> <span class="meta">({m.id})</span>
+                  <a href={withBase(`/scenarios/${m.id}`)}>{m.title}</a> <span class="meta">({m.id})</span>
                 </li>
               ))}
             </ul>
@@ -65,7 +68,7 @@ const initial = initialQ ? answerQuestion(initialQ, scenarios) : null;
   </div>
 </BaseLayout>
 
-<script define:vars={{ corpus }}>
+<script define:vars={{ corpus, scenarioBase }}>
   const FAQ = [
     {
       q: "What is Testing Playground?",
@@ -74,7 +77,7 @@ const initial = initialQ ? answerQuestion(initialQ, scenarios) : null;
     },
     {
       q: "Which frameworks are included so far?",
-      a: "Phase 1 covers Vitest, Jest, node:test, and pytest for unit scenarios: assert equality, parametrize, and mock a dependency. Integration, UX, and performance frameworks are planned next (Playwright, Cypress, k6, Lighthouse, and more).",
+      a: "Unit scenarios use Vitest, Jest, node:test, and pytest (assert equality, parametrize, mock a dependency). Integration scenarios use Supertest, Playwright request, and pytest + httpx (HTTP GET and 404 error contract). UX and performance frameworks (Cypress, k6, Lighthouse) are planned next.",
       tags: ["framework", "vitest", "jest", "pytest", "list"],
     },
     {
@@ -169,7 +172,7 @@ const initial = initialQ ? answerQuestion(initialQ, scenarios) : null;
     result.matches.forEach((m) => {
       const li = document.createElement("li");
       const a = document.createElement("a");
-      a.href = `/scenarios/${m.id}`;
+      a.href = `${scenarioBase}/${m.id}`;
       a.textContent = m.title;
       li.appendChild(a);
       li.append(` (${m.id})`);

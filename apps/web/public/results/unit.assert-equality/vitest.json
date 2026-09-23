@@ -6,7 +6,7 @@
   "command": "npm test",
   "exitCode": 0,
   "ok": true,
-  "durationMs": 944,
-  "capturedAt": "2026-09-22T20:39:24.748Z",
-  "output": "\n> test\n> vitest run\n\n\n RUN  v3.2.7 /Users/johnymaret/Documents/CursorProjects/TestingRosettaStone/examples/unit/assert-equality/vitest\n\n ✓ add.test.js (1 test) 2ms\n\n Test Files  1 passed (1)\n      Tests  1 passed (1)\n   Start at  13:39:25\n   Duration  346ms (transform 32ms, setup 0ms, collect 22ms, tests 2ms, environment 0ms, prepare 101ms)"
+  "durationMs": 1131,
+  "capturedAt": "2026-09-23T00:58:33.136Z",
+  "output": "\n> test\n> vitest run\n\n\n RUN  v3.2.7 /Users/johnymaret/Documents/CursorProjects/TestingRosettaStone/examples/unit/assert-equality/vitest\n\n ✓ add.test.js (1 test) 5ms\n\n Test Files  1 passed (1)\n      Tests  1 passed (1)\n   Start at  17:58:43\n   Duration  477ms (transform 53ms, setup 0ms, collect 44ms, tests 5ms, environment 0ms, prepare 149ms)"
 }

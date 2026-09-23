@@ -7,6 +7,7 @@ import {
   loadVariantResult,
   loadResultsManifest,
 } from "../../lib/scenarios";
+import { withBase } from "../../lib/base";
 
 export function getStaticPaths() {
   return loadScenarios().map((s) => ({ params: { id: s.id } }));
@@ -34,9 +35,9 @@ const panels = scenario.variants.map((v) => ({
   <div class="page-stack">
     <section class="scenario-hero">
       <nav class="crumbs" aria-label="Breadcrumb">
-        <a href="/">Home</a>
+        <a href={withBase("/")}>Home</a>
         <span class="crumbs-sep" aria-hidden="true">/</span>
-        <a href="/scenarios">Scenarios</a>
+        <a href={withBase("/scenarios")}>Scenarios</a>
         <span class="crumbs-sep" aria-hidden="true">/</span>
         <span aria-current="page">{scenario.title}</span>
       </nav>
@@ -53,8 +54,8 @@ const panels = scenario.variants.map((v) => ({
         )
       }
       <div class="cta-row" style="margin-top: 1rem;">
-        <a class="btn btn-ghost" href={`/ask?q=${encodeURIComponent(`Explain ${scenario.id}`)}`}>Ask AI about this</a>
-        <a class="btn btn-ghost" href="/local">How to run</a>
+        <a class="btn btn-ghost" href={`${withBase("/ask")}?q=${encodeURIComponent(`Explain ${scenario.id}`)}`}>Ask AI about this</a>
+        <a class="btn btn-ghost" href={withBase("/local")}>How to run</a>
       </div>
     </section>
 

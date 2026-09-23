@@ -25,7 +25,7 @@ Phased delivery. Prefer vertical slices (one scenario fully comparable) over bro
 ## Phase 2 — Integration + UX
 
 1. Add `samples/js-api` (minimal HTTP API).
-2. Scenarios: `integration.http-get`, `integration.component-user-event`.
+2. Scenarios: `integration.http-get`, `integration.error-contract` (HTTP slice live); `integration.component-user-event` next.
 3. Playwright + Cypress for `ux.navigate-and-assert` and `ux.form-validation`.
 4. axe-core paired with Playwright (`ux.a11y-axe-scan`).
 5. Pagefind search over scenario titles/tags.
@@ -71,4 +71,4 @@ Phased delivery. Prefer vertical slices (one scenario fully comparable) over bro
 | Primary demo language | TypeScript | Largest overlap of OSS web test tools |
 | Second language | Python | pytest + future Locust; low cost to show “Rosetta” across languages |
 | AI v1 | FAQ matcher → RAG on free LLM | Ships without keys; upgrades without rewrite |
-| Hosting | Cloudflare Pages | Generous free tier + Workers for `/api/ask` |
+| Hosting | GitHub Pages | $0 static host; deploy from Actions on `main` |

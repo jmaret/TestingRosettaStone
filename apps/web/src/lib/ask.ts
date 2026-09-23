@@ -14,7 +14,7 @@ const FAQ: { q: string; a: string; tags: string[] }[] = [
   },
   {
     q: "Which frameworks are included so far?",
-    a: "Phase 1 covers Vitest, Jest, node:test, and pytest for unit scenarios: assert equality, parametrize, and mock a dependency. Integration, UX, and performance frameworks are planned next (Playwright, Cypress, k6, Lighthouse, and more).",
+    a: "Unit scenarios use Vitest, Jest, node:test, and pytest (assert equality, parametrize, mock a dependency). Integration scenarios use Supertest, Playwright request, and pytest + httpx (HTTP GET and 404 error contract). UX and performance frameworks (Cypress, k6, Lighthouse) are planned next.",
     tags: ["framework", "vitest", "jest", "pytest", "list"],
   },
   {
