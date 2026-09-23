@@ -32,7 +32,7 @@
 | Sample apps | Small **Node/TS** API + **Vite React** UI | Matches most JS testing demos; easy CI |
 | Multi-language samples | Isolated folders (`samples/python`, `samples/java`, …) | Avoid forcing one language for all frameworks |
 | CI | **GitHub Actions** | Free for public repos |
-| Hosting | **GitHub Pages** (Actions deploy on `main`) | $0 static; artifact from `apps/web/dist` |
+| Hosting | **GitHub Pages** (CI deploy on `main` after tests) | $0 static; artifact from `apps/web/dist` |
 | Search | **Pagefind** (static) | Offline-friendly, no backend |
 | AI (preferred path) | **RAG over corpus** + free LLM API | Grounded answers |
 | AI (fallback / offline) | **Transformers.js** or **WebLLM** in-browser | Truly $0, no key |
@@ -161,7 +161,7 @@ Index only first-party content:
 2. **Sample tests** — matrix jobs per language/framework that actually execute examples.
 3. **License check** — `licensee` / `osv-scanner` / simple allowlist of OSS licenses.
 4. **Link check** — MDX internal links.
-5. **Deploy** — `.github/workflows/deploy-pages.yml` builds with `GITHUB_PAGES=1` and publishes `apps/web/dist` to GitHub Pages on push to `main`.
+5. **Deploy** — same CI workflow (Node 24 actions): `npm test` then `capture:results` then build; the Pages deploy job runs only if that job succeeds on `main`. Repo Pages source must be **GitHub Actions**.
 
 ## Security notes
 
