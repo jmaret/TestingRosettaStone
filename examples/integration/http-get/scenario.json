@@ -4,6 +4,7 @@
   "category": "integration",
   "summary": "Hit a real local HTTP handler and assert the JSON body.",
   "description": "The smallest useful integration test: start the Express app, issue GET /items/1, and check status plus payload. Compare Supertest, Playwright request, and pytest + httpx.",
+  "architecture": "The SUT is the Express app (routing + JSON), not add() or clamp(). Each variant issues GET /items/1 through that HTTP stack and asserts 200 plus { id: \"1\", name: \"Notebook\" }. SuperTest stays in-process; Playwright and pytest bind an ephemeral port so the client is a real HTTP peer.",
   "sut": "js-api",
   "tags": ["http", "get", "api", "integration"],
   "variants": [
@@ -33,6 +34,7 @@
       "frameworkLicense": "MIT",
       "sutFile": "samples/js-api/src/app.js",
       "files": ["examples/integration/http-get/pytest/test_items.py"],
+      "toolId": "httpx",
       "run": { "cwd": "examples/integration/http-get/pytest", "command": "pytest" },
       "notes": "Spawns samples/js-api/scripts/serve-ephemeral.mjs so httpx talks to the same Express app."
     }

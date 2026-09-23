@@ -12,6 +12,8 @@ Side-by-side framework variants, grouped by category.
 
 Each folder has a `scenario.json` plus one subdirectory per framework.
 
+Scenario pages show a **tool + architecture primer** (from `apps/web/src/lib/tools.ts` and `architecture` on the scenario) before the SUT, test, and cached results.
+
 ## Integration (live)
 
 | Scenario | Frameworks |

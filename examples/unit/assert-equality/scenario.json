@@ -4,6 +4,7 @@
   "category": "unit",
   "summary": "Call a pure function and assert the exact result.",
   "description": "The smallest useful unit test: no I/O, no mocks, one behavior. Compare how Vitest, Jest, Node's built-in test runner, and pytest express the same idea.",
+  "architecture": "Import a pure add() function and assert 2 + 3 === 5. The runner, assertion API, and SUT share one process. Nothing is mocked and no port is opened — if this fails, the function (or the assertion) is wrong.",
   "sut": "js-counter / python-calc",
   "tags": ["assert", "pure-function", "beginner"],
   "variants": [

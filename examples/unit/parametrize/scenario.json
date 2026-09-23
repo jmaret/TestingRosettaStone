@@ -4,6 +4,7 @@
   "category": "unit",
   "summary": "Run the same assertion across a table of inputs.",
   "description": "Table-driven tests reduce duplication. Vitest and Jest use `each` / `test.each`; pytest uses `@pytest.mark.parametrize`.",
+  "architecture": "One assertion shape, many inputs: in-range, below min, above max. The runner expands the table into separate test cases so a single row can fail without hiding the others. Still a unit test — clamp() is imported, not served over HTTP.",
   "sut": "js-counter / python-calc",
   "tags": ["parametrize", "table-driven", "beginner"],
   "variants": [
