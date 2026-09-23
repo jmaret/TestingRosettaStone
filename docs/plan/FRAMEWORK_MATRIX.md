@@ -49,7 +49,7 @@ All listed tools are open source (or have a fully OSS core usable without paid p
 | [Storybook](https://storybook.js.org/) + interaction tests | Component UX without full app (phase 2) |
 | [Pa11y](https://pa11y.org/) | CLI a11y (phase 2) |
 
-**v1 commit:** Playwright (+ axe), Cypress, one Selenium example.
+**v1 commit:** Playwright + Cypress for `ux.navigate-and-assert` and `ux.form-validation` (live). axe-core and Selenium remain.
 
 ### Performance
 
@@ -107,9 +107,10 @@ Each row is one scenario page with ≥2 framework variants.
 
 Keep SUTs tiny and shared so variants stay comparable.
 
-1. **`samples/js-counter`** — pure functions + small React UI (unit + UX).
-2. **`samples/js-api`** — Fastify/Express TODO API with sqlite (integration + perf).
-3. **`samples/python-calc`** — pure calc + tiny Flask/FastAPI twin (pytest + Locust later).
+1. **`samples/js-counter`** — pure functions (unit).
+2. **`samples/js-api`** — Express `/health` + `/items/:id` (HTTP integration).
+3. **`samples/js-ui`** — static counter + About + Sign up pages (Playwright + Cypress UX).
+4. **`samples/python-calc`** — pure calc twin (pytest; Locust later).
 
 ## Mapping discipline (“Rosetta rules”)
 

@@ -20,3 +20,12 @@ Scenario pages show a **tool + architecture primer** (from `apps/web/src/lib/too
 |----------|------------|
 | `http-get/` | Supertest, Playwright request, pytest + httpx |
 | `error-contract/` | Supertest, Playwright request, pytest + httpx |
+
+## UX (live)
+
+| Scenario | Frameworks |
+|----------|------------|
+| `navigate-and-assert/` | Playwright (browser), Cypress |
+| `form-validation/` | Playwright (browser), Cypress |
+
+Each variant starts `samples/js-ui` and drives a real browser. CI installs Chromium for Playwright; Cypress uses its bundled Electron runner.

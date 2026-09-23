@@ -11,6 +11,7 @@ git clone https://github.com/jmaret/TestingRosettaStone.git
 cd TestingRosettaStone
 git checkout cursor/build-phase1-7617   # or main after merge
 npm install
+npx playwright install chromium
 python3 -m pip install pytest httpx
 npm test
 npm run dev
@@ -29,11 +30,12 @@ Absolute path if you use that folder:
 | Web app (`apps/web`) | Astro site: home, scenarios (tool + architecture primer, then code/test/results), Ask AI, local setup |
 | Unit Rosetta scenarios | `unit.assert-equality`, `unit.parametrize`, `unit.mock-dependency` |
 | Integration scenarios | `integration.http-get`, `integration.error-contract` |
-| Frameworks | Vitest, Jest, `node:test`, pytest, Supertest, Playwright request, httpx |
-| Samples | `samples/js-counter`, `samples/python-calc`, `samples/js-api` |
+| UX scenarios | `ux.navigate-and-assert`, `ux.form-validation` |
+| Frameworks | Vitest, Jest, `node:test`, pytest, Supertest, Playwright (request + browser), httpx, Cypress |
+| Samples | `samples/js-counter`, `samples/python-calc`, `samples/js-api`, `samples/js-ui` |
 | AI | Corpus FAQ + scenario keyword matcher (no API key) |
 | Results panel | CI-cached stdout/stderr beside each scenario (`npm run capture:results`) |
-| CI | GitHub Actions (Node 24): validate, `npm test`, capture results, build |
+| CI | GitHub Actions (Node 24): validate, `npm test` (unit + HTTP + Playwright/Cypress), capture results, build |
 | Hosting | GitHub Pages only after that CI job succeeds on `main` — https://jmaret.github.io/TestingRosettaStone/ |
 
 ## Scripts
@@ -41,7 +43,7 @@ Absolute path if you use that folder:
 | Command | Purpose |
 |---------|---------|
 | `npm run dev` | Start the site on port 4321 |
-| `npm test` | Run unit + integration examples (JS and Python) |
+| `npm test` | Run unit, integration, and UX examples (JS, Python, browsers) |
 | `npm run capture:results` | Re-run each scenario variant and write static result JSON for the site |
 | `npm run build` | Production build of the site |
 | `npm run validate:scenarios` | Check scenario JSON + file paths |

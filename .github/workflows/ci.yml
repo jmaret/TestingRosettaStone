@@ -30,11 +30,14 @@ jobs:
         run: npm install
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+        working-directory: examples/ux/navigate-and-assert/playwright
       - name: Install pytest and httpx
         run: python3 -m pip install pytest httpx
       - name: Validate scenarios
         run: npm run validate:scenarios
-      - name: Run unit and integration tests
+      - name: Run unit, integration, and UX tests
         run: npm test
       - name: Capture scenario results (runs each variant)
         run: npm run capture:results

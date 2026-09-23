@@ -78,6 +78,26 @@ export const TOOLS: Record<string, ToolGuide> = {
     architecture:
       "beforeAll binds createApp() to listen(0). Each test opens an APIRequest context aimed at that base URL, issues GET, and asserts status + JSON. afterAll closes the server. Same contract as SuperTest, over a real port.",
   },
+  "playwright-browser": {
+    id: "playwright-browser",
+    name: "Playwright",
+    homepage: "https://playwright.dev/",
+    role: "Browser UX / E2E runner",
+    overview:
+      "Playwright launches a real browser (Chromium here), gives you a page object, and uses locators plus expect() to assert what the user sees. Traces and auto-waiting make flaky clicks easier to debug than raw WebDriver.",
+    architecture:
+      "webServer starts samples/js-ui. Each test opens a page, interacts through roles and CSS, and asserts URL or visible text. The SUT is HTML/CSS/JS in the browser — not an imported function.",
+  },
+  cypress: {
+    id: "cypress",
+    name: "Cypress",
+    homepage: "https://www.cypress.io/",
+    role: "Browser UX / E2E runner",
+    overview:
+      "Cypress runs tests in (or beside) the browser with a chainable API: cy.visit, cy.click, cy.should. The open-source runner is enough for these demos; we do not use Cypress Cloud.",
+    architecture:
+      "start-server-and-test boots js-ui, then cypress run visits the page, clicks, and asserts. Commands retry until the assertion passes or times out — that retry is Cypress’s default stability model.",
+  },
 };
 
 const CATEGORY_ARCHITECTURE: Record<string, string> = {
@@ -85,6 +105,8 @@ const CATEGORY_ARCHITECTURE: Record<string, string> = {
     "Unit tests call one function (or a small graph of functions) in the same process. They avoid I/O so failures point at logic, not the environment. The SUT is imported; the runner never starts Express or a browser.",
   integration:
     "Integration tests cross a real boundary — here, HTTP. The Express app in samples/js-api is the SUT. Variants either inject requests in-process (SuperTest) or speak TCP to an ephemeral port (Playwright request, pytest + httpx). Assertions target status codes and JSON contracts, not private helpers.",
+  ux:
+    "UX / E2E tests drive a real browser against samples/js-ui. The test is a user path: click a link or submit a form, then assert what appears on screen or in the URL. Failures point at markup, CSS, or client JS — not at a unit-tested helper alone.",
 };
 
 export function getToolGuide(toolId: string): ToolGuide | null {

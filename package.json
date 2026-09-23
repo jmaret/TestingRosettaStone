@@ -17,7 +17,12 @@
     "examples/integration/http-get/supertest",
     "examples/integration/http-get/playwright",
     "examples/integration/error-contract/supertest",
-    "examples/integration/error-contract/playwright"
+    "examples/integration/error-contract/playwright",
+    "samples/js-ui",
+    "examples/ux/navigate-and-assert/playwright",
+    "examples/ux/navigate-and-assert/cypress",
+    "examples/ux/form-validation/playwright",
+    "examples/ux/form-validation/cypress"
   ],
   "scripts": {
     "dev": "npm run dev -w @trs/web",
@@ -27,7 +32,8 @@
     "test:unit:py": "python3 -m pytest samples/python-calc examples/unit/assert-equality/pytest examples/unit/parametrize/pytest examples/unit/mock-dependency/pytest -q",
     "test:integration:js": "npm run test -w @trs/example-http-get-supertest && npm run test -w @trs/example-http-get-playwright && npm run test -w @trs/example-error-contract-supertest && npm run test -w @trs/example-error-contract-playwright",
     "test:integration:py": "python3 -m pytest examples/integration/http-get/pytest examples/integration/error-contract/pytest -q",
-    "test": "npm run test:unit:js && npm run test:unit:py && npm run test:integration:js && npm run test:integration:py",
+    "test:ux": "npm run test -w @trs/example-ux-navigate-playwright && npm run test -w @trs/example-ux-navigate-cypress && npm run test -w @trs/example-ux-form-playwright && npm run test -w @trs/example-ux-form-cypress",
+    "test": "npm run test:unit:js && npm run test:unit:py && npm run test:integration:js && npm run test:integration:py && npm run test:ux",
     "capture:results": "node scripts/capture-results.mjs",
     "validate:scenarios": "node scripts/validate-scenarios.mjs"
   },

@@ -12,3 +12,9 @@ venv/
 .env.*
 !.env.example
 apps/web/dist/
+test-results/
+playwright-report/
+blob-report/
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/

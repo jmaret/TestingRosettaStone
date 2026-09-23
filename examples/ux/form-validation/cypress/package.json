@@ -1,0 +1,13 @@
+{
+  "name": "@trs/example-ux-form-cypress",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "PORT=4174 node ../../../../samples/js-ui/scripts/serve.mjs",
+    "test": "start-server-and-test start http://127.0.0.1:4174 \"cypress run --e2e\""
+  },
+  "devDependencies": {
+    "cypress": "^14.0.0",
+    "start-server-and-test": "^2.0.10"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "id": "ux.navigate-and-assert",
+  "title": "Click a link and assert the next page",
+  "category": "ux",
+  "summary": "Drive a real browser: click About and check the URL and heading.",
+  "description": "The smallest useful UX test: open the sample UI, click a nav link, and assert the destination. Compare Playwright and Cypress on the same js-ui pages.",
+  "architecture": "A real Chromium (Playwright) or Electron/Chrome (Cypress) loads samples/js-ui over HTTP. The test clicks the About link like a user, then asserts the URL contains about.html and the h1 is “About this counter”. No unit-style imports — the browser is the client.",
+  "sut": "js-ui",
+  "tags": ["ux", "e2e", "navigation", "browser"],
+  "variants": [
+    {
+      "framework": "playwright",
+      "label": "Playwright",
+      "language": "javascript",
+      "frameworkLicense": "Apache-2.0",
+      "toolId": "playwright-browser",
+      "sutFile": "samples/js-ui/public/index.html",
+      "files": ["examples/ux/navigate-and-assert/playwright/navigate.spec.js"],
+      "run": { "cwd": "examples/ux/navigate-and-assert/playwright", "command": "npm test" },
+      "notes": "Playwright starts samples/js-ui via webServer, then drives Chromium."
+    },
+    {
+      "framework": "cypress",
+      "label": "Cypress",
+      "language": "javascript",
+      "frameworkLicense": "MIT",
+      "toolId": "cypress",
+      "sutFile": "samples/js-ui/public/about.html",
+      "files": ["examples/ux/navigate-and-assert/cypress/navigate.cy.js"],
+      "run": { "cwd": "examples/ux/navigate-and-assert/cypress", "command": "npm test" },
+      "notes": "start-server-and-test boots js-ui, then cypress run (headed: false)."
+    }
+  ]
+}

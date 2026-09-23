@@ -1,0 +1,32 @@
+{
+  "id": "ux.form-validation",
+  "title": "Invalid submit shows a message",
+  "category": "ux",
+  "summary": "Submit an empty form and assert the visible validation text.",
+  "description": "A UX test of client-side validation: open Sign up, click Submit with no name, and expect “Name is required”. Playwright and Cypress express the same user path.",
+  "architecture": "The browser loads signup.html. Submit is clicked with an empty Name field. The page’s own JavaScript (not the HTML5 tooltip) reveals #name-error. The test asserts visibility and exact copy — that is the UX contract.",
+  "sut": "js-ui",
+  "tags": ["ux", "e2e", "form", "validation"],
+  "variants": [
+    {
+      "framework": "playwright",
+      "label": "Playwright",
+      "language": "javascript",
+      "frameworkLicense": "Apache-2.0",
+      "toolId": "playwright-browser",
+      "sutFile": "samples/js-ui/public/signup.html",
+      "files": ["examples/ux/form-validation/playwright/signup.spec.js"],
+      "run": { "cwd": "examples/ux/form-validation/playwright", "command": "npm test" }
+    },
+    {
+      "framework": "cypress",
+      "label": "Cypress",
+      "language": "javascript",
+      "frameworkLicense": "MIT",
+      "toolId": "cypress",
+      "sutFile": "samples/js-ui/public/app.js",
+      "files": ["examples/ux/form-validation/cypress/signup.cy.js"],
+      "run": { "cwd": "examples/ux/form-validation/cypress", "command": "npm test" }
+    }
+  ]
+}
