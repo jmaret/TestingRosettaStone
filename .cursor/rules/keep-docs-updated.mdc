@@ -18,6 +18,7 @@ When you change behavior, add/remove scenarios, samples, scripts, CI steps, or U
 | Phase scope or done work | [docs/plan/ROADMAP.md](docs/plan/ROADMAP.md) (mark shipped items) |
 | Scenario schema / `scenario.json` fields | [docs/plan/CONTENT_SCHEMA.md](docs/plan/CONTENT_SCHEMA.md), [apps/web/src/lib/scenarios.ts](apps/web/src/lib/scenarios.ts) types |
 | Product thesis / non-goals | [docs/plan/VISION.md](docs/plan/VISION.md) |
+| Work that will merge to `main` | Bump `RELEASE_VERSION` (see [bump-release-on-main](bump-release-on-main.mdc)) |
 
 Keep plan docs accurate; do not invent new planning files unless asked.
 

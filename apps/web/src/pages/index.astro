@@ -34,7 +34,11 @@ const scenarios = loadScenarios();
           <li>
             <a href={withBase(`/scenarios/${s.id}`)}>
               <span class="pill">{s.category}</span>
-              <span>{s.title}</span>
+              <span>
+                <strong>{s.title}</strong>
+                <br />
+                <span class="meta">{s.summary}</span>
+              </span>
               <span class="meta">{s.variants.length} frameworks</span>
             </a>
           </li>

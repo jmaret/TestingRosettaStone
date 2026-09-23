@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { withBase } from "../lib/base";
+import { RELEASE_VERSION } from "../lib/release";
 
 interface Props {
   title?: string;
@@ -35,6 +36,10 @@ const {
     <div class="page-bg" aria-hidden="true"></div>
     <a class="skip" href="#main">Skip to content</a>
     <header class="site-header">
+      <a class="release" href={withBase(`/releases/${RELEASE_VERSION}`)} title={`Release ${RELEASE_VERSION} comments`}>
+        <span class="release-label">Release</span>
+        <span class="release-num">v{RELEASE_VERSION}</span>
+      </a>
       <a class="brand" href={withBase("/")}>
         <img class="brand-logo" src={withBase("/images/logo.png")} width="40" height="40" alt="" />
         <span>Testing Playground</span>
