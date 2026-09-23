@@ -1,0 +1,12 @@
+{
+  "scenarioId": "integration.error-contract",
+  "framework": "playwright",
+  "label": "Playwright",
+  "cwd": "examples/integration/error-contract/playwright",
+  "command": "npm test",
+  "exitCode": 0,
+  "ok": true,
+  "durationMs": 1738,
+  "capturedAt": "2026-09-23T00:58:33.136Z",
+  "output": "\n> test\n> playwright test\n\n\nRunning 1 test using 1 worker\n·\n  1 passed (1.1s)\n\n(node:69140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)"
+}

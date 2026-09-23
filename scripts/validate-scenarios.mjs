@@ -26,6 +26,10 @@ function validate(file) {
     errors.push(`${file}: need at least 2 variants`);
   }
   for (const v of data.variants ?? []) {
+    if (v.sutFile) {
+      const sutAbs = path.join(root, v.sutFile);
+      if (!fs.existsSync(sutAbs)) errors.push(`${file}: missing sutFile ${v.sutFile}`);
+    }
     for (const f of v.files ?? []) {
       const abs = path.join(root, f);
       if (!fs.existsSync(abs)) errors.push(`${file}: missing file ${f}`);

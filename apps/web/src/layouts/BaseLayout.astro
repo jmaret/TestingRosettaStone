@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { withBase } from "../lib/base";
 
 interface Props {
   title?: string;
@@ -21,8 +22,8 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{title}</title>
-    <link rel="icon" type="image/png" href="/images/logo.png" />
-    <link rel="apple-touch-icon" href="/images/logo.png" />
+    <link rel="icon" type="image/png" href={withBase("/images/logo.png")} />
+    <link rel="apple-touch-icon" href={withBase("/images/logo.png")} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -30,18 +31,18 @@ const {
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body style={`--page-bg-image: url('${withBase("/images/bg-dev-team.png")}')`}>
     <div class="page-bg" aria-hidden="true"></div>
     <a class="skip" href="#main">Skip to content</a>
     <header class="site-header">
-      <a class="brand" href="/">
-        <img class="brand-logo" src="/images/logo.png" width="40" height="40" alt="" />
+      <a class="brand" href={withBase("/")}>
+        <img class="brand-logo" src={withBase("/images/logo.png")} width="40" height="40" alt="" />
         <span>Testing Playground</span>
       </a>
       <nav aria-label="Primary">
-        <a href="/scenarios">Scenarios</a>
-        <a href="/ask">Ask AI</a>
-        <a href="/local">Run locally</a>
+        <a href={withBase("/scenarios")}>Scenarios</a>
+        <a href={withBase("/ask")}>Ask AI</a>
+        <a href={withBase("/local")}>Run locally</a>
       </nav>
     </header>
     <main id="main" class:list={{ wide }}>

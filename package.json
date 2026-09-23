@@ -6,13 +6,18 @@
   "workspaces": [
     "apps/web",
     "samples/js-counter",
+    "samples/js-api",
     "examples/unit/assert-equality/vitest",
     "examples/unit/assert-equality/jest",
     "examples/unit/assert-equality/node-test",
     "examples/unit/parametrize/vitest",
     "examples/unit/parametrize/jest",
     "examples/unit/mock-dependency/vitest",
-    "examples/unit/mock-dependency/jest"
+    "examples/unit/mock-dependency/jest",
+    "examples/integration/http-get/supertest",
+    "examples/integration/http-get/playwright",
+    "examples/integration/error-contract/supertest",
+    "examples/integration/error-contract/playwright"
   ],
   "scripts": {
     "dev": "npm run dev -w @trs/web",
@@ -20,7 +25,9 @@
     "preview": "npm run preview -w @trs/web",
     "test:unit:js": "npm run test -w @trs/example-assert-vitest && npm run test -w @trs/example-assert-jest && npm run test -w @trs/example-assert-node && npm run test -w @trs/example-parametrize-vitest && npm run test -w @trs/example-parametrize-jest && npm run test -w @trs/example-mock-vitest && npm run test -w @trs/example-mock-jest",
     "test:unit:py": "python3 -m pytest samples/python-calc examples/unit/assert-equality/pytest examples/unit/parametrize/pytest examples/unit/mock-dependency/pytest -q",
-    "test": "npm run test:unit:js && npm run test:unit:py",
+    "test:integration:js": "npm run test -w @trs/example-http-get-supertest && npm run test -w @trs/example-http-get-playwright && npm run test -w @trs/example-error-contract-supertest && npm run test -w @trs/example-error-contract-playwright",
+    "test:integration:py": "python3 -m pytest examples/integration/http-get/pytest examples/integration/error-contract/pytest -q",
+    "test": "npm run test:unit:js && npm run test:unit:py && npm run test:integration:js && npm run test:integration:py",
     "capture:results": "node scripts/capture-results.mjs",
     "validate:scenarios": "node scripts/validate-scenarios.mjs"
   },

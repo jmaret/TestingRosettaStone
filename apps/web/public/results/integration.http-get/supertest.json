@@ -1,0 +1,12 @@
+{
+  "scenarioId": "integration.http-get",
+  "framework": "supertest",
+  "label": "Supertest",
+  "cwd": "examples/integration/http-get/supertest",
+  "command": "npm test",
+  "exitCode": 0,
+  "ok": true,
+  "durationMs": 2429,
+  "capturedAt": "2026-09-23T00:58:33.136Z",
+  "output": "\n> test\n> vitest run\n\n\n RUN  v3.2.7 /Users/johnymaret/Documents/CursorProjects/TestingRosettaStone/examples/integration/http-get/supertest\n\n ✓ items.test.js (1 test) 28ms\n\n Test Files  1 passed (1)\n      Tests  1 passed (1)\n   Start at  17:58:39\n   Duration  1.34s (transform 59ms, setup 0ms, collect 189ms, tests 28ms, environment 0ms, prepare 307ms)"
+}
