@@ -28,7 +28,7 @@ Absolute path if you use that folder:
 
 | Area | Status |
 |------|--------|
-| Web app (`apps/web`) | Astro site: header release `vX.Y.Z` (click for comments; `/releases` for past notes), home, scenarios, Ask AI, local setup |
+| Web app (`apps/web`) | Astro site: header release `vX.Y.Z` (click for comments; `/releases` for past notes), home, scenarios, Ask AI, quality/CI, local setup |
 | Unit Rosetta scenarios | `unit.assert-equality`, `unit.parametrize`, `unit.mock-dependency` |
 | Integration scenarios | `integration.http-get`, `integration.error-contract` |
 | UX scenarios | `ux.navigate-and-assert`, `ux.form-validation` |
@@ -38,7 +38,7 @@ Absolute path if you use that folder:
 | Samples | `samples/js-counter`, `samples/python-calc`, `samples/js-api`, `samples/js-ui` |
 | AI | Corpus FAQ + scenario keyword matcher (no API key) |
 | Results panel | CI-cached stdout/stderr beside each scenario (`npm run capture:results`) |
-| CI | GitHub Actions (Node 24): validate, `npm test` (unit + HTTP + UX + perf + security), capture results, build |
+| CI | GitHub Actions (Node 24): validate, `npm test` (unit + HTTP + UX + perf + security), capture results, build — explained on `/quality` |
 | Hosting | GitHub Pages only after that CI job succeeds on `main` — https://jmaret.github.io/TestingRosettaStone/ |
 
 ## Scripts

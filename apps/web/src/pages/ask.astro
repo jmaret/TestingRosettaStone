@@ -40,6 +40,7 @@ const initial = initialQ ? answerQuestion(initialQ, scenarios) : null;
     <button class="chip" type="button" data-q="How do UX or browser tests work here?">UX / browser</button>
     <button class="chip" type="button" data-q="How do performance or load tests work here?">Load / perf</button>
     <button class="chip" type="button" data-q="How do security tests work here?">Security</button>
+    <button class="chip" type="button" data-q="How does CI and deployment work?">CI / deploy</button>
   </div>
 
   <form class="ask-box" id="ask-form">
@@ -97,6 +98,11 @@ const initial = initialQ ? answerQuestion(initialQ, scenarios) : null;
       q: "How do security tests work here?",
       a: "Security scenarios reuse the HTTP and browser tools. SuperTest, Playwright request, and pytest + httpx assert X-Content-Type-Options: nosniff and X-Frame-Options: DENY on GET /health (security.http-headers). Playwright and Cypress submit a script-like name on Sign up and assert it is shown as text and window.__xss stays unset (security.xss-escape).",
       tags: ["security", "xss", "headers", "nosniff", "clickjacking", "owasp"],
+    },
+    {
+      q: "How does CI and deployment work?",
+      a: "One GitHub Actions workflow (.github/workflows/ci.yml) validates scenario JSON, runs npm test (unit, HTTP, UX, perf, security), captures Results panel logs, then builds the site. GitHub Pages deploys only after that job succeeds on main. The Quality page (/quality) explains each gate.",
+      tags: ["ci", "cd", "deploy", "quality", "github", "actions", "pages", "pipeline", "workflow"],
     },
     {
       q: "How do I run the examples locally?",

@@ -21,7 +21,7 @@ npm run dev
 
 Then open http://localhost:4321 — scenario pages show code beside the last cached run output. UX examples need Playwright Chromium (command above); Cypress installs its own runner with `npm install`. Performance examples need the k6 binary (`brew install k6`); Artillery and Autocannon come from npm.
 
-The public site deploys from `main` to GitHub Pages only after CI `npm test` and `capture:results` succeed: https://jmaret.github.io/TestingRosettaStone/
+The public site deploys from `main` to GitHub Pages only after CI `npm test` and `capture:results` succeed: https://jmaret.github.io/TestingRosettaStone/ — the `/quality` page lists those gates.
 
 ### Open in Cursor
 

@@ -14,7 +14,7 @@ When you change behavior, add/remove scenarios, samples, scripts, CI steps, or U
 | Scenarios or frameworks | [examples/README.md](examples/README.md), [README.md](README.md) “What’s included”, Ask AI FAQ in [apps/web/src/lib/ask.ts](apps/web/src/lib/ask.ts) and [apps/web/src/pages/ask.astro](apps/web/src/pages/ask.astro), home blurb if counts/categories change |
 | Samples / SUTs | [samples/README.md](samples/README.md), README samples row |
 | npm scripts or install steps | README Scripts table, [docs/LOCAL_SETUP.md](docs/LOCAL_SETUP.md), [apps/web/src/pages/local.astro](apps/web/src/pages/local.astro) |
-| CI / capture / hosting | [docs/plan/ARCHITECTURE.md](docs/plan/ARCHITECTURE.md), README CI row, `.github/workflows/ci.yml` comments only if needed |
+| CI / capture / hosting | [docs/plan/ARCHITECTURE.md](docs/plan/ARCHITECTURE.md), README CI row, [apps/web/src/pages/quality.astro](apps/web/src/pages/quality.astro), `.github/workflows/ci.yml` comments only if needed |
 | Phase scope or done work | [docs/plan/ROADMAP.md](docs/plan/ROADMAP.md) (mark shipped items) |
 | Scenario schema / `scenario.json` fields | [docs/plan/CONTENT_SCHEMA.md](docs/plan/CONTENT_SCHEMA.md), [apps/web/src/lib/scenarios.ts](apps/web/src/lib/scenarios.ts) types |
 | Product thesis / non-goals | [docs/plan/VISION.md](docs/plan/VISION.md) |

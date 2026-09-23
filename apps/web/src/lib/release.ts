@@ -9,6 +9,16 @@ export type Release = {
 /** Newest first. Header shows RELEASES[0]; bump + prepend on every merge to main. */
 export const RELEASES: Release[] = [
   {
+    version: "0.3.0",
+    date: "2026-09-23",
+    title: "Code and deployment quality",
+    notes: [
+      "A Quality page walks through the live CI/CD gates: validate scenarios, run every example category, cache Results logs, then build.",
+      "GitHub Pages still deploys only after that job succeeds on main — the same pipeline is now readable from the header and footer.",
+      "Ask AI can answer how CI deploys the site, with a suggested question on the Ask page.",
+    ],
+  },
+  {
     version: "0.2.0",
     date: "2026-09-23",
     title: "Release notes in the header",
