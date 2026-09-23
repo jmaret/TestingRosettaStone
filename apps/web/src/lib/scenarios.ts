@@ -14,6 +14,10 @@ export type ScenarioVariant = {
   files: string[];
   run: { cwd: string; command: string };
   notes?: string;
+  /** How this variant reaches the SUT (shown in the primer) */
+  architecture?: string;
+  /** Override the shared tool catalog key (default: framework) */
+  toolId?: string;
 };
 
 export type Scenario = {
@@ -22,6 +26,8 @@ export type Scenario = {
   category: TestCategory;
   summary: string;
   description: string;
+  /** How this scenario is structured, independent of framework */
+  architecture?: string;
   sut: string;
   tags: string[];
   variants: ScenarioVariant[];

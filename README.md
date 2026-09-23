@@ -26,7 +26,7 @@ Absolute path if you use that folder:
 
 | Area | Status |
 |------|--------|
-| Web app (`apps/web`) | Astro site: home, scenarios, Ask AI, local setup |
+| Web app (`apps/web`) | Astro site: home, scenarios (tool + architecture primer, then code/test/results), Ask AI, local setup |
 | Unit Rosetta scenarios | `unit.assert-equality`, `unit.parametrize`, `unit.mock-dependency` |
 | Integration scenarios | `integration.http-get`, `integration.error-contract` |
 | Frameworks | Vitest, Jest, `node:test`, pytest, Supertest, Playwright request, httpx |

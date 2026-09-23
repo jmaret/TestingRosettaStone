@@ -4,6 +4,7 @@
   "category": "integration",
   "summary": "Missing resources return a stable JSON error shape.",
   "description": "Call GET /items/999 on the same Express app and assert status 404 plus { error, id }. Compare how Supertest, Playwright request, and pytest + httpx check an HTTP error contract.",
+  "architecture": "Same HTTP integration shape as GET success, but the contract is the error: 404 and { error: \"not_found\", id: \"999\" }. Clients must not treat a missing item as an empty 200. The app is the only source of that JSON; tests do not stub the handler.",
   "sut": "js-api",
   "tags": ["http", "error", "contract", "404", "integration"],
   "variants": [
@@ -33,6 +34,7 @@
       "frameworkLicense": "MIT",
       "sutFile": "samples/js-api/src/app.js",
       "files": ["examples/integration/error-contract/pytest/test_not_found.py"],
+      "toolId": "httpx",
       "run": { "cwd": "examples/integration/error-contract/pytest", "command": "pytest" },
       "notes": "Spawns samples/js-api/scripts/serve-ephemeral.mjs so httpx talks to the same Express app."
     }

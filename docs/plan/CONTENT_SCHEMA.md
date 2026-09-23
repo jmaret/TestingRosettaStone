@@ -27,6 +27,10 @@ export type ScenarioVariant = {
   };
   /** Idiomatic differences vs the “primary” variant */
   notes?: string;
+  /** How this variant reaches the SUT */
+  architecture?: string;
+  /** Shared tool-catalog key (default: framework) */
+  toolId?: string;
 };
 
 export type Scenario = {
@@ -37,6 +41,8 @@ export type Scenario = {
   summary: string;
   /** Longer teaching blurb (markdown) */
   description: string;
+  /** How this scenario is structured, independent of framework */
+  architecture?: string;
   /** Sample under test id */
   sut: string;
   tags: string[];

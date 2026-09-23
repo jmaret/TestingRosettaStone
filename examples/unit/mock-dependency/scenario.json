@@ -4,6 +4,7 @@
   "category": "unit",
   "summary": "Replace a dependency so the unit under test stays isolated.",
   "description": "Tax rate comes from a service. Vitest and Jest use `vi.fn` / `jest.fn`; pytest uses a simple stub or `unittest.mock`.",
+  "architecture": "priceWithTax() asks a collaborator for a tax rate. The test replaces that collaborator with a fake that returns 0.1, then checks both the computed price and that the fake was called with the region code. Isolation is the point: we do not hit a real tax API.",
   "sut": "js-counter / python-calc",
   "tags": ["mock", "spy", "isolation"],
   "variants": [

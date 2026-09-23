@@ -8,6 +8,7 @@ import {
   loadResultsManifest,
 } from "../../lib/scenarios";
 import { withBase } from "../../lib/base";
+import { getCategoryArchitecture, getToolGuide, resolveToolId } from "../../lib/tools";
 
 export function getStaticPaths() {
   return loadScenarios().map((s) => ({ params: { id: s.id } }));
@@ -21,14 +22,20 @@ if (!scenario) {
 
 const manifest = loadResultsManifest();
 
-const panels = scenario.variants.map((v) => ({
-  ...v,
-  code: readExampleFile(v.files[0]),
-  fileLabel: v.files[0],
-  sutCode: v.sutFile ? readExampleFile(v.sutFile) : null,
-  sutLabel: v.sutFile ?? null,
-  result: loadVariantResult(scenario.id, v.framework),
-}));
+const categoryArchitecture = getCategoryArchitecture(scenario.category);
+
+const panels = scenario.variants.map((v) => {
+  const toolId = v.toolId ?? resolveToolId(v.framework, v.label);
+  return {
+    ...v,
+    tool: getToolGuide(toolId),
+    code: readExampleFile(v.files[0]),
+    fileLabel: v.files[0],
+    sutCode: v.sutFile ? readExampleFile(v.sutFile) : null,
+    sutLabel: v.sutFile ?? null,
+    result: loadVariantResult(scenario.id, v.framework),
+  };
+});
 ---
 
 <BaseLayout title={`${scenario.title} · Testing Playground`} description={scenario.summary} wide>
@@ -86,6 +93,39 @@ const panels = scenario.variants.map((v) => ({
           aria-labelledby={`tab-${p.framework}`}
           hidden={i !== 0}
         >
+          <section class="primer" aria-label={`${p.label} tool and architecture`}>
+            <article class="primer-card">
+              <h2>Testing tool</h2>
+              {
+                p.tool ? (
+                  <>
+                    <p class="primer-kicker">
+                      <a href={p.tool.homepage} rel="noreferrer">{p.tool.name}</a>
+                      <span class="meta"> · {p.tool.role} · {p.frameworkLicense}</span>
+                    </p>
+                    <p>{p.tool.overview}</p>
+                    <p>{p.tool.architecture}</p>
+                  </>
+                ) : (
+                  <p>
+                    {p.label} ({p.language}, {p.frameworkLicense}).
+                  </p>
+                )
+              }
+            </article>
+            <article class="primer-card">
+              <h2>Testing architecture</h2>
+              {categoryArchitecture && <p>{categoryArchitecture}</p>}
+              {scenario.architecture && <p>{scenario.architecture}</p>}
+              {p.architecture && <p>{p.architecture}</p>}
+              <p class="meta">
+                SUT: {scenario.sut}
+                {p.sutLabel ? ` · ${p.sutLabel}` : ""} · run <code>{p.run.command}</code> in{" "}
+                <code>{p.run.cwd}</code>
+              </p>
+            </article>
+          </section>
+
           {
             p.sutCode && p.sutLabel && (
               <div class="sut-block">

@@ -109,7 +109,8 @@ For each scenario page:
 2. Horizontal or tabbed **framework switcher** with synced scroll / “highlight equivalent lines” where feasible.
 3. Copy buttons + “open in sample” links.
 4. Adjacent **Results** panel fed by static files from `apps/web/public/results/` (CI-captured logs + timestamp)—not a live execute API.
-5. “Ask AI about this scenario” deep-link with scenario id in context.
+5. **Tool + architecture primer** above the SUT/test/results (`apps/web/src/lib/tools.ts` plus `architecture` on the scenario).
+6. “Ask AI about this scenario” deep-link with scenario id in context.
 
 ## AI Q&A design
 
