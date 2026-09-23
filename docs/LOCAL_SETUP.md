@@ -19,7 +19,7 @@ npm run dev
 
 Then open http://localhost:4321 — scenario pages show code beside the last cached run output.
 
-The public site deploys from `main` to GitHub Pages: https://jmaret.github.io/TestingRosettaStone/
+The public site deploys from `main` to GitHub Pages only after CI `npm test` and `capture:results` succeed: https://jmaret.github.io/TestingRosettaStone/
 
 ### Open in Cursor
 

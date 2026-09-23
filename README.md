@@ -33,8 +33,8 @@ Absolute path if you use that folder:
 | Samples | `samples/js-counter`, `samples/python-calc`, `samples/js-api` |
 | AI | Corpus FAQ + scenario keyword matcher (no API key) |
 | Results panel | CI-cached stdout/stderr beside each scenario (`npm run capture:results`) |
-| CI | GitHub Actions: validate, test, capture results, build |
-| Hosting | GitHub Pages on merge to `main` — https://jmaret.github.io/TestingRosettaStone/ |
+| CI | GitHub Actions (Node 24): validate, `npm test`, capture results, build |
+| Hosting | GitHub Pages only after that CI job succeeds on `main` — https://jmaret.github.io/TestingRosettaStone/ |
 
 ## Scripts
 

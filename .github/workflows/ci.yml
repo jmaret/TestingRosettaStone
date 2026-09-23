@@ -5,14 +5,23 @@ on:
     branches: [main, "cursor/**"]
   pull_request:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test-and-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
-          node-version: "22"
+          node-version: "24"
           cache: npm
       - uses: actions/setup-python@v5
         with:
@@ -25,6 +34,8 @@ jobs:
         run: python3 -m pip install pytest httpx
       - name: Validate scenarios
         run: npm run validate:scenarios
+      - name: Run unit and integration tests
+        run: npm test
       - name: Capture scenario results (runs each variant)
         run: npm run capture:results
       - name: Upload cached results
@@ -34,4 +45,30 @@ jobs:
           path: apps/web/public/results
           if-no-files-found: error
       - name: Build site
+        if: github.event_name != 'push' || github.ref != 'refs/heads/main'
         run: npm run build
+      - name: Build site for GitHub Pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: npm run build
+        env:
+          GITHUB_PAGES: "1"
+      - name: Upload Pages artifact
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/web/dist
+
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
