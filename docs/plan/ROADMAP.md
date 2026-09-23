@@ -24,13 +24,13 @@ Phased delivery. Prefer vertical slices (one scenario fully comparable) over bro
 
 ## Phase 2 — Integration + UX
 
-1. Add `samples/js-api` (minimal HTTP API).
+1. Add `samples/js-api` (minimal HTTP API) and `samples/js-ui` (static counter + signup).
 2. Scenarios: `integration.http-get`, `integration.error-contract` (HTTP slice live); `integration.component-user-event` next.
-3. Playwright + Cypress for `ux.navigate-and-assert` and `ux.form-validation`.
+3. Playwright + Cypress for `ux.navigate-and-assert` and `ux.form-validation` (live).
 4. axe-core paired with Playwright (`ux.a11y-axe-scan`).
 5. Pagefind search over scenario titles/tags.
 
-**Exit:** Unit → integration → UX path exists for one product story (counter or TODO).
+**Exit:** Unit → integration → UX path exists for one product story (counter or TODO). HTTP + browser slices are live; axe and component-user-event remain.
 
 ## Phase 3 — Performance + AI FAQ
 

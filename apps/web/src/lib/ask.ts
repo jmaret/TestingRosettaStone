@@ -14,12 +14,17 @@ const FAQ: { q: string; a: string; tags: string[] }[] = [
   },
   {
     q: "Which frameworks are included so far?",
-    a: "Unit scenarios use Vitest, Jest, node:test, and pytest (assert equality, parametrize, mock a dependency). Integration scenarios use Supertest, Playwright request, and pytest + httpx (HTTP GET and 404 error contract). Each scenario page explains the tool and test architecture before showing code. UX and performance frameworks (Cypress, k6, Lighthouse) are planned next.",
+    a: "Unit scenarios use Vitest, Jest, node:test, and pytest (assert equality, parametrize, mock a dependency). Integration scenarios use Supertest, Playwright request, and pytest + httpx (HTTP GET and 404 error contract). UX scenarios use Playwright and Cypress against samples/js-ui (click About; empty form shows “Name is required”). Each scenario page explains the tool and test architecture before showing code. Performance frameworks (k6, Lighthouse) are planned next.",
     tags: ["framework", "vitest", "jest", "pytest", "list"],
   },
   {
+    q: "How do UX or browser tests work here?",
+    a: "UX scenarios drive a real browser against samples/js-ui. Playwright and Cypress both click About and assert the next heading (ux.navigate-and-assert), or submit an empty form and assert “Name is required” (ux.form-validation). The docs site shows CI-cached logs — it does not launch a browser in your tab.",
+    tags: ["ux", "e2e", "playwright", "cypress", "browser", "ui", "form"],
+  },
+  {
     q: "How do I run the examples locally?",
-    a: "Clone the repo, run `npm install`, then `npm test`. Start the site with `npm run dev` and open http://localhost:4321. Python scenarios need `pip install pytest`.",
+    a: "Clone the repo, run `npm install`, `npx playwright install chromium`, then `npm test`. Start the site with `npm run dev` and open http://localhost:4321. Python scenarios need `pip install pytest httpx`.",
     tags: ["run", "local", "install", "clone", "npm"],
   },
   {

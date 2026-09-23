@@ -6,7 +6,7 @@
   "command": "npm test",
   "exitCode": 0,
   "ok": true,
-  "durationMs": 1050,
-  "capturedAt": "2026-09-23T00:58:33.136Z",
-  "output": "\n> test\n> NODE_OPTIONS=--experimental-vm-modules jest\n\n\n(node:69366) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\nPASS ./add.test.js\n  add\n    ✓ returns the sum of two numbers (1 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        0.229 s, estimated 1 s\nRan all test suites."
+  "durationMs": 975,
+  "capturedAt": "2026-09-23T03:21:58.717Z",
+  "output": "\n> test\n> NODE_OPTIONS=--experimental-vm-modules jest\n\n\n(node:58947) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\nPASS ./add.test.js\n  add\n    ✓ returns the sum of two numbers (1 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        0.217 s, estimated 1 s\nRan all test suites."
 }

@@ -57,6 +57,7 @@ A blank-slate, zero-cost product should avoid always-on servers. Prefer:
 ├── samples/
 │   ├── js-counter/          # Tiny shared SUT
 │   ├── js-api/              # Tiny HTTP API SUT
+│   ├── js-ui/               # Static HTML/CSS/JS SUT for UX / E2E
 │   └── python-calc/         # Non-JS SUT for pytest etc.
 ├── examples/                # Canonical side-by-side snippets (source of truth for Rosetta)
 │   ├── unit/
@@ -159,7 +160,7 @@ Index only first-party content:
 ## CI / quality gates
 
 1. **Schema validation** — every scenario has ≥2 variants and a run command.
-2. **Sample tests** — matrix jobs per language/framework that actually execute examples.
+2. **Sample tests** — unit + HTTP integration + Playwright/Cypress UX (`npm test`); CI installs Chromium after `npm install`.
 3. **License check** — `licensee` / `osv-scanner` / simple allowlist of OSS licenses.
 4. **Link check** — MDX internal links.
 5. **Deploy** — same CI workflow (Node 24 actions): `npm test` then `capture:results` then build; the Pages deploy job runs only if that job succeeds on `main`. Repo Pages source must be **GitHub Actions**.

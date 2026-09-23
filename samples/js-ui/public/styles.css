@@ -1,0 +1,55 @@
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  color: #1a1a1a;
+  background: #f4f6f8;
+}
+
+header {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: #fff;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+header a {
+  color: #96151d;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+main {
+  max-width: 36rem;
+  margin: 2rem auto;
+  padding: 0 1.25rem;
+}
+
+button {
+  font: inherit;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid #1a1a1a;
+  background: #1a1a1a;
+  color: #fff;
+  cursor: pointer;
+}
+
+label {
+  display: block;
+  margin: 0.75rem 0 0.35rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+  font: inherit;
+}
+
+.error {
+  color: #b42318;
+}
+
+.success {
+  color: #1f6b3a;
+}

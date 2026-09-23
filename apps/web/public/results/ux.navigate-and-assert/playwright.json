@@ -1,0 +1,12 @@
+{
+  "scenarioId": "ux.navigate-and-assert",
+  "framework": "playwright",
+  "label": "Playwright",
+  "cwd": "examples/ux/navigate-and-assert/playwright",
+  "command": "npm test",
+  "exitCode": 0,
+  "ok": true,
+  "durationMs": 1648,
+  "capturedAt": "2026-09-23T03:21:58.717Z",
+  "output": "\n> test\n> playwright test\n\n\nRunning 1 test using 1 worker\n·\n  1 passed (989ms)\n\n(node:62123) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)"
+}

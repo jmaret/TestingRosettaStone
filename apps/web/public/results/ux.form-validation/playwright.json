@@ -1,0 +1,12 @@
+{
+  "scenarioId": "ux.form-validation",
+  "framework": "playwright",
+  "label": "Playwright",
+  "cwd": "examples/ux/form-validation/playwright",
+  "command": "npm test",
+  "exitCode": 0,
+  "ok": true,
+  "durationMs": 1813,
+  "capturedAt": "2026-09-23T03:21:58.717Z",
+  "output": "\n> test\n> playwright test\n\n\nRunning 1 test using 1 worker\n·\n  1 passed (1.2s)\n\n(node:59315) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)"
+}
