@@ -1,0 +1,28 @@
+---
+description: Bump the header release version on every change destined for main
+alwaysApply: true
+---
+
+# Bump release version for main
+
+The site header shows `v{RELEASE_VERSION}` and links to `/releases/{version}`. Both come from [apps/web/src/lib/release.ts](apps/web/src/lib/release.ts). The number and its comments must change on **every merge to `main`**.
+
+## When to bump
+
+If the change will be committed, opened as a PR, or merged to `main`, bump the version **in the same change**. Do this even for docs-only or CSS-only work.
+
+Skip only when the working tree has no changes (nothing to merge).
+
+## How
+
+1. Read `RELEASES` (newest first) in `apps/web/src/lib/release.ts`.
+2. Bump **patch** (`0.2.0` → `0.2.1`) for the usual slice (fixes, docs, UI, one scenario).
+3. Bump **minor** (`0.2.1` → `0.3.0`) when adding a new scenario category or a visitor-facing product area.
+4. **Prepend** a new `{ version, date, title, notes }` object. `notes` are the visitor-facing comments (what changed and why). `RELEASE_VERSION` is `RELEASES[0].version`.
+5. Set the same version string on root [`package.json`](package.json) and [`apps/web/package.json`](apps/web/package.json).
+6. Do not invent a second changelog file.
+
+```text
+# ❌ BAD — PR to main, RELEASES[0] still the previous version
+# ✅ GOOD — same PR prepends 0.2.1 with comments and matches both package.json versions
+```

@@ -28,7 +28,7 @@ Absolute path if you use that folder:
 
 | Area | Status |
 |------|--------|
-| Web app (`apps/web`) | Astro site: home, scenarios (tool + architecture primer, then code/test/results), Ask AI, local setup |
+| Web app (`apps/web`) | Astro site: header release `vX.Y.Z` (click for comments; `/releases` for past notes), home, scenarios, Ask AI, local setup |
 | Unit Rosetta scenarios | `unit.assert-equality`, `unit.parametrize`, `unit.mock-dependency` |
 | Integration scenarios | `integration.http-get`, `integration.error-contract` |
 | UX scenarios | `ux.navigate-and-assert`, `ux.form-validation` |

@@ -1,0 +1,71 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { withBase } from "../../lib/base";
+import { loadRelease, loadReleases, RELEASE_VERSION } from "../../lib/release";
+
+export function getStaticPaths() {
+  return loadReleases().map((r) => ({ params: { version: r.version } }));
+}
+
+const { version } = Astro.params;
+const release = loadRelease(version!);
+if (!release) {
+  throw new Error(`Unknown release: ${version}`);
+}
+
+const releases = loadReleases();
+const idx = releases.findIndex((r) => r.version === release.version);
+const newer = idx > 0 ? releases[idx - 1] : null;
+const older = idx >= 0 && idx < releases.length - 1 ? releases[idx + 1] : null;
+const isCurrent = release.version === RELEASE_VERSION;
+---
+
+<BaseLayout
+  title={`v${release.version} · Releases · Testing Playground`}
+  description={release.title}
+>
+  <div class="page-stack">
+    <section class="scenario-hero">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href={withBase("/")}>Home</a>
+        <span class="crumbs-sep" aria-hidden="true">/</span>
+        <a href={withBase("/releases")}>Releases</a>
+        <span class="crumbs-sep" aria-hidden="true">/</span>
+        <span aria-current="page">v{release.version}</span>
+      </nav>
+      {isCurrent && <span class="pill">Current</span>}
+      <h1>v{release.version}</h1>
+      <p class="lede">{release.title}</p>
+      <p class="meta">{release.date}</p>
+      <div class="cta-row" style="margin-top: 1rem;">
+        <a class="btn btn-ghost" href={withBase("/releases")}>All releases</a>
+      </div>
+    </section>
+
+    <section class="release-notes" aria-labelledby="release-comments">
+      <h2 id="release-comments">Comments</h2>
+      <ol class="release-comments">
+        {release.notes.map((note) => <li>{note}</li>)}
+      </ol>
+    </section>
+
+    <nav class="release-pager" aria-label="Other releases">
+      {
+        newer && (
+          <a href={withBase(`/releases/${newer.version}`)}>
+            <span class="meta">Newer</span>
+            <strong>v{newer.version}</strong>
+          </a>
+        )
+      }
+      {
+        older && (
+          <a href={withBase(`/releases/${older.version}`)}>
+            <span class="meta">Older</span>
+            <strong>v{older.version}</strong>
+          </a>
+        )
+      }
+    </nav>
+  </div>
+</BaseLayout>

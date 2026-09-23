@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { withBase } from "../../lib/base";
+import { loadReleases, RELEASE_VERSION } from "../../lib/release";
+
+const releases = loadReleases();
+---
+
+<BaseLayout title="Releases · Testing Playground" description="Comments for each Testing Playground release.">
+  <div class="page-stack">
+    <section class="scenario-hero">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href={withBase("/")}>Home</a>
+        <span class="crumbs-sep" aria-hidden="true">/</span>
+        <span aria-current="page">Releases</span>
+      </nav>
+      <h1>Releases</h1>
+      <p class="lede">
+        Comments for each merge to main. Current header release is v{RELEASE_VERSION}.
+      </p>
+    </section>
+
+    <ul class="release-list">
+      {
+        releases.map((r) => (
+          <li>
+            <a href={withBase(`/releases/${r.version}`)}>
+              <span class="release-list-ver">
+                v{r.version}
+                {r.version === RELEASE_VERSION && <span class="pill">Current</span>}
+              </span>
+              <span>
+                <strong>{r.title}</strong>
+                <br />
+                <span class="meta">{r.date} · {r.notes.length} comments</span>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</BaseLayout>

@@ -1,7 +1,7 @@
 {
   "name": "testing-rosetta-stone",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Compare the same testing concepts across open-source frameworks",
   "workspaces": [
     "apps/web",
