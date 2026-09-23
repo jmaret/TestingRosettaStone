@@ -10,6 +10,7 @@ All listed tools are open source (or have a fully OSS core usable without paid p
 | **Integration** | Module + DB/HTTP boundaries, contract-ish checks | Paid API mocking SaaS |
 | **UX / E2E** | Browser flows, visual smoke, a11y checks | Proprietary browsers-as-a-service |
 | **Performance** | Load/smoke scripts, Lighthouse budgets, microbench | Enterprise APM licenses |
+| **Security** | Isolation headers, XSS-escape oracles | Paid DAST / bug-bounty platforms |
 
 ## Framework shortlist (v1)
 
@@ -61,7 +62,18 @@ All listed tools are open source (or have a fully OSS core usable without paid p
 | [Autocannon](https://github.com/mcollina/autocannon) | Simple HTTP bench |
 | [Locust](https://locust.io/) | Python load twin (phase 2) |
 
-**v1 commit:** k6 smoke + Lighthouse CI budget + Autocannon microbench.
+**v1 commit:** k6 + Artillery for `perf.http-smoke-load` and Autocannon + k6 for `perf.microbench-handler` (live). Lighthouse CI remains.
+
+### Security
+
+| Tool | Notes |
+|------|-------|
+| SuperTest / Playwright request / pytest + httpx | Assert response headers (same HTTP clients as integration) |
+| Playwright / Cypress | Browser XSS oracle (script-like input must not run) |
+| [OWASP ZAP](https://www.zaproxy.org/) | Full DAST baseline (later) |
+| [Nuclei](https://github.com/projectdiscovery/nuclei) | Template scanner (later) |
+
+**v1 commit:** `security.http-headers` and `security.xss-escape` (live). ZAP / Nuclei remain.
 
 ## Rosetta scenarios (proposed v1 set)
 
@@ -103,13 +115,20 @@ Each row is one scenario page with ≥2 framework variants.
 | `perf.lighthouse-budget` | LCP / TBT budgets in CI |
 | `perf.microbench-handler` | Autocannon against local API |
 
+### Security
+
+| ID | Concept |
+|----|---------|
+| `security.http-headers` | nosniff + DENY framing on API responses |
+| `security.xss-escape` | Script-like name is text, not executed |
+
 ## Sample systems under test (SUTs)
 
 Keep SUTs tiny and shared so variants stay comparable.
 
 1. **`samples/js-counter`** — pure functions (unit).
-2. **`samples/js-api`** — Express `/health` + `/items/:id` (HTTP integration).
-3. **`samples/js-ui`** — static counter + About + Sign up pages (Playwright + Cypress UX).
+2. **`samples/js-api`** — Express `/health` + `/items/:id` plus isolation headers (HTTP + load + security).
+3. **`samples/js-ui`** — static counter + About + Sign up pages (UX + XSS-escape).
 4. **`samples/python-calc`** — pure calc twin (pytest; Locust later).
 
 ## Mapping discipline (“Rosetta rules”)

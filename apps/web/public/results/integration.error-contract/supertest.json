@@ -6,7 +6,7 @@
   "command": "npm test",
   "exitCode": 0,
   "ok": true,
-  "durationMs": 1215,
-  "capturedAt": "2026-09-23T03:21:58.717Z",
-  "output": "\n> test\n> vitest run\n\n\n RUN  v3.2.7 /Users/johnymaret/Documents/CursorProjects/TestingRosettaStone/examples/integration/error-contract/supertest\n\n ✓ not-found.test.js (1 test) 18ms\n\n Test Files  1 passed (1)\n      Tests  1 passed (1)\n   Start at  20:21:59\n   Duration  475ms (transform 30ms, setup 0ms, collect 149ms, tests 18ms, environment 0ms, prepare 95ms)"
+  "durationMs": 1180,
+  "capturedAt": "2026-09-23T04:46:36.204Z",
+  "output": "\n> test\n> vitest run\n\n\n RUN  v3.2.7 /Users/johnymaret/Documents/CursorProjects/TestingRosettaStone/examples/integration/error-contract/supertest\n\n ✓ not-found.test.js (1 test) 19ms\n\n Test Files  1 passed (1)\n      Tests  1 passed (1)\n   Start at  21:46:36\n   Duration  456ms (transform 26ms, setup 0ms, collect 128ms, tests 19ms, environment 0ms, prepare 74ms)"
 }

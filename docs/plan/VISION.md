@@ -11,7 +11,7 @@ Teams choose testing tools by habit, language, or job posting requirements—not
 ## Goals
 
 1. **Compare, don’t just catalog** — Same scenario (e.g. “assert a pure function”, “mock an HTTP client”, “click a button and check URL”) rendered in multiple frameworks.
-2. **Cover the testing pyramid & beyond** — Unit, integration, UX/E2E (including accessibility), and performance.
+2. **Cover the testing pyramid & beyond** — Unit, integration, UX/E2E (including accessibility), performance, and security.
 3. **Open source only** — Every framework, library, runner, and hosting/AI path must be FOSS or free-to-use without paid lock-in.
 4. **Zero cost to run & host** — Public GitHub repo, free CI, free static/edge hosting, free-tier or fully local AI.
 5. **AI that answers from our corpus** — Questions about “how do I do X in Y?” answered from curated examples and docs, not generic internet inventiveness.
@@ -29,7 +29,7 @@ Teams choose testing tools by habit, language, or job posting requirements—not
 | Signal | Target |
 |--------|--------|
 | Scenario coverage | ≥ 12 Rosetta scenarios spanning unit → performance |
-| Frameworks | ≥ 3 tools per category (unit, integration, UX, performance) |
+| Frameworks | ≥ 3 tools per category (unit, integration, UX, performance); security reuses those HTTP and browser tools |
 | Cost | $0 infra for public deployment on free tiers |
 | AI | Answers cite example IDs / file paths from this repo |
 | Local DX | `npm install && npm test` (or language-equivalent) works for sample suites |

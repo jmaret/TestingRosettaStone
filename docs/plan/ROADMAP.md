@@ -29,21 +29,22 @@ Phased delivery. Prefer vertical slices (one scenario fully comparable) over bro
 3. Playwright + Cypress for `ux.navigate-and-assert` and `ux.form-validation` (live).
 4. axe-core paired with Playwright (`ux.a11y-axe-scan`).
 5. Pagefind search over scenario titles/tags.
+6. Security: `security.http-headers` and `security.xss-escape` (live).
 
-**Exit:** Unit → integration → UX path exists for one product story (counter or TODO). HTTP + browser slices are live; axe and component-user-event remain.
+**Exit:** Unit → integration → UX path exists for one product story (counter or TODO). HTTP + browser slices are live; axe and component-user-event remain. Security headers + XSS-escape are live.
 
 ## Phase 3 — Performance + AI FAQ
 
-1. k6 smoke + Lighthouse CI budget scenarios.
-2. Phase-A AI: static FAQ / keyword assistant (no API key).
+1. k6 + Artillery smoke load and Autocannon + k6 microbench (live); Lighthouse CI budget next.
+2. Phase-A AI: static FAQ / keyword assistant (no API key) (live).
 3. Precompute embeddings in CI; document Worker `/api/ask` opt-in.
 4. “Ask about this scenario” UI wired to FAQ, then RAG when secrets present.
 
-**Exit:** Perf examples green in CI; AI answers cite scenario ids without a paid plan.
+**Exit:** Perf examples green in CI; AI answers cite scenario ids without a paid plan. Smoke load + microbench and the FAQ matcher are live; Lighthouse and embeddings remain.
 
 ## Phase 4 — Breadth & polish
 
-1. Selenium twin for one UX scenario; Artillery twin for one perf scenario.
+1. Selenium twin for one UX scenario; Locust twin for one perf scenario.
 2. Testcontainers optional job; Storybook interaction tests.
 3. Browser-local WebLLM offline mode.
 4. Contribution guide + scenario template (“add a framework variant in 15 minutes”).

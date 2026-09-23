@@ -10,8 +10,14 @@ export function createApp() {
   const app = express();
   // Parse JSON bodies if a later POST example needs them
   app.use(express.json());
+  // Baseline browser-isolation headers — asserted by security.http-headers
+  app.use((_req, res, next) => {
+    res.setHeader("X-Content-Type-Options", "nosniff");
+    res.setHeader("X-Frame-Options", "DENY");
+    next();
+  });
 
-  // Liveness probe — used to confirm the process is up
+  // Liveness probe — integration + load/microbench examples hit this
   app.get("/health", (_req, res) => {
     res.json({ ok: true });
   });

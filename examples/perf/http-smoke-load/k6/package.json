@@ -1,0 +1,12 @@
+{
+  "name": "@trs/example-perf-smoke-k6",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "PORT=4180 node ../../../../samples/js-api/src/server.js",
+    "test": "start-server-and-test start http://127.0.0.1:4180/health \"k6 run smoke.js\""
+  },
+  "devDependencies": {
+    "start-server-and-test": "^2.0.10"
+  }
+}

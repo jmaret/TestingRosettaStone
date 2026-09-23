@@ -6,7 +6,7 @@
   "command": "npm test",
   "exitCode": 0,
   "ok": true,
-  "durationMs": 736,
-  "capturedAt": "2026-09-23T03:21:58.717Z",
-  "output": "\n> test\n> NODE_OPTIONS=--experimental-vm-modules jest\n\n\n(node:59103) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\nPASS ./price.test.js\n  priceWithTax\n    ✓ applies the rate from the tax service (3 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        0.165 s, estimated 1 s\nRan all test suites."
+  "durationMs": 755,
+  "capturedAt": "2026-09-23T04:46:36.204Z",
+  "output": "\n> test\n> NODE_OPTIONS=--experimental-vm-modules jest\n\n\n(node:8982) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\nPASS ./price.test.js\n  priceWithTax\n    ✓ applies the rate from the tax service (2 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        0.165 s, estimated 1 s\nRan all test suites."
 }

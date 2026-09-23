@@ -12,13 +12,14 @@ git fetch origin
 git checkout cursor/build-phase1-7617
 npm install
 npx playwright install chromium
+brew install k6
 python3 -m pip install pytest httpx
 npm test
 npm run capture:results   # refreshes Results panel fixtures
 npm run dev
 ```
 
-Then open http://localhost:4321 — scenario pages show code beside the last cached run output. UX examples need Playwright Chromium (command above); Cypress installs its own runner with `npm install`.
+Then open http://localhost:4321 — scenario pages show code beside the last cached run output. UX examples need Playwright Chromium (command above); Cypress installs its own runner with `npm install`. Performance examples need the k6 binary (`brew install k6`); Artillery and Autocannon come from npm.
 
 The public site deploys from `main` to GitHub Pages only after CI `npm test` and `capture:results` succeed: https://jmaret.github.io/TestingRosettaStone/
 

@@ -1,0 +1,42 @@
+{
+  "id": "security.http-headers",
+  "title": "Responses send isolation headers",
+  "category": "security",
+  "summary": "GET /health must include nosniff and DENY framing headers.",
+  "description": "The smallest useful security check on an API: after the handler runs, the response must carry X-Content-Type-Options: nosniff and X-Frame-Options: DENY. Compare SuperTest, Playwright request, and pytest + httpx on the same contract.",
+  "architecture": "This is not a JSON-body integration test. The SUT is the Express middleware that sets isolation headers on every response. Each variant issues GET /health and asserts those two header values. SuperTest stays in-process; Playwright and pytest talk to a real port.",
+  "sut": "js-api",
+  "tags": ["security", "headers", "nosniff", "clickjacking", "http"],
+  "variants": [
+    {
+      "framework": "supertest",
+      "label": "Supertest",
+      "language": "javascript",
+      "frameworkLicense": "MIT",
+      "sutFile": "samples/js-api/src/app.js",
+      "files": ["examples/security/http-headers/supertest/headers.test.js"],
+      "run": { "cwd": "examples/security/http-headers/supertest", "command": "npm test" }
+    },
+    {
+      "framework": "playwright",
+      "label": "Playwright",
+      "language": "javascript",
+      "frameworkLicense": "Apache-2.0",
+      "sutFile": "samples/js-api/src/app.js",
+      "files": ["examples/security/http-headers/playwright/headers.spec.js"],
+      "run": { "cwd": "examples/security/http-headers/playwright", "command": "npm test" },
+      "notes": "Uses Playwright's APIRequest context only — no browser is launched."
+    },
+    {
+      "framework": "pytest",
+      "label": "pytest + httpx",
+      "language": "python",
+      "frameworkLicense": "MIT",
+      "toolId": "httpx",
+      "sutFile": "samples/js-api/src/app.js",
+      "files": ["examples/security/http-headers/pytest/test_headers.py"],
+      "run": { "cwd": "examples/security/http-headers/pytest", "command": "pytest" },
+      "notes": "Spawns samples/js-api/scripts/serve-ephemeral.mjs so httpx talks to the same Express app."
+    }
+  ]
+}

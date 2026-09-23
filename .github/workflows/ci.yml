@@ -33,11 +33,13 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
         working-directory: examples/ux/navigate-and-assert/playwright
+      - name: Install k6
+        uses: grafana/setup-k6-action@v1
       - name: Install pytest and httpx
         run: python3 -m pip install pytest httpx
       - name: Validate scenarios
         run: npm run validate:scenarios
-      - name: Run unit, integration, and UX tests
+      - name: Run unit, integration, UX, performance, and security tests
         run: npm test
       - name: Capture scenario results (runs each variant)
         run: npm run capture:results

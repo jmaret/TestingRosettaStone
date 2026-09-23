@@ -1,0 +1,13 @@
+{
+  "name": "@trs/example-perf-bench-autocannon",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "PORT=4181 node ../../../../samples/js-api/src/server.js",
+    "test": "start-server-and-test start http://127.0.0.1:4181/health \"node bench.mjs\""
+  },
+  "devDependencies": {
+    "autocannon": "^8.0.0",
+    "start-server-and-test": "^2.0.10"
+  }
+}

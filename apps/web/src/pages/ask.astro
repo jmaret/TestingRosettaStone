@@ -38,6 +38,8 @@ const initial = initialQ ? answerQuestion(initialQ, scenarios) : null;
     <button class="chip" type="button" data-q="How does Vitest parametrize compare to pytest?">Parametrize</button>
     <button class="chip" type="button" data-q="How do I mock a dependency in Jest?">Mock dependency</button>
     <button class="chip" type="button" data-q="How do UX or browser tests work here?">UX / browser</button>
+    <button class="chip" type="button" data-q="How do performance or load tests work here?">Load / perf</button>
+    <button class="chip" type="button" data-q="How do security tests work here?">Security</button>
   </div>
 
   <form class="ask-box" id="ask-form">
@@ -73,12 +75,12 @@ const initial = initialQ ? answerQuestion(initialQ, scenarios) : null;
   const FAQ = [
     {
       q: "What is Testing Playground?",
-      a: "A free, open-source site that shows the same testing idea side by side across frameworks (unit, integration, UX, performance), with runnable samples and corpus-grounded answers.",
+      a: "A free, open-source site that shows the same testing idea side by side across frameworks (unit, integration, UX, performance, security), with runnable samples and corpus-grounded answers.",
       tags: ["about", "what", "project", "rosetta", "playground"],
     },
     {
       q: "Which frameworks are included so far?",
-      a: "Unit scenarios use Vitest, Jest, node:test, and pytest (assert equality, parametrize, mock a dependency). Integration scenarios use Supertest, Playwright request, and pytest + httpx (HTTP GET and 404 error contract). UX scenarios use Playwright and Cypress against samples/js-ui (click About; empty form shows “Name is required”). Each scenario page explains the tool and test architecture before showing code. Performance frameworks (k6, Lighthouse) are planned next.",
+      a: "Unit scenarios use Vitest, Jest, node:test, and pytest (assert equality, parametrize, mock a dependency). Integration scenarios use Supertest, Playwright request, and pytest + httpx (HTTP GET and 404 error contract). UX scenarios use Playwright and Cypress against samples/js-ui (click About; empty form shows “Name is required”). Performance scenarios use k6, Artillery, and Autocannon against samples/js-api (HTTP smoke load and a /health microbench). Security scenarios reuse those HTTP and browser tools: isolation headers on /health, and a signup XSS oracle (script-like name must not run). Each scenario page explains the tool and test architecture before showing code. Lighthouse budgets are planned next.",
       tags: ["framework", "vitest", "jest", "pytest", "list"],
     },
     {
@@ -87,8 +89,18 @@ const initial = initialQ ? answerQuestion(initialQ, scenarios) : null;
       tags: ["ux", "e2e", "playwright", "cypress", "browser", "ui", "form"],
     },
     {
+      q: "How do performance or load tests work here?",
+      a: "Performance scenarios start samples/js-api and generate a short burst of HTTP. k6 and Artillery smoke-load GET /items/1 (perf.http-smoke-load); Autocannon and k6 microbench GET /health (perf.microbench-handler). The pass/fail contract is error rate plus high-percentile latency, not a single JSON body. The docs site shows CI-cached logs.",
+      tags: ["performance", "perf", "load", "k6", "artillery", "autocannon", "p95", "latency"],
+    },
+    {
+      q: "How do security tests work here?",
+      a: "Security scenarios reuse the HTTP and browser tools. SuperTest, Playwright request, and pytest + httpx assert X-Content-Type-Options: nosniff and X-Frame-Options: DENY on GET /health (security.http-headers). Playwright and Cypress submit a script-like name on Sign up and assert it is shown as text and window.__xss stays unset (security.xss-escape).",
+      tags: ["security", "xss", "headers", "nosniff", "clickjacking", "owasp"],
+    },
+    {
       q: "How do I run the examples locally?",
-      a: "Clone the repo, run `npm install`, `npx playwright install chromium`, then `npm test`. Start the site with `npm run dev` and open http://localhost:4321. Python scenarios need `pip install pytest httpx`.",
+      a: "Clone the repo, run `npm install`, `npx playwright install chromium`, `brew install k6`, then `npm test`. Start the site with `npm run dev` and open http://localhost:4321. Python scenarios need `pip install pytest httpx`.",
       tags: ["run", "local", "install", "clone", "npm"],
     },
     {

@@ -1,0 +1,33 @@
+{
+  "id": "perf.microbench-handler",
+  "title": "Microbench a health handler",
+  "category": "performance",
+  "summary": "Burst GET /health and fail if errors or high-percentile latency climb.",
+  "description": "A handler microbench, not a multi-minute soak: open several connections to GET /health and treat p99 plus non-2xx as the pass/fail contract. Autocannon and k6 express the same burst.",
+  "architecture": "The SUT is still samples/js-api, but the question is “how does this one handler behave under a short burst?” rather than a VU smoke over /items/1. Connections stay open and fire as fast as the client allows. Thresholds are generous so CI machines do not flake; the teaching point is the threshold, not a trophy RPS number.",
+  "sut": "js-api",
+  "tags": ["performance", "microbench", "latency", "http"],
+  "variants": [
+    {
+      "framework": "autocannon",
+      "label": "Autocannon",
+      "language": "javascript",
+      "frameworkLicense": "MIT",
+      "toolId": "autocannon",
+      "sutFile": "samples/js-api/src/app.js",
+      "files": ["examples/perf/microbench-handler/autocannon/bench.mjs"],
+      "run": { "cwd": "examples/perf/microbench-handler/autocannon", "command": "npm test" }
+    },
+    {
+      "framework": "k6",
+      "label": "k6",
+      "language": "javascript",
+      "frameworkLicense": "AGPL-3.0",
+      "toolId": "k6",
+      "sutFile": "samples/js-api/src/app.js",
+      "files": ["examples/perf/microbench-handler/k6/bench.js"],
+      "run": { "cwd": "examples/perf/microbench-handler/k6", "command": "npm test" },
+      "notes": "Needs the k6 binary on PATH (brew install k6; CI uses grafana/setup-k6-action)."
+    }
+  ]
+}

@@ -6,7 +6,7 @@
   "command": "npm test",
   "exitCode": 0,
   "ok": true,
-  "durationMs": 329,
-  "capturedAt": "2026-09-23T03:21:58.717Z",
-  "output": "\n> test\n> node --test\n\n▶ add\n  ✔ returns the sum of two numbers (0.559333ms)\n✔ add (1.386625ms)\nℹ tests 1\nℹ suites 1\nℹ pass 1\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 74.533375"
+  "durationMs": 339,
+  "capturedAt": "2026-09-23T04:46:36.204Z",
+  "output": "\n> test\n> node --test\n\n▶ add\n  ✔ returns the sum of two numbers (0.46625ms)\n✔ add (1.137792ms)\nℹ tests 1\nℹ suites 1\nℹ pass 1\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 75.34775"
 }

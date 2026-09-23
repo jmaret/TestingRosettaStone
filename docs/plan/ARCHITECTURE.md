@@ -63,7 +63,8 @@ A blank-slate, zero-cost product should avoid always-on servers. Prefer:
 │   ├── unit/
 │   ├── integration/
 │   ├── ux/
-│   └── performance/
+│   ├── perf/                # Load / microbench (live folder name)
+│   └── security/
 ├── docs/
 │   └── plan/                # This planning set
 ├── scripts/
@@ -81,7 +82,7 @@ A blank-slate, zero-cost product should avoid always-on servers. Prefer:
 A scenario is one testing *idea* expressed in N frameworks.
 
 ```ts
-type TestCategory = "unit" | "integration" | "ux" | "performance" | "a11y";
+type TestCategory = "unit" | "integration" | "ux" | "performance" | "security" | "a11y";
 
 type Scenario = {
   id: string;                 // e.g. "unit.assert-equality"
@@ -160,7 +161,7 @@ Index only first-party content:
 ## CI / quality gates
 
 1. **Schema validation** — every scenario has ≥2 variants and a run command.
-2. **Sample tests** — unit + HTTP integration + Playwright/Cypress UX (`npm test`); CI installs Chromium after `npm install`.
+2. **Sample tests** — unit + HTTP + UX + k6/Artillery/Autocannon + security headers/XSS (`npm test`); CI installs Chromium and the k6 binary after `npm install`.
 3. **License check** — `licensee` / `osv-scanner` / simple allowlist of OSS licenses.
 4. **Link check** — MDX internal links.
 5. **Deploy** — same CI workflow (Node 24 actions): `npm test` then `capture:results` then build; the Pages deploy job runs only if that job succeeds on `main`. Repo Pages source must be **GitHub Actions**.
