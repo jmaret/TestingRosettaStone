@@ -1,0 +1,33 @@
+{
+  "id": "perf.http-smoke-load",
+  "title": "Smoke-load an HTTP GET",
+  "category": "performance",
+  "summary": "A few virtual users hit GET /items/1; fail if errors or p95 climb.",
+  "description": "The smallest useful load test: start samples/js-api, apply a short smoke of concurrent GETs, and fail the run if the error rate or p95 latency crosses a threshold. Compare k6 and Artillery on the same contract.",
+  "architecture": "This is not a unit or integration assertion on one response. A load generator opens several virtual users against a real port, records latency and status codes, then evaluates thresholds. Duration stays short (~8s) so CI stays cheap — the idea is “does the handler survive a puff of traffic?”, not a soak.",
+  "sut": "js-api",
+  "tags": ["performance", "load", "smoke", "http", "p95"],
+  "variants": [
+    {
+      "framework": "k6",
+      "label": "k6",
+      "language": "javascript",
+      "frameworkLicense": "AGPL-3.0",
+      "toolId": "k6",
+      "sutFile": "samples/js-api/src/app.js",
+      "files": ["examples/perf/http-smoke-load/k6/smoke.js"],
+      "run": { "cwd": "examples/perf/http-smoke-load/k6", "command": "npm test" },
+      "notes": "Needs the k6 binary on PATH (brew install k6; CI uses grafana/setup-k6-action)."
+    },
+    {
+      "framework": "artillery",
+      "label": "Artillery",
+      "language": "javascript",
+      "frameworkLicense": "MPL-2.0",
+      "toolId": "artillery",
+      "sutFile": "samples/js-api/src/app.js",
+      "files": ["examples/perf/http-smoke-load/artillery/smoke.yml"],
+      "run": { "cwd": "examples/perf/http-smoke-load/artillery", "command": "npm test" }
+    }
+  ]
+}

@@ -6,7 +6,7 @@
   "command": "npm test",
   "exitCode": 0,
   "ok": true,
-  "durationMs": 893,
-  "capturedAt": "2026-09-23T03:21:58.717Z",
-  "output": "\n> test\n> vitest run\n\n\n RUN  v3.2.7 /Users/johnymaret/Documents/CursorProjects/TestingRosettaStone/examples/unit/parametrize/vitest\n\n ✓ clamp.test.js (3 tests) 2ms\n\n Test Files  1 passed (1)\n      Tests  3 passed (3)\n   Start at  20:22:10\n   Duration  277ms (transform 18ms, setup 0ms, collect 15ms, tests 2ms, environment 0ms, prepare 55ms)"
+  "durationMs": 981,
+  "capturedAt": "2026-09-23T04:46:36.204Z",
+  "output": "\n> test\n> vitest run\n\n\n RUN  v3.2.7 /Users/johnymaret/Documents/CursorProjects/TestingRosettaStone/examples/unit/parametrize/vitest\n\n ✓ clamp.test.js (3 tests) 3ms\n\n Test Files  1 passed (1)\n      Tests  3 passed (3)\n   Start at  21:47:45\n   Duration  341ms (transform 31ms, setup 0ms, collect 23ms, tests 3ms, environment 0ms, prepare 97ms)"
 }

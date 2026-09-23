@@ -1,0 +1,12 @@
+{
+  "scenarioId": "security.http-headers",
+  "framework": "pytest",
+  "label": "pytest + httpx",
+  "cwd": "examples/security/http-headers/pytest",
+  "command": "pytest",
+  "exitCode": 0,
+  "ok": true,
+  "durationMs": 780,
+  "capturedAt": "2026-09-23T04:46:36.204Z",
+  "output": ".                                                                        [100%]\n1 passed in 0.31s"
+}

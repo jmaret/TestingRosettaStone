@@ -1,0 +1,14 @@
+# Artillery smoke — same GET /items/1 + p95 / error-rate contract as k6
+# Thresholds are enforced by run.mjs after this YAML finishes.
+config:
+  target: "http://127.0.0.1:4180"
+  phases:
+    - duration: 8
+      arrivalRate: 5
+      name: smoke
+scenarios:
+  - name: get known item
+    flow:
+      - get:
+          url: "/items/1"
+      - think: 0.2

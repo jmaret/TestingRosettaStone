@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-export type TestCategory = "unit" | "integration" | "ux" | "performance" | "a11y";
+export type TestCategory = "unit" | "integration" | "ux" | "performance" | "security" | "a11y";
 
 export type ScenarioVariant = {
   framework: string;

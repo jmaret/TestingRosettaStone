@@ -8,6 +8,7 @@ export type TestCategory =
   | "integration"
   | "ux"
   | "performance"
+  | "security"
   | "a11y";
 
 export type ScenarioVariant = {

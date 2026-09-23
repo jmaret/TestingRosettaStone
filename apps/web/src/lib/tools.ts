@@ -98,6 +98,36 @@ export const TOOLS: Record<string, ToolGuide> = {
     architecture:
       "start-server-and-test boots js-ui, then cypress run visits the page, clicks, and asserts. Commands retry until the assertion passes or times out — that retry is Cypress’s default stability model.",
   },
+  k6: {
+    id: "k6",
+    name: "k6",
+    homepage: "https://k6.io/",
+    role: "Load / performance test runner (Grafana k6 OSS)",
+    overview:
+      "k6 is a Go binary that runs JS scripts: virtual users, http.get, check(), and thresholds that fail the process. The OSS CLI is enough here — no Grafana Cloud. Install via Homebrew or the CI setup-k6 action.",
+    architecture:
+      "start-server-and-test boots samples/js-api. k6 run then spins VUs that issue real HTTP. Thresholds (error rate, p95/p99) are the assertions — if they breach, the exit code is non-zero, same as a failed unit test.",
+  },
+  artillery: {
+    id: "artillery",
+    name: "Artillery",
+    homepage: "https://www.artillery.io/",
+    role: "Node-friendly load test runner",
+    overview:
+      "Artillery describes load as YAML: a target, phases (arrival rate × duration), and a flow of HTTP steps. The open-source runner prints latency histograms and can fail the process via ensure thresholds.",
+    architecture:
+      "start-server-and-test starts js-api. artillery run executes the YAML phase and writes a JSON report. A tiny run.mjs then fails the process if there are no 200s, any failed VUs, or p95 > 500ms — the twin of k6 thresholds.",
+  },
+  autocannon: {
+    id: "autocannon",
+    name: "Autocannon",
+    homepage: "https://github.com/mcollina/autocannon",
+    role: "HTTP microbenchmark (Node)",
+    overview:
+      "Autocannon is a small Node load generator in the wrk tradition: N connections, D seconds, print a latency table. We wrap it in a short script so p99 and non-2xx become a failing exit code, not just a pretty report.",
+    architecture:
+      "The script calls autocannon() against GET /health, prints the default summary, then checks 2xx > 0, errors === 0, and p99 < 500ms. That last check is the test — raw RPS is informational and will vary on CI.",
+  },
 };
 
 const CATEGORY_ARCHITECTURE: Record<string, string> = {
@@ -107,6 +137,10 @@ const CATEGORY_ARCHITECTURE: Record<string, string> = {
     "Integration tests cross a real boundary — here, HTTP. The Express app in samples/js-api is the SUT. Variants either inject requests in-process (SuperTest) or speak TCP to an ephemeral port (Playwright request, pytest + httpx). Assertions target status codes and JSON contracts, not private helpers.",
   ux:
     "UX / E2E tests drive a real browser against samples/js-ui. The test is a user path: click a link or submit a form, then assert what appears on screen or in the URL. Failures point at markup, CSS, or client JS — not at a unit-tested helper alone.",
+  performance:
+    "Performance and load tests ask how the SUT behaves under concurrent HTTP, not whether one response matches a JSON fixture. samples/js-api is started on a real port; k6, Artillery, or Autocannon generate traffic; thresholds on errors and high-percentile latency fail the run. Duration stays short so CI stays cheap.",
+  security:
+    "Security tests ask what an attacker can make the SUT do — not whether the happy-path JSON or heading is correct. Here that means isolation headers on js-api responses, and proving that a script-like signup name is assigned with textContent so it cannot run. Failures point at missing headers or unsafe DOM writes.",
 };
 
 export function getToolGuide(toolId: string): ToolGuide | null {

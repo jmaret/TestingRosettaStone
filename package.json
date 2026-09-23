@@ -22,7 +22,15 @@
     "examples/ux/navigate-and-assert/playwright",
     "examples/ux/navigate-and-assert/cypress",
     "examples/ux/form-validation/playwright",
-    "examples/ux/form-validation/cypress"
+    "examples/ux/form-validation/cypress",
+    "examples/perf/http-smoke-load/k6",
+    "examples/perf/http-smoke-load/artillery",
+    "examples/perf/microbench-handler/autocannon",
+    "examples/perf/microbench-handler/k6",
+    "examples/security/http-headers/supertest",
+    "examples/security/http-headers/playwright",
+    "examples/security/xss-escape/playwright",
+    "examples/security/xss-escape/cypress"
   ],
   "scripts": {
     "dev": "npm run dev -w @trs/web",
@@ -33,7 +41,11 @@
     "test:integration:js": "npm run test -w @trs/example-http-get-supertest && npm run test -w @trs/example-http-get-playwright && npm run test -w @trs/example-error-contract-supertest && npm run test -w @trs/example-error-contract-playwright",
     "test:integration:py": "python3 -m pytest examples/integration/http-get/pytest examples/integration/error-contract/pytest -q",
     "test:ux": "npm run test -w @trs/example-ux-navigate-playwright && npm run test -w @trs/example-ux-navigate-cypress && npm run test -w @trs/example-ux-form-playwright && npm run test -w @trs/example-ux-form-cypress",
-    "test": "npm run test:unit:js && npm run test:unit:py && npm run test:integration:js && npm run test:integration:py && npm run test:ux",
+    "test:perf": "npm run test -w @trs/example-perf-smoke-k6 && npm run test -w @trs/example-perf-smoke-artillery && npm run test -w @trs/example-perf-bench-autocannon && npm run test -w @trs/example-perf-bench-k6",
+    "test:security:js": "npm run test -w @trs/example-sec-headers-supertest && npm run test -w @trs/example-sec-headers-playwright && npm run test -w @trs/example-sec-xss-playwright && npm run test -w @trs/example-sec-xss-cypress",
+    "test:security:py": "python3 -m pytest examples/security/http-headers/pytest -q",
+    "test:security": "npm run test:security:js && npm run test:security:py",
+    "test": "npm run test:unit:js && npm run test:unit:py && npm run test:integration:js && npm run test:integration:py && npm run test:ux && npm run test:perf && npm run test:security",
     "capture:results": "node scripts/capture-results.mjs",
     "validate:scenarios": "node scripts/validate-scenarios.mjs"
   },

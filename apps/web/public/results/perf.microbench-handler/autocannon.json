@@ -1,0 +1,12 @@
+{
+  "scenarioId": "perf.microbench-handler",
+  "framework": "autocannon",
+  "label": "Autocannon",
+  "cwd": "examples/perf/microbench-handler/autocannon",
+  "command": "npm test",
+  "exitCode": 0,
+  "ok": true,
+  "durationMs": 7853,
+  "capturedAt": "2026-09-23T04:46:36.204Z",
+  "output": "\n> test\n> start-server-and-test start http://127.0.0.1:4181/health \"node bench.mjs\"\n\n1: starting server using command \"npm run start\"\nand when url \"[ 'http://127.0.0.1:4181/health' ]\" is responding with HTTP status code 200\nrunning tests using command \"node bench.mjs\"\n\n\n> start\n> PORT=4181 node ../../../../samples/js-api/src/server.js\n\nhttp://127.0.0.1:4181\nok: 2xx=139580 p99=0ms"
+}

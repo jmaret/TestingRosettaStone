@@ -12,11 +12,16 @@ const form = document.getElementById("signup-form");
 const nameInput = document.getElementById("name");
 const nameError = document.getElementById("name-error");
 const success = document.getElementById("success");
-if (form && nameInput && nameError && success) {
+const thanksName = document.getElementById("thanks-name");
+if (form && nameInput && nameError && success && thanksName) {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const empty = nameInput.value.trim() === "";
     nameError.hidden = !empty;
     success.hidden = empty;
+    if (!empty) {
+      // textContent, never innerHTML — markup in the name must not run
+      thanksName.textContent = nameInput.value.trim();
+    }
   });
 }

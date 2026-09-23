@@ -1,0 +1,32 @@
+{
+  "id": "security.xss-escape",
+  "title": "Markup in a name does not run",
+  "category": "security",
+  "summary": "Submit a script-like name and assert it is shown as text, not executed.",
+  "description": "A XSS check on the signup form: type a name that looks like HTML, submit, and expect the string to appear as text. Playwright and Cypress both assert that window.__xss stays unset and that #success contains no extra img.",
+  "architecture": "The SUT writes the name with textContent (not innerHTML). The test is a user path plus a security oracle: if the page had assigned innerHTML, the onerror handler would set window.__xss. Failures point at unsafe DOM writes, not at a missing required-field message.",
+  "sut": "js-ui",
+  "tags": ["security", "xss", "escape", "dom", "browser"],
+  "variants": [
+    {
+      "framework": "playwright",
+      "label": "Playwright",
+      "language": "javascript",
+      "frameworkLicense": "Apache-2.0",
+      "toolId": "playwright-browser",
+      "sutFile": "samples/js-ui/public/app.js",
+      "files": ["examples/security/xss-escape/playwright/xss.spec.js"],
+      "run": { "cwd": "examples/security/xss-escape/playwright", "command": "npm test" }
+    },
+    {
+      "framework": "cypress",
+      "label": "Cypress",
+      "language": "javascript",
+      "frameworkLicense": "MIT",
+      "toolId": "cypress",
+      "sutFile": "samples/js-ui/public/app.js",
+      "files": ["examples/security/xss-escape/cypress/xss.cy.js"],
+      "run": { "cwd": "examples/security/xss-escape/cypress", "command": "npm test" }
+    }
+  ]
+}
