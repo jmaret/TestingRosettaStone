@@ -9,6 +9,16 @@ export type Release = {
 /** Newest first. Header shows RELEASES[0]; bump + prepend on every merge to main. */
 export const RELEASES: Release[] = [
   {
+    version: "0.3.1",
+    date: "2026-09-27",
+    title: "Workspace look from JobFit",
+    notes: [
+      "The site now follows the JobFit assistant visual system: teal accent, serif headings, and a cool office wash.",
+      "The header is a product bar — name on the left, links on the right — and pages sit in quiet workspace cards.",
+      "Buttons and framework tabs use the same compact controls as the JobFit app.",
+    ],
+  },
+  {
     version: "0.3.0",
     date: "2026-09-23",
     title: "Code and deployment quality",
