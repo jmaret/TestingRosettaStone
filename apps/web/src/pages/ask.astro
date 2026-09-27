@@ -44,6 +44,8 @@ const initial = initialQ ? answerQuestion(initialQ, scenarios) : null;
     <button class="chip" type="button" data-q="How do UX or browser tests work here?">UX / browser</button>
     <button class="chip" type="button" data-q="How do performance or load tests work here?">Load / perf</button>
     <button class="chip" type="button" data-q="How do security tests work here?">Security</button>
+    <button class="chip" type="button" data-q="What is the product vision?">Vision</button>
+    <button class="chip" type="button" data-q="How is the site architected?">Architecture</button>
     <button class="chip" type="button" data-q="How does CI and deployment work?">CI / deploy</button>
   </div>
 
@@ -112,6 +114,16 @@ const initial = initialQ ? answerQuestion(initialQ, scenarios) : null;
       q: "How does BDD work here?",
       a: "unit.bdd-given-when-then is a separate scenario from TDD. A Gherkin feature describes meeting-room reservations; Cucumber.js and pytest-bdd bind those sentences to reserveRoom. BDD is effective when product and QA will read the feature file and steps stay in domain language — skip it when Gherkin just clones unit tests or encodes CSS.",
       tags: ["bdd", "gherkin", "cucumber", "given", "when", "then", "reservation", "room"],
+    },
+    {
+      q: "What is the product vision?",
+      a: "Testing Playground is an educational Rosetta site: the same testing idea side by side across open-source frameworks, with runnable samples and corpus-grounded answers. It is not a hosted test runner and not official framework docs. The Vision page (/vision) summarizes who it is for, what is in scope, and what is not. Full requirement IDs live in docs/plan/VISION.md.",
+      tags: ["vision", "goals", "non-goals", "requirements", "product", "contract"],
+    },
+    {
+      q: "How is the site architected?",
+      a: "A static Astro site over a first-party corpus (scenario.json, examples, CI-cached results). Ask AI is a FAQ matcher — no live runner and no request-time backend. GitHub Actions validates, tests, captures logs, and builds; GitHub Pages deploys only after a green main job. The Architecture page (/architecture) shows logical and physical diagrams. The living map is docs/plan/ARCHITECTURE.md.",
+      tags: ["architecture", "design", "astro", "static", "pages", "diagram", "mermaid"],
     },
     {
       q: "How does CI and deployment work?",

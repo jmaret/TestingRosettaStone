@@ -1,0 +1,110 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { withBase } from "../lib/base";
+import { summarizeVision } from "../lib/vision";
+
+const vision = summarizeVision();
+---
+
+<BaseLayout
+  title="Vision and requirements · Testing Playground"
+  description="Who Testing Playground is for, what it must do, and what it must not claim."
+>
+  <article class="page-stack vision-page">
+    <section class="scenario-hero">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href={withBase("/")}>Home</a>
+        <span class="crumbs-sep" aria-hidden="true">/</span>
+        <span aria-current="page">Vision</span>
+      </nav>
+      <p class="eyebrow">Product contract</p>
+      <h1>Vision and requirements</h1>
+      {
+        vision.updated ? (
+          <p class="lede">Summary of the living spec. Last updated {vision.updated}.</p>
+        ) : (
+          <p class="lede">Summary of the living spec for this Rosetta site.</p>
+        )
+      }
+      <p>
+        <a class="github-doc-link" href={vision.githubUrl} target="_blank" rel="noopener noreferrer">
+          Read the full document on GitHub
+        </a>
+      </p>
+    </section>
+
+    {
+      vision.vision.length > 0 && (
+        <section class="vision-section">
+          <h2>Vision</h2>
+          {vision.vision.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+        </section>
+      )
+    }
+
+    {
+      vision.users.length > 0 && (
+        <section class="vision-section">
+          <h2>Who it is for</h2>
+          <ul class="stat-list">
+            {vision.users.map(([role, need]) => (
+              <li>
+                <strong>{role}:</strong> {need}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      vision.goals.length > 0 && (
+        <section class="vision-section">
+          <h2>In scope</h2>
+          <ol>
+            {vision.goals.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ol>
+        </section>
+      )
+    }
+
+    {
+      vision.nonGoals.length > 0 && (
+        <section class="vision-section">
+          <h2>Out of scope</h2>
+          <ul>
+            {vision.nonGoals.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <section class="vision-section">
+      <h2>Shipped requirements</h2>
+      <p>
+        {vision.requirementCounts.functional} functional, {vision.requirementCounts.nonFunctional}{" "}
+        non-functional, and {vision.requirementCounts.ux} UX requirements are marked Shipped. IDs
+        and status live in the GitHub document.
+      </p>
+    </section>
+
+    {
+      vision.constraints.length > 0 && (
+        <section class="vision-section">
+          <h2>Constraints</h2>
+          <ul>
+            {vision.constraints.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </article>
+</BaseLayout>

@@ -1,186 +1,219 @@
-# Architecture
+# Architecture and design
 
-## High-level shape
+**Last updated:** 2026-09-27  
+**Status:** Living document — rewrite current-state sections when structure, APIs, UI, or deploy change; prepend a changelog entry the same day.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  Web app (static + light edge)                              │
-│  Browse scenarios · Compare frameworks · Ask AI             │
-└───────────────┬─────────────────────────────┬───────────────┘
-                │                             │
-                ▼                             ▼
-┌───────────────────────────┐   ┌─────────────────────────────┐
-│  Content corpus (MDX/JSON)│   │  AI Q&A (RAG)               │
-│  scenarios, snippets,     │──▶│  embeddings + free LLM      │
-│  metadata, licenses       │   │  or browser-local model     │
-└───────────────┬───────────┘   └─────────────────────────────┘
-                │
-                ▼
-┌───────────────────────────────────────────────────────────┐
-│  Sample monorepo packages                                 │
-│  apps/demo-web · apps/demo-api · tests/* by category      │
-└───────────────────────────────────────────────────────────┘
-```
+Product intent lives in [VISION.md](VISION.md). This file is how the system is built.
 
-## Recommended stack (all free / open source)
+## How to update
 
-| Layer | Choice | Why |
-|-------|--------|-----|
-| App framework | **Astro** + React islands *or* **Next.js** (App Router) static export | Content-first site; excellent MDX; free deploy |
-| Styling | **Vanilla CSS** + CSS variables (or UnoCSS) | No design-system tax; stays brandable |
-| Content | **MDX** + typed JSON frontmatter | Scenarios as data; AI can ingest cleanly |
-| Sample apps | Small **Node/TS** API + **Vite React** UI | Matches most JS testing demos; easy CI |
-| Multi-language samples | Isolated folders (`samples/python`, `samples/java`, …) | Avoid forcing one language for all frameworks |
-| CI | **GitHub Actions** | Free for public repos |
-| Hosting | **GitHub Pages** (CI deploy on `main` after tests) | $0 static; artifact from `apps/web/dist` |
-| Search | **Pagefind** (static) | Offline-friendly, no backend |
-| AI (preferred path) | **RAG over corpus** + free LLM API | Grounded answers |
-| AI (fallback / offline) | **Transformers.js** or **WebLLM** in-browser | Truly $0, no key |
+When code, pages, static assets, CI, or public URLs change, update the matching sections here **in the same change**. Do not leave “as designed” text that contradicts the repo. Scenario field changes also update [CONTENT_SCHEMA.md](CONTENT_SCHEMA.md) and `apps/web/src/lib/scenarios.ts`.
 
-### Why not a heavy backend?
+## System overview
 
-A blank-slate, zero-cost product should avoid always-on servers. Prefer:
-
-1. Prebuilt static site from MDX.
-2. Optional **edge function** only for AI chat (Cloudflare Workers free tier / Vercel serverless free tier).
-3. Samples that run **locally** and in CI—not inside the hosted UI.
-4. **Cached results panel** — CI (or `npm run capture:results`) writes stdout/stderr JSON under `apps/web/public/results/`; the static site shows that log beside each scenario writeup. No live runner API.
-
-## Repository layout (proposed)
+One static site, built from the repo, with no request-time backend:
 
 ```
-/
-├── apps/
-│   └── web/                 # Astro/Next site
-├── packages/
-│   └── content/             # Shared scenario schema + MDX
-├── samples/
-│   ├── js-counter/          # Tiny shared SUT
-│   ├── js-api/              # Tiny HTTP API SUT
-│   ├── js-ui/               # Static HTML/CSS/JS SUT for UX / E2E
-│   └── python-calc/         # Non-JS SUT for pytest etc.
-├── examples/                # Canonical side-by-side snippets (source of truth for Rosetta)
-│   ├── unit/
-│   ├── integration/
-│   ├── ux/
-│   ├── perf/                # Load / microbench (live folder name)
-│   └── security/
-├── docs/
-│   └── plan/                # This planning set
-├── scripts/
-│   ├── embed-corpus.mjs     # Build embeddings for RAG
-│   └── validate-examples.mjs
-└── .github/workflows/
-    ├── ci.yml               # lint + sample tests
-    └── deploy.yml
+Browser
+        │  GET pages
+        ▼
+Astro  apps/web          ← HTML, CSS, FAQ matcher
+        │
+        ├── examples/**/scenario.json + source
+        ├── samples/*                 SUTs for CI and local runs
+        └── public/results/           CI-cached stdout / stderr
 ```
+
+Visitors read comparisons. They do not execute tests in the hosted UI. Samples run in GitHub Actions and on a local clone.
+
+## Logical architecture
+
+What the production app does. No hosts or vendors here — only responsibilities. There is no user store: a page is HTML plus files baked in at build time.
+
+```mermaid
+%%{init: {"flowchart": {"htmlLabels": true, "padding": 20, "wrappingWidth": 260, "nodeSpacing": 48, "rankSpacing": 56}}}%%
+flowchart LR
+  person["Person"]
+
+  subgraph pages["Pages"]
+    home["Home"]
+    scenarios["Scenarios"]
+    ask["Ask AI"]
+    vision["Vision"]
+    arch["Architecture"]
+  end
+
+  subgraph site["Site"]
+    astro["Astro"]
+    faq["FAQ"]
+  end
+
+  subgraph corpus["Corpus"]
+    json["scenario.json"]
+    examples["examples"]
+    results["Results"]
+  end
+
+  person --> home --> astro
+  person --> scenarios --> astro
+  person --> ask --> astro --> faq
+  person --> vision --> astro
+  person --> arch --> astro
+  astro --> json
+  astro --> examples
+  astro --> results
+```
+
+| Layer | Runtime job |
+|-------|-------------|
+| Pages | Home, scenario list and detail, Ask AI, Quality, Vision, Architecture, Run locally, release notes |
+| Site | Build HTML from the corpus; match Ask questions to the FAQ |
+| Corpus | Scenario metadata, example source, and CI-cached result logs |
+
+## Physical architecture
+
+How that system is hosted in production. Compute is build-scoped. There is no application database.
+
+```mermaid
+%%{init: {"flowchart": {"htmlLabels": true, "padding": 20, "wrappingWidth": 280, "nodeSpacing": 56, "rankSpacing": 72}}}%%
+flowchart LR
+  browser["Browser"]
+
+  subgraph pageshost["GitHub Pages"]
+    html["Static HTML"]
+    files["Static files"]
+  end
+
+  cdns["Public CDNs"]
+  github["GitHub main"]
+  actions["GitHub Actions"]
+
+  browser -->|HTML| html
+  browser -->|"CSS · images · results"| files
+  browser -->|"Fonts · Mermaid"| cdns
+  github --> actions
+  actions -->|deploy| pageshost
+```
+
+| Piece | Production fact |
+|-------|-----------------|
+| HTML | Astro static files in `apps/web/dist` on GitHub Pages |
+| Static files | CSS, images, logo, and cached `public/results/` JSON from the same Pages artifact |
+| Public CDNs | Google Fonts on every page; Mermaid only on Architecture |
+| Corpus | Read at build time from `examples/`, `docs/plan/`, and `apps/web/src/lib/ask.ts` |
+| Identity / data store | None |
+| CI / release | GitHub Actions on `main`; Pages deploys only after `test-and-build` |
+
+## Layer boundaries
+
+| Layer | Path | May do | Must not do |
+|-------|------|--------|-------------|
+| Presentation | `apps/web/src/pages/`, layouts, CSS | Render comparisons and docs summaries | Invent scenario facts or run tests |
+| Content | `examples/**/scenario.json`, `samples/` | Define the Rosetta idea and SUT | Host a live runner |
+| FAQ | `apps/web/src/lib/ask.ts` | Answer from this corpus | Call a paid API as the only path |
+| Capture | `scripts/capture-results.mjs` | Write cached logs in CI | Execute in the visitor’s browser |
+
+Browser JS on Ask AI re-runs the same keyword matcher. It must not call an external LLM. Quality and local pages only describe commands; they do not start them.
 
 ## Content model
 
-### Scenario
+A scenario is one testing idea expressed in N frameworks. Types live in `apps/web/src/lib/scenarios.ts` and [CONTENT_SCHEMA.md](CONTENT_SCHEMA.md).
 
-A scenario is one testing *idea* expressed in N frameworks.
+Load path: walk `examples/` for `scenario.json` at build time (`loadScenarios()`). CI `validate:scenarios` requires id, title, category, at least two variants, and files that exist.
 
-```ts
-type TestCategory = "unit" | "integration" | "ux" | "performance" | "security" | "a11y";
+### Scenario page order
 
-type Scenario = {
-  id: string;                 // e.g. "unit.assert-equality"
-  title: string;
-  category: TestCategory;
-  description: string;        // what concept is being shown
-  sut: string;                // sample under test id
-  variants: ScenarioVariant[];
-};
+1. Optional **story** (human situation).
+2. Optional **exercise** (how the approach is used, and when it is effective).
+3. **Tool + architecture primer** (`apps/web/src/lib/tools.ts` plus `architecture` on the scenario).
+4. Framework tabs: SUT, test file(s), **Results** from `apps/web/public/results/{id}/{framework}.json`.
 
-type ScenarioVariant = {
-  framework: string;          // "vitest" | "pytest" | "playwright" | ...
-  language: string;
-  license: "MIT" | "Apache-2.0" | ...; // of the tool, for display
-  files: { path: string; language: string }[];
-  run: { cmd: string; cwd: string };
-  notes?: string;             // gotchas / idioms
-};
+TDD (`unit.tdd-red-green`) and BDD (`unit.bdd-given-when-then`) always ship story then exercise then files. They do not share a SUT story.
+
+## Web page flow
+
+1. `GET /` — `loadScenarios()` → home list.
+2. `GET /scenarios` and `/scenarios/{id}` — catalog and one comparison.
+3. `GET /ask` — FAQ matcher in `ask.ts` (also runs in the browser for follow-up questions).
+4. `GET /quality` — documents the live CI gates.
+5. `GET /local` — clone and run instructions.
+6. `GET /vision` — `summarizeVision()` over this folder’s `VISION.md`.
+7. `GET /architecture` — `loadArchitecture()` over this file’s logical and physical sections.
+8. `GET /releases` and `/releases/{version}` — comments from `apps/web/src/lib/release.ts`.
+
+Production URLs sit under `/TestingRosettaStone` (`GITHUB_PAGES=1`). `withBase()` prefixes every in-app link.
+
+## UI design
+
+Custom CSS — not a third-party kit.
+
+| Token | Value |
+|-------|--------|
+| Background | `#e8eef1` + wash over `/images/office-bg.png` (cover, fixed, center top) |
+| Ink / muted | `#152028` / `#5a6b76` |
+| Accent / hover | `#0f4c5c` / `#0c3d4a` |
+| Line | `#c5d0d6` |
+| Display / body | Source Serif 4 / Source Sans 3 (Google Fonts) |
+| Mono | IBM Plex Mono |
+| Cards | `white/85`, 12px radius, soft shadow, light backdrop blur |
+| Header | Sticky, `rgba(238,243,245,0.86)`, blur; Scenarios, Ask AI, Vision, Architecture, Quality, Run locally; release chip |
+
+Layout: content max ~48rem; scenario pages can go wide (~64rem).
+
+## File map
+
+```
+apps/web/                 Astro site (pages, styles, FAQ, release notes)
+examples/                 Canonical side-by-side scenarios
+samples/                  js-counter, js-api, js-ui, python-calc
+scripts/                  validate-scenarios.mjs, capture-results.mjs
+docs/plan/                Living product + architecture docs
+.github/workflows/ci.yml  Validate, test, capture, build, deploy
 ```
 
-### Rosetta UI
+## Testing and CI
 
-For each scenario page:
+- `npm run validate:scenarios` — schema and paths
+- `npm test` — unit (including TDD coupon and BDD room), HTTP, UX, performance, security
+- `npm run capture:results` — refresh `apps/web/public/results/`
+- GitHub Actions (Node 24, Python 3.12): install Chromium, k6, pytest + httpx + pytest-bdd, then the commands above, then `npm run build`
+- `deploy` job runs only after `test-and-build` on push to `main` (Pages source = GitHub Actions)
+- Visitors can read the gates on `/quality`
 
-1. Short concept blurb (one job).
-2. Horizontal or tabbed **framework switcher** with synced scroll / “highlight equivalent lines” where feasible.
-3. Copy buttons + “open in sample” links.
-4. Adjacent **Results** panel fed by static files from `apps/web/public/results/` (CI-captured logs + timestamp)—not a live execute API.
-5. **Tool + architecture primer** above the SUT/test/results (`apps/web/src/lib/tools.ts` plus `architecture` on the scenario).
-6. “Ask AI about this scenario” deep-link with scenario id in context.
+There is no live `/api/run`. A red example fails the job; a missing results artifact fails the upload.
 
-## AI Q&A design
+## Deployment
 
-### Corpus
+- **Local:** `npm install`, Playwright Chromium, k6, `pip install pytest httpx pytest-bdd`, then `npm run dev` on port 4321
+- **Production:** GitHub Pages from the `apps/web/dist` artifact (`site` + `base` set when `GITHUB_PAGES=1`)
+- No application database. The hosted site is a snapshot of the last green `main` build.
 
-Index only first-party content:
+## Design decisions
 
-- Scenario MDX
-- Example source files under `examples/` and `samples/`
-- Short curated FAQ (`docs/faq.md`)
+| Decision | Why |
+|----------|-----|
+| Static Astro, no runner API | $0 host; no visitor-code sandbox |
+| CI-cached Results logs | Show real output without executing in the tab |
+| FAQ matcher before RAG | Ships without keys; upgrades without rewrite |
+| OSS frameworks only | Matches the product thesis |
+| Pages deploy only after green `main` | The examples are the product |
+| TDD and BDD as separate stories | Different methods, different SUTs — not one coupon twice |
+| Custom CSS | Teal-slate tokens and glass cards without a kit |
+| Living docs + in-app summaries | Header Vision / Architecture stay honest with the repo |
 
-### Retrieval
+## Releases
 
-1. Chunk by scenario + file (~500–800 tokens).
-2. Embed with a free model (e.g. `bge-small` via Transformers.js offline, or a free embedding API).
-3. Store vectors as static JSON or SQLite baked into the deploy artifact / Worker KV.
+`apps/web/src/lib/release.ts` holds `RELEASES` (newest first). The header chip is `v{RELEASE_VERSION}` and links to `/releases/{version}`. Root `package.json` and `apps/web/package.json` use the same version string.
 
-### Generation
+Every change that will merge to `main` prepends a release object in the same change (see the bump-release workspace rule). Usual slice = patch; new scenario category or visitor-facing product area = minor.
 
-**Path A — Edge + free API (recommended for quality)**
+## Shipping
 
-- Cloudflare Worker receives question + optional scenario id.
-- Retrieve top-k chunks.
-- Call **Groq** / **Google Gemini** / **Hugging Face Inference** free tier with a strict system prompt: *answer only from context; cite scenario ids and file paths; refuse if not in corpus*.
-- Keys live in host secrets—never in the client.
-- Rate-limit by IP; daily budget alerts.
+Personal Cursor skill `ship-to-main`: check in → PR → Bugbot + Security Review → accept → merge. Repo rules `keep-docs-updated` and `bump-release-on-main` run at the start of check-in when those files exist. Self-approval is best-effort (GitHub often blocks approving your own PR).
 
-**Path B — Fully client-side (recommended as offline mode)**
+## Changelog
 
-- WebLLM / Transformers.js loads a small model.
-- Same retrieval over static embeddings.
-- Slower / weaker answers; zero API cost and works without keys.
+### 2026-09-27 — Vision and Architecture pages
 
-**Path C — Hybrid**
-
-- Default to Path A when a key is configured in the deployment.
-- Fall back to Path B or a deterministic FAQ matcher when quota is exhausted.
-
-### Safety & cost controls
-
-- Max tokens / max requests per IP per day.
-- No tool-calling into shell or arbitrary code execution.
-- Log only anonymized metrics (optional, off by default).
-- Disclose model + that answers may be wrong; always show citations.
-
-## CI / quality gates
-
-1. **Schema validation** — every scenario has ≥2 variants and a run command.
-2. **Sample tests** — unit + TDD coupon + BDD room reservation (Cucumber/pytest-bdd) + HTTP + UX + k6/Artillery/Autocannon + security headers/XSS (`npm test`); CI installs Chromium, the k6 binary, and `pytest-bdd` after `npm install`.
-3. **License check** — `licensee` / `osv-scanner` / simple allowlist of OSS licenses.
-4. **Link check** — MDX internal links.
-5. **Deploy** — same CI workflow (Node 24 actions): `npm test` then `capture:results` then build; the Pages deploy job runs only if that job succeeds on `main`. Repo Pages source must be **GitHub Actions**. Visitors can read the live gates on `/quality`.
-
-## Security notes
-
-- No user-uploaded code execution on the server.
-- CSP on the web app; sanitize MDX.
-- AI endpoints: prompt-injection resistant system prompt + retrieval-only context.
-- Secrets only in CI/host env.
-
-## Alternatives considered
-
-| Option | Rejected because |
-|--------|------------------|
-| Full Django/Rails monolith | Always-on hosting cost; overkill for content + samples |
-| Only Storybook | Weak for non-UI categories (perf, API integration) |
-| Embed CodeSandbox/StackBlitz for everything | Network dependency; free quotas; less “real” local CI |
-| Live backend `/api/run` for on-demand tests | Always-on sandbox cost; security surface; breaks $0 static host |
-| Closed AI-only (no RAG) | Hallucinated APIs; not grounded in our examples |
-
-**Chosen for “show results without local run”:** CI-cached logs (`scripts/capture-results.mjs` → `apps/web/public/results/`) rendered beside the writeup.
+- Added `/vision` and `/architecture`. This file is now the living current-state map (logical/physical Mermaid, layer boundaries, page flow).
+- Retired the “proposed Next.js / live RAG” shape as if it were production. Ask AI remains the FAQ matcher; RAG stays a later phase.

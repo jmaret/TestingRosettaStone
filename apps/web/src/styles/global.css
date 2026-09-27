@@ -977,6 +977,110 @@ h3 {
   margin: 1.5rem 0 0.5rem;
 }
 
+.eyebrow {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.stat-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stat-list li {
+  margin: 0 0 0.65rem;
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--brand);
+  font-size: 0.95rem;
+}
+
+.vision-page .scenario-hero .lede,
+.architecture-page .scenario-hero .lede {
+  max-width: 58ch;
+}
+
+.github-doc-link {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--brand);
+  text-decoration: none;
+}
+
+.github-doc-link:hover {
+  text-decoration: underline;
+}
+
+.vision-section {
+  margin-top: 0.35rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
+}
+
+.vision-section h2 {
+  margin: 0 0 0.55rem;
+  font-size: 1.25rem;
+}
+
+.vision-section p {
+  margin: 0 0 0.75rem;
+  color: var(--ink-soft);
+}
+
+.vision-section a {
+  color: var(--brand);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.vision-section a:hover {
+  text-decoration: underline;
+}
+
+.vision-section ol,
+.vision-section ul:not(.stat-list) {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.vision-section li + li {
+  margin-top: 0.35rem;
+}
+
+.diagram-frame {
+  margin: 1.1rem 0 1.25rem;
+  padding: 1.15rem 1rem;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 0.65rem;
+  background: color-mix(in srgb, #fff 70%, var(--wash));
+}
+
+.diagram-frame .mermaid {
+  margin: 0;
+  text-align: center;
+}
+
+.diagram-frame .mermaid svg {
+  overflow: visible;
+  max-width: 100%;
+}
+
+.diagram-frame .mermaid .nodeLabel,
+.diagram-frame .mermaid .cluster-label,
+.diagram-frame .mermaid .edgeLabel {
+  overflow: visible;
+}
+
+.diagram-frame .mermaid foreignObject {
+  overflow: visible;
+}
+
 @keyframes rise {
   from {
     opacity: 0;

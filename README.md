@@ -28,7 +28,7 @@ Absolute path if you use that folder:
 
 | Area | Status |
 |------|--------|
-| Web app (`apps/web`) | Astro site: header release `vX.Y.Z` (click for comments; `/releases` for past notes), home, scenarios, Ask AI, quality/CI, local setup |
+| Web app (`apps/web`) | Astro site: header release `vX.Y.Z` (click for comments; `/releases` for past notes), home, scenarios, Ask AI, Vision, Architecture, quality/CI, local setup |
 | Unit Rosetta scenarios | `unit.assert-equality`, `unit.parametrize`, `unit.mock-dependency`, `unit.tdd-red-green`, `unit.bdd-given-when-then` |
 | Integration scenarios | `integration.http-get`, `integration.error-contract` |
 | UX scenarios | `ux.navigate-and-assert`, `ux.form-validation` |
@@ -53,7 +53,7 @@ Absolute path if you use that folder:
 
 ## Docs
 
-Planning notes remain in [`docs/plan/`](docs/plan/). Local clone help: [`docs/LOCAL_SETUP.md`](docs/LOCAL_SETUP.md).
+Living product contract and architecture map: [`docs/plan/VISION.md`](docs/plan/VISION.md) and [`docs/plan/ARCHITECTURE.md`](docs/plan/ARCHITECTURE.md) (also `/vision` and `/architecture` on the site). Other planning notes remain in [`docs/plan/`](docs/plan/). Local clone help: [`docs/LOCAL_SETUP.md`](docs/LOCAL_SETUP.md).
 
 Live site (after enabling Pages in repo settings): https://jmaret.github.io/TestingRosettaStone/
 
