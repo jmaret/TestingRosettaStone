@@ -74,3 +74,4 @@ Phased delivery. Prefer vertical slices (one scenario fully comparable) over bro
 | Second language | Python | pytest + future Locust; low cost to show “Rosetta” across languages |
 | AI v1 | FAQ matcher → RAG on free LLM | Ships without keys; upgrades without rewrite |
 | Hosting | GitHub Pages | $0 static host; deploy from CI only after tests pass on `main` |
+| Site visual system | JobFit assistant | Teal workspace, serif headings, office wash — adapted from JobFitAndApplicationAssistant, with Testing Playground’s own name |
