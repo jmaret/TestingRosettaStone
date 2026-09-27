@@ -9,10 +9,12 @@ Side-by-side framework variants, grouped by category.
 | `assert-equality/` | Vitest, Jest, node:test, pytest |
 | `parametrize/` | Vitest, Jest, pytest |
 | `mock-dependency/` | Vitest, Jest, pytest |
+| `tdd-red-green/` | Vitest, Jest, pytest |
+| `bdd-given-when-then/` | Cucumber.js, pytest-bdd |
 
 Each folder has a `scenario.json` plus one subdirectory per framework.
 
-Scenario pages show a **tool + architecture primer** (from `apps/web/src/lib/tools.ts` and `architecture` on the scenario) before the SUT, test, and cached results.
+Scenario pages show a **tool + architecture primer** (from `apps/web/src/lib/tools.ts` and `architecture` on the scenario) before the SUT, test, and cached results. TDD and BDD pages also lead with a **story** and **how the approach is exercised** before those implementation tabs.
 
 ## Integration (live)
 

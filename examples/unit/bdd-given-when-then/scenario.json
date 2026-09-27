@@ -1,0 +1,77 @@
+{
+  "id": "unit.bdd-given-when-then",
+  "title": "Specify a behavior with BDD",
+  "category": "unit",
+  "summary": "Write Given–When–Then in the team’s language, then bind those sentences to the SUT.",
+  "description": "A meeting-room story specified in Gherkin before any runner files. Read the story and the collaboration steps below first.",
+  "story": {
+    "heading": "The story",
+    "paragraphs": [
+      "The office has one bookable meeting room. Facilities posts remaining seats on a board by the door. Product and QA have already agreed the customer-facing rules in plain language: if a party fits, the reservation is confirmed and the board drops by that many seats; if the party is larger than what is left, the reservation is refused and the board does not change.",
+      "Nobody treats a helper name as the source of truth. The sentences are the spec — the same words a facilities lead would say in standup. That is the condition that makes BDD worth doing: someone outside engineering will read the feature file, the behavior is user-visible and stable, and each step is a domain fact (party size, seats free, confirmed or refused).",
+      "This is not the checkout-coupon TDD page. Room reservations live only here. If the only readers will be the people who wrote the step glue, or the examples would encode CSS and URLs, write a unit test or spike instead — Gherkin would be a second copy of the code."
+    ]
+  },
+  "exercise": {
+    "heading": "How BDD is exercised",
+    "intro": "The feature file is the shared example. The step files only bind those sentences. Walk this collaboration before opening a runner tab.",
+    "steps": [
+      {
+        "title": "Agree the examples in the team’s language",
+        "body": "Write two scenarios on a whiteboard or in room.feature: a party of 4 with 6 seats free is confirmed and 2 remain; a party of 5 with 3 seats free is refused and 3 remain. Facilities should be able to read both without seeing reserveRoom()."
+      },
+      {
+        "title": "Challenge the wording",
+        "body": "Ask whether “confirmed” and “refused” are the words the board uses. If product wants “booked” instead, change the feature — do not hide a synonym in the glue. The feature stays the source of truth."
+      },
+      {
+        "title": "Watch the runner fail on missing steps",
+        "body": "Run Cucumber or pytest-bdd against the feature before the glue exists. Undefined steps are the red bar for BDD: the examples are real, the binding is not."
+      },
+      {
+        "title": "Bind Given / When / Then only",
+        "body": "Map “N seats are free” and “a party of N” to data, “I reserve the room” to one function call, and “confirmed / refused / N seats remain” to assertions. No CSS, no URLs, no helper names in the feature."
+      },
+      {
+        "title": "Grow the function until the feature is green",
+        "body": "Implement reserveRoom() so both scenarios pass. If a new rule appears (“VIP always fits”), add a scenario to the feature first — do not only patch the function."
+      },
+      {
+        "title": "When to stop",
+        "body": "Stop when Gherkin would only clone unit-test rows, when no one outside engineering will review the file, or when you are about to automate a UI path you have not agreed on in words. BDD proves the examples the team signed, not every branch of the helper."
+      }
+    ]
+  },
+  "architecture": "One Gherkin feature is the specification. Each variant only supplies step glue that calls reserveRoom() / reserve_room() in-process (no browser, no HTTP). Conditions that make it effective: shared vocabulary, examples as the source of truth, and steps that hide implementation.",
+  "sut": "js-counter / python-calc",
+  "tags": ["bdd", "gherkin", "cucumber", "given-when-then", "reservation"],
+  "variants": [
+    {
+      "framework": "cucumber",
+      "label": "Cucumber.js",
+      "language": "gherkin",
+      "frameworkLicense": "MIT",
+      "sutFile": "samples/js-counter/src/index.js",
+      "files": [
+        "examples/unit/bdd-given-when-then/room.feature",
+        "examples/unit/bdd-given-when-then/cucumber/steps/room.steps.js"
+      ],
+      "run": { "cwd": "examples/unit/bdd-given-when-then/cucumber", "command": "npm test" },
+      "notes": "The feature file is the spec. The step file only binds sentences to reserveRoom()."
+    },
+    {
+      "framework": "pytest-bdd",
+      "label": "pytest-bdd",
+      "language": "gherkin",
+      "frameworkLicense": "MIT",
+      "toolId": "pytest-bdd",
+      "sutFile": "samples/python-calc/calc.py",
+      "files": [
+        "examples/unit/bdd-given-when-then/room.feature",
+        "examples/unit/bdd-given-when-then/pytest-bdd/test_room_steps.py"
+      ],
+      "run": { "cwd": "examples/unit/bdd-given-when-then/pytest-bdd", "command": "pytest" },
+      "notes": "Same room.feature as Cucumber.js. Uses pytest-bdd step fixtures when installed; otherwise pytest reads the same Gherkin examples."
+    }
+  ]
+}

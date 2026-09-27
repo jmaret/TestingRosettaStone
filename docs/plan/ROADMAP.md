@@ -17,6 +17,8 @@ Phased delivery. Prefer vertical slices (one scenario fully comparable) over bro
    - `unit.assert-equality`
    - `unit.parametrize`
    - `unit.mock-dependency`
+   - `unit.tdd-red-green` (live; coupon via TDD)
+   - `unit.bdd-given-when-then` (live; room reservation via Gherkin — separate SUT)
 4. Static site that lists scenarios and renders side-by-side code (Astro or Next) **plus a Results panel** from CI-cached logs.
 5. GitHub Actions: install + run those sample tests + `capture:results` into `apps/web/public/results/` before build. Public `/quality` page documents the live gates.
 

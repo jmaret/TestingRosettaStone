@@ -1,0 +1,82 @@
+{
+  "id": "unit.tdd-red-green",
+  "title": "Grow a unit with TDD",
+  "category": "unit",
+  "summary": "Write a failing example first, then the smallest code that passes, then refactor.",
+  "description": "A checkout-coupon story grown with red–green–refactor. Read the story and the cycle below before the runner files.",
+  "story": {
+    "heading": "The story",
+    "paragraphs": [
+      "A shop is about to turn on checkout coupons. Marketing has already published two codes to customers: SAVE10 is always 10% off, and SAVE20 is 20% off only when the cart is at least $50. Unknown or missing codes must not invent a discount — the shopper pays the subtotal they already see.",
+      "One developer owns applyCoupon(). There is no designer in this loop and no browser to click. The next rule can be said in a sentence (“SAVE20 does nothing under $50”). That is the condition that makes TDD worth doing: you can name the next behavior, the unit is isolated, and a failing example will come back in milliseconds.",
+      "This is not the meeting-room BDD page. The coupon rules live only here. If you cannot yet say what “done” looks like — a spike against a vendor API, an exploratory UI — write a spike first, then come back and drive the settled design with tests."
+    ]
+  },
+  "exercise": {
+    "heading": "How TDD is exercised",
+    "intro": "The files below are the finished green suite. The cycle that produced them is the method — not the runner brand.",
+    "steps": [
+      {
+        "title": "Red — no coupon",
+        "body": "Write a test that applyCoupon(80, \"\") is 80. Run it. It fails because the function does not exist yet, or still throws. That failure is the specification for the first branch."
+      },
+      {
+        "title": "Green — return the subtotal",
+        "body": "Implement the smallest pass: return subtotal. Do not add SAVE10 yet. The suite is green; you have earned the next example."
+      },
+      {
+        "title": "Red — SAVE10",
+        "body": "Add applyCoupon(80, \"SAVE10\") === 72. Run it. It fails. That is the next published rule, written down before the multiply-by-0.9 line exists."
+      },
+      {
+        "title": "Green — ten percent off",
+        "body": "Handle SAVE10 only. Leave SAVE20 unimplemented. A second green bar means you did not invent the $50 floor early."
+      },
+      {
+        "title": "Red, then green — SAVE20’s floor",
+        "body": "Add the under-$50 case first (40 stays 40), then the at-or-above case (80 becomes 64). Each test is one rule. Unknown codes stay full price — a guard, not a new product idea."
+      },
+      {
+        "title": "Refactor",
+        "body": "Tidy names and comments without changing the examples. If a refactor needs a new behavior, that is another red — not a silent edit."
+      },
+      {
+        "title": "When to stop",
+        "body": "Stop when the next assertion is unclear, the test would couple to incidental structure, or you are using a green suite as proof the product is right. TDD proves the unit you named, not the shop."
+      }
+    ]
+  },
+  "architecture": "applyCoupon() / apply_coupon() is imported in-process (no HTTP, no browser). The examples in the test files follow the cycle above. Conditions that make this effective: one owner of the design, fast feedback, and a behavior you can name in a sentence.",
+  "sut": "js-counter / python-calc",
+  "tags": ["tdd", "red-green-refactor", "design", "coupon", "beginner"],
+  "variants": [
+    {
+      "framework": "vitest",
+      "label": "Vitest",
+      "language": "javascript",
+      "frameworkLicense": "MIT",
+      "sutFile": "samples/js-counter/src/index.js",
+      "files": ["examples/unit/tdd-red-green/vitest/coupon.test.js"],
+      "run": { "cwd": "examples/unit/tdd-red-green/vitest", "command": "npm test" }
+    },
+    {
+      "framework": "jest",
+      "label": "Jest",
+      "language": "javascript",
+      "frameworkLicense": "MIT",
+      "sutFile": "samples/js-counter/src/index.js",
+      "files": ["examples/unit/tdd-red-green/jest/coupon.test.js"],
+      "run": { "cwd": "examples/unit/tdd-red-green/jest", "command": "npm test" }
+    },
+    {
+      "framework": "pytest",
+      "label": "pytest",
+      "language": "python",
+      "frameworkLicense": "MIT",
+      "sutFile": "samples/python-calc/calc.py",
+      "files": ["examples/unit/tdd-red-green/pytest/test_coupon.py"],
+      "run": { "cwd": "examples/unit/tdd-red-green/pytest", "command": "pytest" },
+      "notes": "Python twin uses samples/python-calc.apply_coupon — same cycle, same examples."
+    }
+  ]
+}

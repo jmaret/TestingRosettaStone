@@ -6,7 +6,7 @@ All listed tools are open source (or have a fully OSS core usable without paid p
 
 | Category | What we demonstrate | What we do *not* require |
 |----------|---------------------|---------------------------|
-| **Unit** | Pure logic, mocks/stubs, parametrize, coverage basics | Cloud device farms |
+| **Unit** | Pure logic, mocks/stubs, parametrize, TDD cycle, BDD/Gherkin, coverage basics | Cloud device farms |
 | **Integration** | Module + DB/HTTP boundaries, contract-ish checks | Paid API mocking SaaS |
 | **UX / E2E** | Browser flows, visual smoke, a11y checks | Proprietary browsers-as-a-service |
 | **Performance** | Load/smoke scripts, Lighthouse budgets, microbench | Enterprise APM licenses |
@@ -22,10 +22,12 @@ All listed tools are open source (or have a fully OSS core usable without paid p
 | [Jest](https://jestjs.io/) | JS/TS | MIT | Industry baseline |
 | [node:test](https://nodejs.org/api/test.html) | JS/TS | MIT (Node) | Zero extra deps |
 | [pytest](https://pytest.org/) | Python | MIT | Fixtures / parametrize showcase |
+| [Cucumber.js](https://github.com/cucumber/cucumber-js) | JS + Gherkin | MIT | BDD / Given–When–Then (`unit.bdd-given-when-then`) |
+| [pytest-bdd](https://pytest-bdd.readthedocs.io/) | Python + Gherkin | MIT | pytest plugin twin of Cucumber.js |
 | [JUnit 5](https://junit.org/junit5/) | Java | EPL-2.0 | Optional stretch |
 | Go `testing` | Go | BSD-style | Optional stretch |
 
-**v1 commit:** Vitest, Jest, `node:test`, pytest.
+**v1 commit:** Vitest, Jest, `node:test`, pytest. Cucumber.js + pytest-bdd for `unit.bdd-given-when-then` (live).
 
 ### Integration
 
@@ -86,6 +88,8 @@ Each row is one scenario page with ≥2 framework variants.
 | `unit.assert-equality` | Basic assertion on a pure function |
 | `unit.parametrize` | Same test, many inputs |
 | `unit.mock-dependency` | Replace collaborator / spy |
+| `unit.tdd-red-green` | Red–green–refactor on `applyCoupon` (live) |
+| `unit.bdd-given-when-then` | Gherkin room reservation on `reserveRoom` (live; separate from TDD) |
 | `unit.async-promise` | Async / await failure paths |
 | `unit.coverage-threshold` | Enforce coverage in config (docs + config snippet) |
 
