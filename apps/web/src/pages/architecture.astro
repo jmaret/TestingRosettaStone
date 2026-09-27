@@ -1,0 +1,155 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { loadArchitecture } from "../lib/architecture";
+import { withBase } from "../lib/base";
+
+const architecture = loadArchitecture();
+---
+
+<BaseLayout
+  title="Architecture · Testing Playground"
+  description="Logical and physical views of Testing Playground — a static Astro site over a first-party example corpus."
+>
+  <article class="page-stack architecture-page">
+    <section class="scenario-hero">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href={withBase("/")}>Home</a>
+        <span class="crumbs-sep" aria-hidden="true">/</span>
+        <span aria-current="page">Architecture</span>
+      </nav>
+      <p class="eyebrow">How it is built</p>
+      <h1>Architecture</h1>
+      <p class="lede">
+        Two views of the same production system. Logical is responsibility. Physical is where those
+        responsibilities run. A visit is HTML plus files baked in at build time — there is no login
+        and no database.
+      </p>
+      {
+        architecture.updated && (
+          <p class="meta">Living design document last updated {architecture.updated}.</p>
+        )
+      }
+      <p>
+        <a
+          class="github-doc-link"
+          href={architecture.githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Read the full document on GitHub
+        </a>
+      </p>
+    </section>
+
+    <section class="vision-section">
+      <h2>How to read the diagrams</h2>
+      <p>
+        Start on the left and follow the arrows. The person never runs the examples in the hosted
+        UI; pages are built from the corpus. Ask AI talks to the FAQ matcher, not a live model.
+        Hosting details stay on the physical diagram so the logical one does not name GitHub Pages.
+      </p>
+      <ul class="stat-list">
+        <li>
+          <strong>Logical:</strong> what each layer may do. Presentation never invents scenario
+          facts.
+        </li>
+        <li>
+          <strong>Physical:</strong> one GitHub Pages site plus Actions for test, capture, and
+          deploy. CI is not on the request path.
+        </li>
+      </ul>
+    </section>
+
+    <section class="vision-section">
+      <h2>Logical</h2>
+      <p>{architecture.logicalIntro}</p>
+      {
+        architecture.logicalMermaid && (
+          <div class="diagram-frame" role="img" aria-label="Logical architecture">
+            <pre class="mermaid">{architecture.logicalMermaid}</pre>
+          </div>
+        )
+      }
+      {
+        architecture.logicalRows.length > 0 && (
+          <ul class="stat-list">
+            {architecture.logicalRows.map(([name, job]) => (
+              <li>
+                <strong>{name}:</strong> {job}
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </section>
+
+    <section class="vision-section">
+      <h2>Physical</h2>
+      <p>{architecture.physicalIntro}</p>
+      {
+        architecture.physicalMermaid && (
+          <div class="diagram-frame" role="img" aria-label="Physical architecture">
+            <pre class="mermaid">{architecture.physicalMermaid}</pre>
+          </div>
+        )
+      }
+      {
+        architecture.physicalRows.length > 0 && (
+          <ul class="stat-list">
+            {architecture.physicalRows.map(([name, job]) => (
+              <li>
+                <strong>{name}:</strong> {job}
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </section>
+
+    <section class="vision-section">
+      <h2>What this omits on purpose</h2>
+      <p>
+        There is no user store, no session, and no live test-runner service. Examples run in CI and
+        on a local clone. Product intent — who this is for, and what it must not claim — lives on
+        the <a href={withBase("/vision")}>Vision</a> page, not here.
+      </p>
+    </section>
+  </article>
+
+  <script slot="scripts" is:inline src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script slot="scripts" is:inline>
+  mermaid.initialize({
+    startOnLoad: false,
+    securityLevel: "strict",
+    theme: "base",
+    fontFamily: "ui-sans-serif, system-ui, sans-serif",
+    flowchart: {
+      htmlLabels: true,
+      padding: 20,
+      wrappingWidth: 260,
+      nodeSpacing: 48,
+      rankSpacing: 56,
+      useMaxWidth: true,
+    },
+    themeVariables: {
+      fontFamily: "ui-sans-serif, system-ui, sans-serif",
+      fontSize: "15px",
+      primaryColor: "#eef3f5",
+      primaryTextColor: "#152028",
+      primaryBorderColor: "#c5d0d6",
+      lineColor: "#0f4c5c",
+      secondaryColor: "#e5f4ec",
+      tertiaryColor: "#f7efd9",
+      clusterBkg: "rgba(255,255,255,0.72)",
+      clusterBorder: "#c5d0d6",
+      edgeLabelBackground: "#eef3f5",
+    },
+  });
+  const drawDiagrams = () => mermaid.run({ querySelector: ".diagram-frame .mermaid" });
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(drawDiagrams, drawDiagrams);
+  } else {
+    drawDiagrams();
+  }
+  </script>
+</BaseLayout>

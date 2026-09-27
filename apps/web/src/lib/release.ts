@@ -9,6 +9,16 @@ export type Release = {
 /** Newest first. Header shows RELEASES[0]; bump + prepend on every merge to main. */
 export const RELEASES: Release[] = [
   {
+    version: "0.4.0",
+    date: "2026-09-27",
+    title: "Vision and architecture pages",
+    notes: [
+      "The header now opens Vision and Architecture — who the site is for, what it will not do, and how the static app is built.",
+      "Both pages summarize the living docs in docs/plan and link to the full requirement tables on GitHub.",
+      "Architecture shows logical and physical diagrams: Astro pages over the example corpus, hosted on GitHub Pages after CI.",
+    ],
+  },
+  {
     version: "0.3.2",
     date: "2026-09-27",
     title: "Separate TDD and BDD scenarios",

@@ -43,6 +43,16 @@ const FAQ: { q: string; a: string; tags: string[] }[] = [
     tags: ["bdd", "gherkin", "cucumber", "given", "when", "then", "reservation", "room"],
   },
   {
+    q: "What is the product vision?",
+    a: "Testing Playground is an educational Rosetta site: the same testing idea side by side across open-source frameworks, with runnable samples and corpus-grounded answers. It is not a hosted test runner and not official framework docs. The Vision page (/vision) summarizes who it is for, what is in scope, and what is not. Full requirement IDs live in docs/plan/VISION.md.",
+    tags: ["vision", "goals", "non-goals", "requirements", "product", "contract"],
+  },
+  {
+    q: "How is the site architected?",
+    a: "A static Astro site over a first-party corpus (scenario.json, examples, CI-cached results). Ask AI is a FAQ matcher — no live runner and no request-time backend. GitHub Actions validates, tests, captures logs, and builds; GitHub Pages deploys only after a green main job. The Architecture page (/architecture) shows logical and physical diagrams. The living map is docs/plan/ARCHITECTURE.md.",
+    tags: ["architecture", "design", "astro", "static", "pages", "diagram", "mermaid"],
+  },
+  {
     q: "How does CI and deployment work?",
     a: "One GitHub Actions workflow (.github/workflows/ci.yml) validates scenario JSON, runs npm test (unit, HTTP, UX, perf, security), captures Results panel logs, then builds the site. GitHub Pages deploys only after that job succeeds on main. The Quality page (/quality) explains each gate.",
     tags: ["ci", "cd", "deploy", "quality", "github", "actions", "pages", "pipeline", "workflow"],

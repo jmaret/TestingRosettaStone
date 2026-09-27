@@ -5,6 +5,7 @@ Phased delivery. Prefer vertical slices (one scenario fully comparable) over bro
 ## Phase 0 — Planning & skeleton (this PR)
 
 - [x] Vision, architecture, matrix, zero-cost/AI notes
+- [x] Living vision/architecture docs + public `/vision` and `/architecture` pages
 - [ ] Repo skeleton (`apps/`, `samples/`, `examples/`, content schema)
 - [ ] Root README that states goals and how to contribute scenarios
 - [ ] MIT `LICENSE`
