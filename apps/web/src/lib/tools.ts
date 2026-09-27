@@ -118,6 +118,26 @@ export const TOOLS: Record<string, ToolGuide> = {
     architecture:
       "start-server-and-test starts js-api. artillery run executes the YAML phase and writes a JSON report. A tiny run.mjs then fails the process if there are no 200s, any failed VUs, or p95 > 500ms — the twin of k6 thresholds.",
   },
+  cucumber: {
+    id: "cucumber",
+    name: "Cucumber.js",
+    homepage: "https://github.com/cucumber/cucumber-js",
+    role: "BDD runner (Gherkin + JS steps)",
+    overview:
+      "Cucumber.js runs .feature files written in Gherkin (Given / When / Then) and binds each sentence to a JavaScript step. The OSS package is enough here — no CucumberStudio. Use it when the feature file is a shared spec, not a second copy of unit tests.",
+    architecture:
+      "cucumber-js loads the feature, matches each step to a Given/When/Then function, and fails the process if a step throws. In this scenario the steps call reserveRoom() in-process. The feature file is the specification; the step file is only glue.",
+  },
+  "pytest-bdd": {
+    id: "pytest-bdd",
+    name: "pytest-bdd",
+    homepage: "https://pytest-bdd.readthedocs.io/",
+    role: "BDD plugin for pytest",
+    overview:
+      "pytest-bdd lets pytest collect Gherkin features and inject step functions as fixtures. You keep pytest’s reporting and stay in Python. Same rule as Cucumber: the feature is for humans; the steps only bind sentences.",
+    architecture:
+      "pytest-bdd parses the feature, maps steps with parsers.parse, and builds fixtures for Given/When values. Here those fixtures call reserve_room() from samples/python-calc. No server is started.",
+  },
   autocannon: {
     id: "autocannon",
     name: "Autocannon",

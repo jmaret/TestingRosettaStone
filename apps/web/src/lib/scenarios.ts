@@ -20,12 +20,27 @@ export type ScenarioVariant = {
   toolId?: string;
 };
 
+export type ScenarioStory = {
+  heading?: string;
+  paragraphs: string[];
+};
+
+export type ScenarioExercise = {
+  heading?: string;
+  intro?: string;
+  steps: { title: string; body: string }[];
+};
+
 export type Scenario = {
   id: string;
   title: string;
   category: TestCategory;
   summary: string;
   description: string;
+  /** Human story shown before any tool or code */
+  story?: ScenarioStory;
+  /** How the approach is exercised, after the story and before implementation */
+  exercise?: ScenarioExercise;
   /** How this scenario is structured, independent of framework */
   architecture?: string;
   sut: string;

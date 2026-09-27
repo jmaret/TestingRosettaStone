@@ -13,7 +13,7 @@ git checkout cursor/build-phase1-7617   # or main after merge
 npm install
 npx playwright install chromium
 brew install k6
-python3 -m pip install pytest httpx
+python3 -m pip install pytest httpx pytest-bdd
 npm test
 npm run dev
 ```
@@ -29,12 +29,12 @@ Absolute path if you use that folder:
 | Area | Status |
 |------|--------|
 | Web app (`apps/web`) | Astro site: header release `vX.Y.Z` (click for comments; `/releases` for past notes), home, scenarios, Ask AI, quality/CI, local setup |
-| Unit Rosetta scenarios | `unit.assert-equality`, `unit.parametrize`, `unit.mock-dependency` |
+| Unit Rosetta scenarios | `unit.assert-equality`, `unit.parametrize`, `unit.mock-dependency`, `unit.tdd-red-green`, `unit.bdd-given-when-then` |
 | Integration scenarios | `integration.http-get`, `integration.error-contract` |
 | UX scenarios | `ux.navigate-and-assert`, `ux.form-validation` |
 | Performance scenarios | `perf.http-smoke-load`, `perf.microbench-handler` |
 | Security scenarios | `security.http-headers`, `security.xss-escape` |
-| Frameworks | Vitest, Jest, `node:test`, pytest, Supertest, Playwright (request + browser), httpx, Cypress, k6, Artillery, Autocannon |
+| Frameworks | Vitest, Jest, `node:test`, pytest, Cucumber.js, pytest-bdd, Supertest, Playwright (request + browser), httpx, Cypress, k6, Artillery, Autocannon |
 | Samples | `samples/js-counter`, `samples/python-calc`, `samples/js-api`, `samples/js-ui` |
 | AI | Corpus FAQ + scenario keyword matcher (no API key) |
 | Results panel | CI-cached stdout/stderr beside each scenario (`npm run capture:results`) |

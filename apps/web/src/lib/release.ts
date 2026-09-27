@@ -9,6 +9,16 @@ export type Release = {
 /** Newest first. Header shows RELEASES[0]; bump + prepend on every merge to main. */
 export const RELEASES: Release[] = [
   {
+    version: "0.3.2",
+    date: "2026-09-27",
+    title: "Separate TDD and BDD scenarios",
+    notes: [
+      "TDD is its own page: red–green–refactor on a checkout coupon in Vitest, Jest, and pytest.",
+      "BDD is a separate page: a meeting-room Gherkin feature bound by Cucumber.js and pytest-bdd — not a restatement of the coupon tests.",
+      "Each page leads with the story, then the steps that exercise the method, then the runnable files. Scenario pages can show more than one test file so a feature and its step glue sit together.",
+    ],
+  },
+  {
     version: "0.3.1",
     date: "2026-09-27",
     title: "Workspace look from JobFit",

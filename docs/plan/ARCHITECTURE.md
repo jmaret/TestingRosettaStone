@@ -161,7 +161,7 @@ Index only first-party content:
 ## CI / quality gates
 
 1. **Schema validation** — every scenario has ≥2 variants and a run command.
-2. **Sample tests** — unit + HTTP + UX + k6/Artillery/Autocannon + security headers/XSS (`npm test`); CI installs Chromium and the k6 binary after `npm install`.
+2. **Sample tests** — unit + TDD coupon + BDD room reservation (Cucumber/pytest-bdd) + HTTP + UX + k6/Artillery/Autocannon + security headers/XSS (`npm test`); CI installs Chromium, the k6 binary, and `pytest-bdd` after `npm install`.
 3. **License check** — `licensee` / `osv-scanner` / simple allowlist of OSS licenses.
 4. **Link check** — MDX internal links.
 5. **Deploy** — same CI workflow (Node 24 actions): `npm test` then `capture:results` then build; the Pages deploy job runs only if that job succeeds on `main`. Repo Pages source must be **GitHub Actions**. Visitors can read the live gates on `/quality`.

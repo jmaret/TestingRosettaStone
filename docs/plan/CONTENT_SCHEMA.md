@@ -42,6 +42,10 @@ export type Scenario = {
   summary: string;
   /** Longer teaching blurb (markdown) */
   description: string;
+  /** Human story shown before any tool or code */
+  story?: { heading?: string; paragraphs: string[] };
+  /** How the approach is exercised, after the story and before implementation */
+  exercise?: { heading?: string; intro?: string; steps: { title: string; body: string }[] };
   /** How this scenario is structured, independent of framework */
   architecture?: string;
   /** Sample under test id */

@@ -35,8 +35,8 @@ jobs:
         working-directory: examples/ux/navigate-and-assert/playwright
       - name: Install k6
         uses: grafana/setup-k6-action@v1
-      - name: Install pytest and httpx
-        run: python3 -m pip install pytest httpx
+      - name: Install pytest, httpx, and pytest-bdd
+        run: python3 -m pip install pytest httpx pytest-bdd
       - name: Validate scenarios
         run: npm run validate:scenarios
       - name: Run unit, integration, UX, performance, and security tests

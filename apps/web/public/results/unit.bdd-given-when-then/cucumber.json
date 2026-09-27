@@ -1,0 +1,12 @@
+{
+  "scenarioId": "unit.bdd-given-when-then",
+  "framework": "cucumber",
+  "label": "Cucumber.js",
+  "cwd": "examples/unit/bdd-given-when-then/cucumber",
+  "command": "npm test",
+  "exitCode": 0,
+  "ok": true,
+  "durationMs": 668,
+  "capturedAt": "2026-09-27T13:04:18.485Z",
+  "output": "\n> test\n> cucumber-js\n\n..........\n\n2 scenarios (2 passed)\n10 steps (10 passed)\n0m00.009s (executing steps: 0m00.000s)\n\nThis Node.js version (v26.2.0) has not been tested with this version of Cucumber; it should work normally, but please raise an issue if you see anything unexpected."
+}

@@ -1,0 +1,12 @@
+{
+  "scenarioId": "unit.tdd-red-green",
+  "framework": "jest",
+  "label": "Jest",
+  "cwd": "examples/unit/tdd-red-green/jest",
+  "command": "npm test",
+  "exitCode": 0,
+  "ok": true,
+  "durationMs": 957,
+  "capturedAt": "2026-09-27T12:57:27.852Z",
+  "output": "\n> test\n> NODE_OPTIONS=--experimental-vm-modules jest\n\n\n(node:58937) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\nPASS ./coupon.test.js\n  applyCoupon (TDD)\n    ✓ leaves the subtotal unchanged when there is no coupon (1 ms)\n    ✓ applies SAVE10 as ten percent off\n    ✓ ignores SAVE20 when the subtotal is under 50\n    ✓ applies SAVE20 as twenty percent off when the subtotal is at least 50\n    ✓ ignores an unknown coupon code (1 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       5 passed, 5 total\nSnapshots:   0 total\nTime:        0.215 s, estimated 1 s\nRan all test suites."
+}

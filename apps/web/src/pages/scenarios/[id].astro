@@ -26,11 +26,11 @@ const categoryArchitecture = getCategoryArchitecture(scenario.category);
 
 const panels = scenario.variants.map((v) => {
   const toolId = v.toolId ?? resolveToolId(v.framework, v.label);
+  const sources = v.files.map((file) => ({ file, code: readExampleFile(file) }));
   return {
     ...v,
     tool: getToolGuide(toolId),
-    code: readExampleFile(v.files[0]),
-    fileLabel: v.files[0],
+    sources,
     sutCode: v.sutFile ? readExampleFile(v.sutFile) : null,
     sutLabel: v.sutFile ?? null,
     result: loadVariantResult(scenario.id, v.framework),
@@ -65,6 +65,49 @@ const panels = scenario.variants.map((v) => {
         <a class="btn btn-ghost" href={withBase("/local")}>How to run</a>
       </div>
     </section>
+
+    {
+      scenario.story && (
+        <section class="quality-block" aria-labelledby="story-heading">
+          <h2 id="story-heading">{scenario.story.heading ?? "The story"}</h2>
+          {scenario.story.paragraphs.map((p) => (
+            <p>{p}</p>
+          ))}
+        </section>
+      )
+    }
+
+    {
+      scenario.exercise && (
+        <section class="quality-block" aria-labelledby="exercise-heading">
+          <h2 id="exercise-heading">{scenario.exercise.heading ?? "How this approach is exercised"}</h2>
+          {scenario.exercise.intro && <p>{scenario.exercise.intro}</p>}
+          <ol class="local-steps">
+            {scenario.exercise.steps.map((step) => (
+              <li>
+                <strong>{step.title}</strong>
+                <p class="meta" style="margin: 0.55rem 0 0;">
+                  {step.body}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )
+    }
+
+    {
+      (scenario.story || scenario.exercise) && (
+        <section class="quality-block" aria-labelledby="implementation-heading">
+          <h2 id="implementation-heading">Technical implementation</h2>
+          <p>
+            The tabs below are the runnable artifacts — tool primer, code under test, and the
+            examples that CI captured. Read the story and the exercise steps first so the files
+            have a job.
+          </p>
+        </section>
+      )
+    }
 
     <div class="tabs" role="tablist" aria-label="Framework variants">
       {
@@ -144,16 +187,27 @@ const panels = scenario.variants.map((v) => {
 
           <div class="scenario-split">
             <div class="scenario-col">
-              <div class="toolbar">
-                <span>
-                  Test · {p.fileLabel} · {p.frameworkLicense} · run in <code>{p.run.cwd}</code>:{" "}
-                  <code>{p.run.command}</code>
-                </span>
-                <button class="btn btn-ghost" type="button" data-copy={p.code} style="padding: 0.4rem 0.7rem;">
-                  Copy
-                </button>
-              </div>
-              <pre class="code-block"><code>{p.code}</code></pre>
+              {
+                p.sources.map((src, si) => (
+                  <div class="test-file">
+                    <div class="toolbar">
+                      <span>
+                        {si === 0 ? "Test" : "Also"} · {src.file} · {p.frameworkLicense}
+                        {si === 0 && (
+                          <>
+                            {" "}
+                            · run in <code>{p.run.cwd}</code>: <code>{p.run.command}</code>
+                          </>
+                        )}
+                      </span>
+                      <button class="btn btn-ghost" type="button" data-copy={src.code} style="padding: 0.4rem 0.7rem;">
+                        Copy
+                      </button>
+                    </div>
+                    <pre class="code-block"><code>{src.code}</code></pre>
+                  </div>
+                ))
+              }
               {p.notes && <p class="notes">{p.notes}</p>}
             </div>
 

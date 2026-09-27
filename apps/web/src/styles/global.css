@@ -626,6 +626,10 @@ h3 {
   border-radius: 4px;
 }
 
+.test-file + .test-file {
+  margin-top: 1.15rem;
+}
+
 .sut-block {
   margin-bottom: 1.25rem;
   padding: 1rem;
@@ -924,6 +928,10 @@ h3 {
   color: var(--mute);
   max-width: 58ch;
   font-size: 1.02rem;
+}
+
+.quality-block .local-steps {
+  margin-top: 0.35rem;
 }
 
 .quality-block a {

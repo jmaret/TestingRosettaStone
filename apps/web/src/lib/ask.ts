@@ -14,7 +14,7 @@ const FAQ: { q: string; a: string; tags: string[] }[] = [
   },
   {
     q: "Which frameworks are included so far?",
-    a: "Unit scenarios use Vitest, Jest, node:test, and pytest (assert equality, parametrize, mock a dependency). Integration scenarios use Supertest, Playwright request, and pytest + httpx (HTTP GET and 404 error contract). UX scenarios use Playwright and Cypress against samples/js-ui (click About; empty form shows “Name is required”). Performance scenarios use k6, Artillery, and Autocannon against samples/js-api (HTTP smoke load and a /health microbench). Security scenarios reuse those HTTP and browser tools: isolation headers on /health, and a signup XSS oracle (script-like name must not run). Each scenario page explains the tool and test architecture before showing code. Lighthouse budgets are planned next.",
+    a: "Unit scenarios use Vitest, Jest, node:test, and pytest (assert equality, parametrize, mock a dependency). TDD is its own page (unit.tdd-red-green) on a checkout coupon. BDD is a separate page (unit.bdd-given-when-then) on meeting-room reservations with Cucumber.js and pytest-bdd. Integration scenarios use Supertest, Playwright request, and pytest + httpx (HTTP GET and 404 error contract). UX scenarios use Playwright and Cypress against samples/js-ui (click About; empty form shows “Name is required”). Performance scenarios use k6, Artillery, and Autocannon against samples/js-api (HTTP smoke load and a /health microbench). Security scenarios reuse those HTTP and browser tools: isolation headers on /health, and a signup XSS oracle (script-like name must not run). Each scenario page explains the tool and test architecture before showing code. Lighthouse budgets are planned next.",
     tags: ["framework", "vitest", "jest", "pytest", "list"],
   },
   {
@@ -33,13 +33,23 @@ const FAQ: { q: string; a: string; tags: string[] }[] = [
     tags: ["security", "xss", "headers", "nosniff", "clickjacking", "owasp"],
   },
   {
+    q: "How does TDD work here?",
+    a: "unit.tdd-red-green is its own scenario. It grows applyCoupon with red–green–refactor in Vitest, Jest, and pytest: write the next failing example, then the smallest pass. TDD is effective when the unit is isolated, you can name the next assertion, and tests return in milliseconds — skip it for UI spikes or unknown APIs. It does not share examples with the BDD page.",
+    tags: ["tdd", "red", "green", "refactor", "coupon"],
+  },
+  {
+    q: "How does BDD work here?",
+    a: "unit.bdd-given-when-then is a separate scenario from TDD. A Gherkin feature describes meeting-room reservations; Cucumber.js and pytest-bdd bind those sentences to reserveRoom. BDD is effective when product and QA will read the feature file and steps stay in domain language — skip it when Gherkin just clones unit tests or encodes CSS.",
+    tags: ["bdd", "gherkin", "cucumber", "given", "when", "then", "reservation", "room"],
+  },
+  {
     q: "How does CI and deployment work?",
     a: "One GitHub Actions workflow (.github/workflows/ci.yml) validates scenario JSON, runs npm test (unit, HTTP, UX, perf, security), captures Results panel logs, then builds the site. GitHub Pages deploys only after that job succeeds on main. The Quality page (/quality) explains each gate.",
     tags: ["ci", "cd", "deploy", "quality", "github", "actions", "pages", "pipeline", "workflow"],
   },
   {
     q: "How do I run the examples locally?",
-    a: "Clone the repo, run `npm install`, `npx playwright install chromium`, `brew install k6`, then `npm test`. Start the site with `npm run dev` and open http://localhost:4321. Python scenarios need `pip install pytest httpx`.",
+    a: "Clone the repo, run `npm install`, `npx playwright install chromium`, `brew install k6`, then `npm test`. Start the site with `npm run dev` and open http://localhost:4321. Python scenarios need `pip install pytest httpx pytest-bdd`.",
     tags: ["run", "local", "install", "clone", "npm"],
   },
   {
@@ -81,7 +91,7 @@ export function answerQuestion(question: string, scenarios: Scenario[]): AskResu
   const scenarioMatches = scenarios
     .map((s) => {
       const hay = tokenize(
-        `${s.id} ${s.title} ${s.summary} ${s.description} ${s.category} ${s.tags.join(" ")} ${s.variants
+        `${s.id} ${s.title} ${s.summary} ${s.description} ${s.story?.paragraphs.join(" ") ?? ""} ${s.exercise?.steps.map((st) => `${st.title} ${st.body}`).join(" ") ?? ""} ${s.category} ${s.tags.join(" ")} ${s.variants
           .map((v) => `${v.framework} ${v.label}`)
           .join(" ")}`,
       );
