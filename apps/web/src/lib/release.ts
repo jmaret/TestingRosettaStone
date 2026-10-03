@@ -9,6 +9,15 @@ export type Release = {
 /** Newest first. Header shows RELEASES[0]; bump + prepend on every merge to main. */
 export const RELEASES: Release[] = [
   {
+    version: "0.4.1",
+    date: "2026-10-02",
+    title: "Review agent for maintainers",
+    notes: [
+      "No change to scenarios or pages.",
+      "A review agent can check a diff for bugs and secrets, and update the AetherForge catalog only when a public fact changes.",
+    ],
+  },
+  {
     version: "0.4.0",
     date: "2026-09-27",
     title: "Vision and architecture pages",
