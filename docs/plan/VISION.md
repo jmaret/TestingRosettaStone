@@ -93,10 +93,14 @@ Do not claim or implement:
 
 - The site compares frameworks; it must not imply it is the official documentation for any of them.
 - Answers on Ask AI must cite this repo (FAQ or scenario ids) or refuse.
-- GitHub project Pages requires a `/TestingRosettaStone` base path in production.
+- The public site is served at the custom-domain root (`https://test-play-ground.aathira-services.com`). Production `base` is `/`.
 - Cached Results logs are only as fresh as the last successful `capture:results` on `main`.
 
 ## Changelog
+
+### 2026-10-03 — Custom domain at the site root
+
+- Production no longer prefixes URLs with `/TestingRosettaStone`. That prefix 404s CSS, images, and links on the custom domain.
 
 ### 2026-09-27 — Vision and Architecture pages
 

@@ -9,6 +9,24 @@ export type Release = {
 /** Newest first. Header shows RELEASES[0]; bump + prepend on every merge to main. */
 export const RELEASES: Release[] = [
   {
+    version: "0.4.3",
+    date: "2026-10-03",
+    title: "Parchment palette shared with AetherForge",
+    notes: [
+      "The logo uses the AetherForge parchment tile and dark bronze mark instead of crimson and white.",
+      "The page background and the panels behind text use the same parchment field as AetherForge.",
+    ],
+  },
+  {
+    version: "0.4.2",
+    date: "2026-10-03",
+    title: "Custom domain serves the site root",
+    notes: [
+      "Styles, the logo, and in-app links load on https://test-play-ground.aathira-services.com.",
+      "The production build no longer prefixes URLs with /TestingRosettaStone. A custom domain serves this project site at the domain root, so that prefix returned 404s.",
+    ],
+  },
+  {
     version: "0.4.1",
     date: "2026-10-02",
     title: "Review agent for maintainers",
