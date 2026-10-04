@@ -39,7 +39,7 @@ Absolute path if you use that folder:
 | AI | Corpus FAQ + scenario keyword matcher (no API key) |
 | Results panel | CI-cached stdout/stderr beside each scenario (`npm run capture:results`) |
 | CI | GitHub Actions (Node 24): validate, `npm test` (unit + HTTP + UX + perf + security), capture results, build — explained on `/quality` |
-| Hosting | GitHub Pages only after that CI job succeeds on `main` — https://jmaret.github.io/TestingRosettaStone/ |
+| Hosting | GitHub Pages only after that CI job succeeds on `main` — https://test-play-ground.aathira-services.com/ |
 
 ## Scripts
 
@@ -55,7 +55,7 @@ Absolute path if you use that folder:
 
 Living product contract and architecture map: [`docs/plan/VISION.md`](docs/plan/VISION.md) and [`docs/plan/ARCHITECTURE.md`](docs/plan/ARCHITECTURE.md) (also `/vision` and `/architecture` on the site). Other planning notes remain in [`docs/plan/`](docs/plan/). Local clone help: [`docs/LOCAL_SETUP.md`](docs/LOCAL_SETUP.md).
 
-Live site (after enabling Pages in repo settings): https://jmaret.github.io/TestingRosettaStone/
+Live site: https://test-play-ground.aathira-services.com/
 
 ## License
 

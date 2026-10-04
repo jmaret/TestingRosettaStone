@@ -4,7 +4,7 @@ import { withBase } from "../lib/base";
 
 const actionsUrl = "https://github.com/jmaret/TestingRosettaStone/actions";
 const workflowUrl = "https://github.com/jmaret/TestingRosettaStone/blob/main/.github/workflows/ci.yml";
-const pagesUrl = "https://jmaret.github.io/TestingRosettaStone/";
+const pagesUrl = "https://test-play-ground.aathira-services.com/";
 ---
 
 <BaseLayout
@@ -70,8 +70,9 @@ const pagesUrl = "https://jmaret.github.io/TestingRosettaStone/";
           <strong>Build the static site</strong>
           <p class="meta" style="margin: 0.55rem 0 0;">
             <code>npm run build</code>. On <code>main</code> this sets <code>GITHUB_PAGES=1</code>
-            so asset URLs match
-            <a href={pagesUrl}>jmaret.github.io/TestingRosettaStone</a>.
+            so canonical URLs use
+            <a href={pagesUrl}>test-play-ground.aathira-services.com</a>.
+            The custom domain serves the site at the domain root.
           </p>
         </li>
         <li>

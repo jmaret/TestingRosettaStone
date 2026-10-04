@@ -1,4 +1,4 @@
-/** Prefix a site-root path with Astro's base (needed for GitHub project Pages). */
+/** Prefix a site-root path with Astro's base. Production uses `/`. */
 export function withBase(path = "") {
   const base = import.meta.env.BASE_URL || "/";
   const normalizedBase = base.endsWith("/") ? base : `${base}/`;

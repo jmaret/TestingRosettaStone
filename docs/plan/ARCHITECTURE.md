@@ -141,7 +141,7 @@ TDD (`unit.tdd-red-green`) and BDD (`unit.bdd-given-when-then`) always ship stor
 7. `GET /architecture` — `loadArchitecture()` over this file’s logical and physical sections.
 8. `GET /releases` and `/releases/{version}` — comments from `apps/web/src/lib/release.ts`.
 
-Production URLs sit under `/TestingRosettaStone` (`GITHUB_PAGES=1`). `withBase()` prefixes every in-app link.
+Production URLs are rooted at https://test-play-ground.aathira-services.com (`GITHUB_PAGES=1` sets `site`; `base` is `/`). `withBase()` prefixes every in-app link.
 
 ## UI design
 
@@ -149,14 +149,14 @@ Custom CSS — not a third-party kit.
 
 | Token | Value |
 |-------|--------|
-| Background | `#e8eef1` + wash over `/images/office-bg.png` (cover, fixed, center top) |
+| Background | `#f6ead8` parchment veil over a warm `/images/office-bg.png` (cover, fixed, center top) |
 | Ink / muted | `#152028` / `#5a6b76` |
 | Accent / hover | `#0f4c5c` / `#0c3d4a` |
-| Line | `#c5d0d6` |
+| Line | `#d8c4aa` |
 | Display / body | Source Serif 4 / Source Sans 3 (Google Fonts) |
 | Mono | IBM Plex Mono |
-| Cards | `white/85`, 12px radius, soft shadow, light backdrop blur |
-| Header | Sticky, `rgba(238,243,245,0.86)`, blur; Scenarios, Ask AI, Vision, Architecture, Quality, Run locally; release chip |
+| Cards | `rgba(246,234,216,0.92)`, 12px radius, soft shadow, light backdrop blur |
+| Header | Sticky, `rgba(246,234,216,0.9)`, blur; Scenarios, Ask AI, Vision, Architecture, Quality, Run locally; release chip |
 
 Layout: content max ~48rem; scenario pages can go wide (~64rem).
 
@@ -185,7 +185,7 @@ There is no live `/api/run`. A red example fails the job; a missing results arti
 ## Deployment
 
 - **Local:** `npm install`, Playwright Chromium, k6, `pip install pytest httpx pytest-bdd`, then `npm run dev` on port 4321
-- **Production:** GitHub Pages from the `apps/web/dist` artifact (`site` + `base` set when `GITHUB_PAGES=1`)
+- **Production:** GitHub Pages from the `apps/web/dist` artifact. `GITHUB_PAGES=1` sets `site` to the custom domain; `base` stays `/` because that domain serves the project site at its root. `apps/web/public/CNAME` keeps the domain on each deploy.
 - No application database. The hosted site is a snapshot of the last green `main` build.
 
 ## Design decisions
